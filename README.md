@@ -24,24 +24,43 @@ An AI will:
 
 Imagine a network with 4 layers, first is 0 and last 3
 
+
 L layers
+
 B bias, additional node in layer that is not connected to other nodes and always equals to one,
+
 because it always equals to one we will use it to indicate its weight value that determines its final value
+
 I inputs == L0
+
 W equals to weights layer
+
 Z equals layer/node output before activation function
+
 A equals layer/node output after activation function
+
 g equals activation function, output layer can have own activation function different from main activation function
+
 g' equals activation function derivative
+
 Y equals to expected output
+
 Yhat or predicted output
+
 D or delta is a measure of error for each layer's final activation value used in back-propagation
+
 d indicates partial derivative which is same as gradient
+
 @ equals dot product
+
 TE is total error of NN output
+
 .T is the vector/matrix transposed to allow for dot product calculations
+
 C or cost function is used to compute total error
+
 C' is used to compute derivative of cost function
+
 
 Vectors representing complete layers can be used to make calculations more efficiently using numpy.
 
