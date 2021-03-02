@@ -10,14 +10,14 @@ practical for image recognition for example whereby at least each gray-scaled pi
 Can be used for both classification(choose a label) or regression(choose a quantity).
 
 They consist of multiple node layers:
- - First layer takes parameter inputs and is also called input layer
- - Last layer making predictions also called output layer
- - Layers in between called deep layers and are optional. Once deep layers are introduced the data becomes non-linearly separable and the name "deep learning" can be used.
+ - First layer takes parameter inputs, is also called input layer
+ - Last layer makes predictions, also called output layer
+ - Layers in between called deep layers are optional. Once deep layers are introduced the data becomes non-linearly separable and the name "deep learning" can be used.
 
 An AI will:
-- Predict: Make a prediction based on input and given weights, in NN this process is called forward propagation
+- Predict: Make a prediction based on input, weights and biases, in NN this process is called forward propagation
 - Evaluate: Evaluate prediction compared to expected output, calculate total error and use cost function
-- Adapt: Change weights of neural network to limit the total error, in NN this process is called back propagation
+- Adapt: Change weights and biases of neural network to limit the total error, in NN this process is called back propagation
 
 
 # MATH IMPLEMENTATION
