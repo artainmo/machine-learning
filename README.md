@@ -22,8 +22,6 @@ An AI will:
 
 # MATH IMPLEMENTATION
 
-Imagine a network with 4 layers, first is 0 and last 3
-
 - L layers
 - B bias, additional node in layer that is not connected to other nodes and always equals to one, because it always equals to one we will use it to indicate its weight value that determines its final value
 - I inputs == L0
