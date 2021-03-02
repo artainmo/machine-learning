@@ -20,6 +20,7 @@ An AI will:
 - Adapt: Change weights of neural network to limit the total error, in NN this process is called back propagation
 
 
+
 # MATH IMPLEMENTATION
 
 Imagine a network with 4 layers, first is 0 and last 3
@@ -88,6 +89,7 @@ W1 -= dW1
 D1 -= dD1
 W2 -= dW2
 D2 -= dD2
+
 
 
 # NEURAL NETWORK PARAMETERS
@@ -265,6 +267,7 @@ Tensorflow also contain parallelized SGD.
 Adding nose to each gradient has been shown to make networks more robust towards poor initialization and increase the chance of escaping a local minima.
 
 
+
 # DATA PREPARATION
 
 y or predicted values and x or features should be separated.
@@ -294,6 +297,7 @@ Data can further be split into training data and test data (0.8 - 0.2 recommende
 Relaunching fit function multiple times, to find good random splitting for data splitting but potentially weight init too, is possible.
 
 
+
 # DATA VISUALIZATION
 
 
@@ -314,6 +318,7 @@ Pair-plots compares two features over the different classes, in a line plot and 
 If two features are homogenous, one of them has low predictive power and can be eliminated.
 -Line plots are useful to find correlations between classes in one feature
 Features that are homogenous or have low variation over the classes are not interesting for AI neither as they have low predictive power.
+
 
 
 # DEBUGGING A LEARNING ALGORITHM
@@ -356,6 +361,7 @@ HIGH BIAS: Bias acts as strong suggestor, suggesting too much can lead to under-
 Vanishing gradient problem -> small values are slow to change/learn, leading to no/slow convergence, problem when weights are initialized to zero for example
 local/global minima -> Gradient descend weak point is to get stuck in the local minima instead of continuing towards the global minima as it can difficultly know when it arrived at the global minima or not. Local minima are low cost points whereby the cost increases afterward, but later on decrease even more to a potential global minima, global minima being the lowest cost point.
 non-relevant nodes -> Some nodes that are not relevant should be deactivated by the activation function setting its value to 0. ReLU does this best. Proper data features selection helps.
+
 
 
 # SOURCES
