@@ -264,40 +264,35 @@ Adding nose to each gradient has been shown to make networks more robust towards
 
 
 
-# DATA PREPARATION
+# DATA PREPARATION & VISUALIZATION
 
 y or predicted values and x or features should be separated.
 
 
-### NON-NUMERIC TO NUMERIC DATA
+#### NON-NUMERIC TO NUMERIC DATA
 
 Features with textual data can be converted into numerical data, each label takes different number.
 
 
-### EXPECTED/Y DATA
+#### EXPECTED/Y DATA
 
 If your NN has multiple output nodes, the y or expected values column, should be transformed not in single values but in vectors with same size as output nodes.
 
 
-### NORMALIZATION
+#### NORMALIZATION
 
 Normalization refers to reducing scale of data and leads to all features being on same scale, elimination of outliers and decreases computational costs.
 min-max normalization: When we do not want impact of outliers
 z-score normalization: When we do want impact of outliers, also avoid problem whereby different data has different max values
 
 
-### DATA SPLITING
+#### DATA SPLITING
 
 Data can further be split into training data and test data (0.8 - 0.2 recommended ratio), to verify overfitting. Also possible training, test and validation set (0.6, 0.2, 0.2).
 
 Relaunching fit function multiple times, to find good random splitting for data splitting but potentially weight init too, is possible.
 
-
-
-# DATA VISUALIZATION
-
-
-## DESCRIBE
+#### DESCRIBE
 
 Describe function goes over each feature in data and looks at different analytical parameters:
 -See if data is correct in terms of numbers, are there missing values?
@@ -307,7 +302,7 @@ Describe function goes over each feature in data and looks at different analytic
 *Kurtosis result high number means the dataset has lots of outliers, outliers can be good or not, if not they can be removed or min-max normalization can be used
 
 
-## PAIRPLOT
+#### PAIRPLOT
 
 Pair-plots compares two features over the different classes, in a line plot and scatterplot:
 -Scatterplots are useful to find correlations and homogeneity between two features.
