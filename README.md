@@ -21,6 +21,15 @@ An AI will:
 
 
 
+
+
+
+
+
+
+
+
+
 # MATH IMPLEMENTATION
 
 Imagine a network with 4 layers, first is 0 and last 3
