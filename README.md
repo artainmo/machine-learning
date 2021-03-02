@@ -19,77 +19,6 @@ An AI will:
 - Evaluate: Evaluate prediction compared to expected output, calculate total error and use cost function
 - Adapt: Change weights and biases of neural network to limit the total error, in NN this process is called back propagation
 
-
-# MATH IMPLEMENTATION
-
-- L layers
-- B bias, additional node in layer that is not connected to other nodes and always equals to one, because it always equals to one we will use it to indicate its weight value that determines its final value
-- I inputs == L0
-- W equals to weights layer
-- Z equals layer/node output before activation function
-- A equals layer/node output after activation function
-- g equals activation function, output layer can have own activation function different from main activation function
-- g' equals activation function derivative
-- Y equals to expected output
-- Yhat or predicted output
-- D or delta is a measure of error for each layer's final activation value used in back-propagation
-- d indicates partial derivative which is same as gradient
-- @ equals dot product
-- TE is total error of NN output
-- .T is the vector/matrix transposed to allow for dot product calculations
-- C or cost function is used to compute total error
-- C' is used to compute derivative of cost function
-
-Vectors representing complete layers can be used to make calculations more efficiently using numpy.
-
-
-## FORWARD PROPAGATION
-
-![forward propagation](imgs/forward_propagation.png)
-
-L0 = I
-
-Z1 = (L0 @ W0) + B0
-A1 = g(Z1)
-L1 = A1
-
-Z2 = (L1 @ W1) + B1
-A2 = g(Z2)
-L2 = A2
-
-Z3 = (L2 @ W2) + B2
-A3 = g(Z3)
-L3 = A3
-
-Yhat = L3
-TE = C(Y, Yhat)
-
-
-## BACK PROPAGATION
-
-![back propagation](imgs/back_propagation.png)
-
-D3 = C'(Y, Yhat) @ g'(Yhat)
-dW2 = A2 @ D3
-dB2 = D3
-
-D2 = W2 @ D3 * g'(A2)
-dW1 = A1 @ D2
-dB1 = D2
-
-D1 = W1 @ D2 * g'(A1)
-dW0 = A0 @ D1
-dB0 = D1
-
-W0 -= dW0
-D0 -= dD0
-W1 -= dW1
-D1 -= dD1
-W2 -= dW2
-D2 -= dD2
-
-
-
 # NEURAL NETWORK PARAMETERS
 
 
@@ -266,6 +195,76 @@ Adding nose to each gradient has been shown to make networks more robust towards
 
 
 
+# MATH IMPLEMENTATION
+
+- L layers
+- B bias, additional node in layer that is not connected to other nodes and always equals to one, because it always equals to one we will use it to indicate its weight value that determines its final value
+- I inputs == L0
+- W equals to weights layer
+- Z equals layer/node output before activation function
+- A equals layer/node output after activation function
+- g equals activation function, output layer can have own activation function different from main activation function
+- g' equals activation function derivative
+- Y equals to expected output
+- Yhat or predicted output
+- D or delta is a measure of error for each layer's final activation value used in back-propagation
+- d indicates partial derivative which is same as gradient
+- @ equals dot product
+- TE is total error of NN output
+- .T is the vector/matrix transposed to allow for dot product calculations
+- C or cost function is used to compute total error
+- C' is used to compute derivative of cost function
+
+Vectors representing complete layers can be used to make calculations more efficiently using numpy.
+
+
+## FORWARD PROPAGATION
+
+![forward propagation](imgs/forward_propagation.png)
+
+L0 = I
+
+Z1 = (L0 @ W0) + B0
+A1 = g(Z1)
+L1 = A1
+
+Z2 = (L1 @ W1) + B1
+A2 = g(Z2)
+L2 = A2
+
+Z3 = (L2 @ W2) + B2
+A3 = g(Z3)
+L3 = A3
+
+Yhat = L3
+TE = C(Y, Yhat)
+
+
+## BACK PROPAGATION
+
+![back propagation](imgs/back_propagation.png)
+
+D3 = C'(Y, Yhat) @ g'(Yhat)
+dW2 = A2 @ D3
+dB2 = D3
+
+D2 = W2 @ D3 * g'(A2)
+dW1 = A1 @ D2
+dB1 = D2
+
+D1 = W1 @ D2 * g'(A1)
+dW0 = A0 @ D1
+dB0 = D1
+
+W0 -= dW0
+D0 -= dD0
+W1 -= dW1
+D1 -= dD1
+W2 -= dW2
+D2 -= dD2
+
+
+
 # DATA PREPARATION & VISUALIZATION
 
 y or predicted values and x or features should be separated.
@@ -371,4 +370,4 @@ non-relevant nodes -> Some nodes that are not relevant should be deactivated by 
 - https://www.deeplearning.ai
 - http://neuralnetworksanddeeplearning.com
 - https://medium.com/@ODSC
-- https://mlfromscratch.com/
+- https://mlfromscratch.com
