@@ -45,7 +45,7 @@ Vectors representing complete layers can be used to make calculations more effic
 
 ## FORWARD PROPAGATION
 
-![forward propagation] (imgs/forward_propagation.png)
+![forward propagation](imgs/forward_propagation.png)
 
 L0 = I
 
@@ -67,7 +67,7 @@ TE = C(Y, Yhat)
 
 ## BACK PROPAGATION
 
-![back propagation] (imgs/back_propagation.png)
+![back propagation](imgs/back_propagation.png)
 
 D3 = C'(Y, Yhat) @ g'(Yhat)
 dW2 = A2 @ D3
