@@ -1,7 +1,7 @@
 
 # INTRODUCTION
 
-> "Intelligence and artificial intelligence is data compression through laws that predict based on data correlations."
+> "Intelligence and artificial intelligence is data compression through laws that predict based on data patterns."
 
 Neural networks are part of machine learning which is part of AI which is part of computer science.
 
