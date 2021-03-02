@@ -357,16 +357,16 @@ non-relevant nodes -> Some nodes that are not relevant should be deactivated by 
 
 # SOURCES
 
-Neural networks, a visual introduction for beginners - Michael Taylor
+- Neural networks, a visual introduction for beginners - Michael Taylor
 
-https://www.coursera.org/learn/machine-learning - Andrew Ng
-https://course.elementsofai.com
+- https://www.coursera.org/learn/machine-learning - Andrew Ng
+- https://course.elementsofai.com
 
-https://towardsdatascience.com
-https://machinelearningmastery.com
-https://ruder.io
-https://www.machinecurve.com
-https://www.deeplearning.ai
-http://neuralnetworksanddeeplearning.com
-https://medium.com/@ODSC
-https://mlfromscratch.com/
+- https://towardsdatascience.com
+- https://machinelearningmastery.com
+- https://ruder.io
+- https://www.machinecurve.com
+- https://www.deeplearning.ai
+- http://neuralnetworksanddeeplearning.com
+- https://medium.com/@ODSC
+- https://mlfromscratch.com/
