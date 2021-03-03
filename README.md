@@ -1,7 +1,7 @@
 # Table of contents
 - [Introduction](#INTRODUCTION)
 - [Neural network parameters](#NEURAL-NETWORK-PARAMETERS)
-    - [Layers & nodes](#LAYERS-&-NODES)
+  - [Layers & nodes](#LAYERS-&-NODES)
  - [Learning rate](#LEARNING-RATE)
  - [Gradient descend](#GRADIENT-DESCEND)
   - [Stochastic](#Stochastic)
