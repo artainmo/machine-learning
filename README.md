@@ -1,5 +1,6 @@
 [Introduction](#INTRODUCTION)
-[Cost function](#COSTFUNCTION)
+
+[Cost function](##COSTFUNCTION)
 
 # INTRODUCTION
 
