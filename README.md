@@ -318,7 +318,7 @@ min-max normalization: When we do not want impact of outliers
 z-score normalization: When we do want impact of outliers, also avoid problem whereby different data has different max values
 
 
-#### DATA SPLITING
+#### DATA SPLITTING
 
 Data can further be split into training data and test data (0.8 - 0.2 recommended ratio), to verify overfitting. Also possible training, test and validation set (0.6, 0.2, 0.2).
 
