@@ -1,4 +1,5 @@
-[Headers](#INTRODICTION)
+[Introduction](#INTRODICTION)
+[Cost function](#COST FUNCTION)
 
 # INTRODUCTION
 
