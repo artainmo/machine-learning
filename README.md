@@ -16,7 +16,7 @@
     - [Early stopping](#Early-stopping)
   - [Optimization methods](#OPTIMIZATION-METHODS)
     - [Momentum and nesterov methods](#MOMENTUM-AND-NESTEROV-METHODS)
-    - [Adagrad, adadelta, Rmsprop, adam, nadam](#ADAGRAD,-ADADELTA,-RMSPROP,-ADAM,-NADAM)
+    - [Adagrad, adadelta, Rmsprop, adam, nadam](#adagrad-adadelta-rmsprop-adam-nadam)
     - [Parallelizing-SGD](#PARALLELIZING-SGD)
     - [Gradient-nose](#gradient-nose)
 - [Math implementation](#math-implementation)
