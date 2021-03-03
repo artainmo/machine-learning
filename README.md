@@ -1,7 +1,5 @@
 [Introduction](#INTRODUCTION)
-
-[Cost function](##COSTFUNCTION)
-
+[Cost function](#COST-FUNCTION)
 # INTRODUCTION
 
 > "Intelligence and artificial intelligence is data compression through laws that predict based on data patterns."
