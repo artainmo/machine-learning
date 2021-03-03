@@ -105,7 +105,7 @@ Mini-batch sits between stochastic and batch, trying to optimize benefits of bot
 b variable in NN holds size of batch, often 32 is used as default, some sources recommend number between 2 and 32...
 
 
-## ACTVATION FUNCTION
+## ACTIVATION FUNCTION
 
 Linear: output -inf,inf
 ReLU: rectified linear unit, output 0,+inf, less sensitive to vanishing gradient and non-relevant nodes, less computational cost, most used
