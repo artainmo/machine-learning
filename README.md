@@ -1,5 +1,42 @@
-[Introduction](#INTRODUCTION)
-[Cost function](#COST-FUNCTION)
+# Table of contents
+- [Introduction](#INTRODUCTION)
+- [Neural network parameters](#NEURAL-NETWORK-PARAMETERS)
+ - [Layers & nodes](#LAYERS-&-NODES)
+ - [Learning rate](#LEARNING-RATE)
+ - [Gradient descend](#GRADIENT-DESCEND)
+  - [Stochastic](#Stochastic)
+  - [Batch](#Batch)
+  - [Mini-batch](#Mini-batch)
+ - [Activation-function](#activation-function)
+ - [Cost function](#COST-FUNCTION)
+ - [Weight & bias init](#Weight-&-bias-init)
+ - [Gradient checking](#Gradient-checking)
+ - [Regularization](#Regularization)
+  - [Dropout method](#dropout method)
+  - [L2-regularization](#L2-regularization)
+  - [Early stopping](#Early-stopping)
+ - [Optimization methods](#OPTIMIZATION-METHODS)
+  - [Momentum and nesterov methods](#MOMENTUM-AND-NESTEROV-METHODS)
+  - [Adagrad, adadelta, Rmsprop, adam, nadam](#ADAGRAD,-ADADELTA,-RMSPROP,-ADAM,-NADAM)
+  - [Parallelizing-SGD](#PARALLELIZING-SGD)
+  - [Gradient-nose](#gradient-nose)
+- [Math implementation](#math-implementation)
+ - [Forward propagation](#forward-propagation)
+ - [Back propagation](#back-propagation)
+- [Data preparation & visualization](#DATA-PREPARATION-&-VISUALIZATION)
+ - [Non-numeric to numeric data](#non-numeric-to-numeric-data)
+ - [Expected/Y data](#Expected/Y-data)
+ - [Normalization](#Normalization)
+ - [Data splitting] (#data-splitting) 
+ - [Describe](#Describe)
+ - [Pairplot](#Pairplot)
+- [Debugging-a-learning-algorithm](#Debugging-a-learning-algorithm)
+ - [Evaluation](#Evaluation)
+ - [Overfitting](#Overfitting)
+ - [Underfitting](#Underfitting)
+ - [Other problems](#other-problems)
+- [Resources](#Resources)
+
 # INTRODUCTION
 
 > "Intelligence and artificial intelligence is data compression through laws that predict based on data patterns."
@@ -357,7 +394,7 @@ non-relevant nodes -> Some nodes that are not relevant should be deactivated by 
 
 
 
-# SOURCES
+# RESOURCES
 
 - Neural networks, a visual introduction for beginners - Michael Taylor
 
