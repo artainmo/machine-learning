@@ -12,6 +12,7 @@
  - [Weight & bias init](#Weight-&-bias-init)
  - [Gradient checking](#Gradient-checking)
  - [Regularization](#Regularization)
+  - [Dropout method](#DROPOUT-METHOD)
   - [Dropout method](#dropout method)
   - [L2-regularization](#L2-regularization)
   - [Early stopping](#Early-stopping)
