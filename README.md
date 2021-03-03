@@ -27,7 +27,7 @@
  - [Non-numeric to numeric data](#non-numeric-to-numeric-data)
  - [Expected/Y data](#Expected/Y-data)
  - [Normalization](#Normalization)
- - [Data splitting] (#data-splitting) 
+ - [Data splitting](#data-splitting)
  - [Describe](#Describe)
  - [Pairplot](#Pairplot)
 - [Debugging-a-learning-algorithm](#Debugging-a-learning-algorithm)
