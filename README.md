@@ -29,7 +29,7 @@
   - [Data splitting](#data-splitting)
   - [Describe](#Describe)
   - [Pairplot](#Pairplot)
-- [Debugging-a-learning-algorithm](#Debugging-a-learning-algorithm)
+- [Debugging a learning algorithm](#Debugging-a-learning-algorithm)
   - [Evaluation](#Evaluation)
   - [Overfitting](#Overfitting)
   - [Underfitting](#Underfitting)
