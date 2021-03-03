@@ -24,7 +24,7 @@
   - [Back propagation](#back-propagation)
 - [Data preparation & visualization](#DATA-PREPARATION--VISUALIZATION)
   - [Non-numeric to numeric data](#non-numeric-to-numeric-data)
-  - [Expected/Y data](#Expected/Y-data)
+  - [Expected/Y data](#expectedy-data)
   - [Normalization](#Normalization)
   - [Data splitting](#data-splitting)
   - [Describe](#Describe)
