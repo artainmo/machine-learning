@@ -10,7 +10,6 @@
   - [Activation-function](#activation-function)
   - [Cost function](#COST-FUNCTION)
   - [Weight & bias init](#Weight-&-bias-init)
-  - [Gradient checking](#Gradient-checking)
   - [Regularization](#Regularization)
     - [Dropout method](#DROPOUT-METHOD)
     - [L2-regularization](#L2-regularization)
@@ -35,6 +34,7 @@
   - [Overfitting](#Overfitting)
   - [Underfitting](#Underfitting)
   - [Other problems](#other-problems)
+  - [Gradient checking](#Gradient-checking)
 - [Resources](#Resources)
 
 # INTRODUCTION
@@ -146,13 +146,6 @@ Init to zero is also possible if bias is not equal to zero, but is not optimal.
 Optimizing init is practical to fasten convergence by avoiding vanishing gradient problem.
 
 Bias are usually init to 0, starting of neutral.
-
-
-## GRADIENT CHECKING
-
-Bugs can occur during your implementation of back-propagation, they can be subtle because the cost could properly descend but still the bug could lower the overall performance.
-
-Gradient checking is used to debug back-propagation, by estimating them with numerical gradients(slope between two points around the one cost point) and comparing them with backpropagation gradients.
 
 
 ## REGULARIZATION
@@ -392,6 +385,12 @@ Vanishing gradient problem -> small values are slow to change/learn, leading to 
 local/global minima -> Gradient descend weak point is to get stuck in the local minima instead of continuing towards the global minima as it can difficultly know when it arrived at the global minima or not. Local minima are low cost points whereby the cost increases afterward, but later on decrease even more to a potential global minima, global minima being the lowest cost point.
 non-relevant nodes -> Some nodes that are not relevant should be deactivated by the activation function setting its value to 0. ReLU does this best. Proper data features selection helps.
 
+
+## GRADIENT CHECKING
+
+Bugs can occur during your implementation of back-propagation, they can be subtle because the cost could properly descend but still the bug could lower the overall performance.
+
+Gradient checking is used to debug back-propagation, by estimating them with numerical gradients(slope between two points around the one cost point) and comparing them with backpropagation gradients.
 
 
 # RESOURCES
