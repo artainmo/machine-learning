@@ -54,7 +54,7 @@ They consist of multiple node layers:
 
 An AI will:
 - Predict: Make a prediction based on input, weights and biases, in NN this process is called forward propagation
-- Evaluate: Evaluate prediction compared to expected output, calculate total error and use cost function
+- Evaluate: Evaluate prediction compared to expected output, calculate total error by using cost function
 - Adapt: Change weights and biases of neural network to limit the total error, in NN this process is called back propagation
 
 # NEURAL NETWORK PARAMETERS
