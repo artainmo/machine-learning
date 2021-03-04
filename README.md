@@ -81,20 +81,25 @@ Gradient descend in NN uses derivatives or slope of cost function to find the gl
 ### Stochastic:
 
 Before updating the weights and biases, goes over one training example.
-Faster convergence on small datasets but slower on big datasets due to constant weight update
-Can avoid local minimas or premature convergence but has higher variance in results due to randomness
+
+Faster convergence on small datasets but slower on big datasets due to constant weight update.
+
+Can avoid local minimas or premature convergence but has higher variance in results due to randomness.
 
 
 ### Batch:
 
-Slow but more computational efficient on big datasets
-Stable convergence but risk of local minima or premature convergence
+Slow but more computational efficient on big datasets.
+
+Stable convergence but risk of local minima or premature convergence.
 
 
 ### Mini-batch:
 
 Before updating the weights and biases, goes over b training example.
+
 Mini-batch sits between stochastic and batch, trying to optimize benefits of both, and is the recommended variant of gradient descend.
+
 b variable in NN holds size of batch, often 32 is used as default, some sources recommend number between 2 and 32...
 
 
@@ -103,10 +108,10 @@ b variable in NN holds size of batch, often 32 is used as default, some sources 
 Learning rate refers to the size of steps taken towards the global minima.
 
 Test to find out what learning rate is best, default learning rate used is 0,01.
-Learning rate is denoted as alpha.
 
-When alpha is too small algorithm needs to perform more steps until convergence and become slower.
-When alpha is too big potentially no convergence or less precision as it will hover over the minima.
+Learning rate is denoted as alpha.
+* When alpha is too small algorithm needs to perform more steps until convergence and become slower.
+* When alpha is too big potentially no convergence or less precision as it will hover over the minima.
 
 Optimization methods can be used to automatically choose the ideal learing rate.
 
@@ -114,41 +119,44 @@ Optimization methods can be used to automatically choose the ideal learing rate.
 
 Used to squash a number within a certain range.
 
-Linear: output -inf,inf
-ReLU: rectified linear unit, output 0, +inf, less sensitive to vanishing gradient and non-relevant nodes, less computational cost, most used
-Tanh: hyperbolic tangent function, output -1,1, could converge faster on larger dataset than sigmoid
-Sigmoid: ouput 0,1
-Softmax: vector total output = 1
+* Linear: output -inf,inf
+* ReLU: rectified linear unit, output 0, +inf, less sensitive to vanishing gradient and non-relevant nodes, less computational cost, most used
+* Tanh: hyperbolic tangent function, output -1,1, could converge faster on larger dataset than sigmoid
+* Sigmoid: ouput 0,1
+* Softmax: vector total output = 1
 
 
 #### Output layer
 
-Regression -> Linear or ReLU
-Binary classification or multiple classes with potential multiple correct answers -> sigmoid
-Single answer possible from multiple classes -> softmax
+* Regression -> Linear or ReLU
+* Binary classification or multiple classes with potential multiple correct answers -> sigmoid
+* Single answer possible from multiple classes -> softmax
 
 
 #### Deep layer
 
 ReLU, Tanh or sigmoid
+
 Can all be tried in following order: ReLu, Tanh, sigmoid
 
 
 ## COST FUNCTION
 
 
-Is used to calculate total error of the predictions made by the NN. 
+Is used to calculate total error of the predictions made by the NN.
+
 Total error is used to indicate NN performance and in back-propagation to adjust the weights and bias accordingly.
-Regression -> mean square error (MSE)
-classification -> cross entropy
+
+* Regression -> mean square error (MSE)
+* classification -> cross entropy
 
 
 ## WEIGHT & BIAS INIT
 
 Weights initialization is based on deep layer activation function:
-ReLU -> He init
-Tanh -> Xavier init
-sigmoid -> random init (default init) -> between -1,1
+* ReLU -> He init
+* Tanh -> Xavier init
+* sigmoid -> random init (default init) -> between -1,1
 
 Optimizing init is practical to fasten convergence by avoiding vanishing gradient problem.
 
@@ -158,32 +166,38 @@ Biases are usually init to 0, starting of neutral.
 ## REGULARIZATION
 
 Refers to all methods that limit over-fitting.
+
 The most common ones are dropout method, L2-regularization and early stopping.
 
 
 ### DROPOUT METHOD
 
 Tries to reduce overfitting by temporarily removing (dropping out) certain nodes and all its associated connexions.
+
 Can lead to the creation of situations whereby some nodes find themselves without the other ones and have to adapt, making the neural network more robust.
 
 Can be implemented on all layers besides the output layer.
+
 Dropout is only used during training.
 
 Two hyper-parameters are used for drop-out:
-- deep layers no-dropout -> range 0 - 1 -> thus one being no dropout and 0 being all dropout -> default between 0.5 - 0.8
-- Input layer no-dropout -> range 0 - 1 -> thus one being no dropout and 0 being all dropout -> default is 0.8
+* deep layers no-dropout -> range 0 - 1 -> thus one being no dropout and 0 being all dropout -> default between 0.5 - 0.8
+* Input layer no-dropout -> range 0 - 1 -> thus one being no dropout and 0 being all dropout -> default is 0.8
 
 
 ### L2-REGULARIZATION
 
 Works by reducing the weights on certain features, encouraging the model to use all of its input features equally.
+
 Lambda is used to indicate regularization L2 strength, a value between 0 and 1 is used, 0 deactivates it.
 
 
 ### EARLY STOPPING
 
 Useful to avoid overtraining that can lead to overfitting.
+
 While training neural network on training set, cost of test/validation set is calculated too.
+
 Once a trigger of diminishing performance for validation set (ex. cost of validation set starts to increase), the training stops.
 
 Stopping too early can be bad as sometimes test set cost will increase for some time and decrease back afterward. Looking at graph without early stop can be interesting for this reason.
@@ -200,8 +214,11 @@ Refers to methods used to reduce the cost by changing the neural networks attrib
 ### MOMENTUM AND NESTEROV METHODS
 
 Momentum is an optimization method invented for reducing high variance in SGD, it does this through faster convergence, like a ball rolling down a hill.
+
 Gamma/rho with default value 0.9 and value 0 to deactivate as momentum weight/neural network hyperparameter and makes use of EMAs (exponential moving average). 
+
 It simply adds to weight updating for each weight -> + gamma * velocity
+
 Velocity being a value starting  with zero and accumulating values that are re-used is equal to -> velocity - learning rate * gradient
 
 Too high momentum can lead to the missing of local/global minima (which you do or do not want). If you do not want to miss it Nesterov method can be used who will slow down convergence when approaching a local minima.
@@ -321,8 +338,9 @@ If your NN has multiple output nodes, the y or expected values column, should be
 #### NORMALIZATION
 
 Normalization refers to reducing scale of data and leads to all features being on same scale, elimination of outliers and decreases computational costs.
-min-max normalization: When we do not want impact of outliers
-z-score normalization: When we do want impact of outliers, also avoid problem whereby different data has different max values
+
+* min-max normalization: When we do not want impact of outliers.
+* z-score normalization: When we do want impact of outliers, also avoid problem whereby different data has different max values
 
 
 #### DATA SPLITTING
@@ -334,19 +352,22 @@ Relaunching fit function multiple times, to find good random splitting for data 
 #### DESCRIBE
 
 Describe function goes over each feature in data and looks at different analytical parameters:
--See if data is correct in terms of numbers, are there missing values?
--See if data needs to be normalized? Big values or already small? Different features same scale? Alot of outliers?
+* See if data is correct in terms of numbers, are there missing values?
+* See if data needs to be normalized? Big values or already small? Different features same scale? Alot of outliers?
 
-*Skewness, gives normal distribution of values or measure of symmetry, 0 is symmetrical, +0.5 / -0.5 moderately skewed, +1/-1 is highly skewed, skewed data indicates outliers in tail region.
-*Kurtosis result high number means the dataset has lots of outliers, outliers can be good or not, if not they can be removed or min-max normalization can be used
+Skewness, gives normal distribution of values or measure of symmetry, 0 is symmetrical, +0.5 / -0.5 moderately skewed, +1/-1 is highly skewed, skewed data indicates outliers in tail region.
+
+Kurtosis result high number means the dataset has lots of outliers, outliers can be good or not, if not they can be removed or min-max normalization can be used
 
 
 #### PAIRPLOT
 
 Pair-plot compares two features over the different classes, in a line plot and scatterplot:
--Scatterplots are useful to find correlations and homogeneity between two features.
+
+* Scatterplots are useful to find correlations and homogeneity between two features.
 If two features are homogenous, one of them has low predictive power and can be eliminated.
--Line plots are useful to find correlations between classes in one feature
+
+* Line plots are useful to find correlations between classes in one feature
 Features that are homogenous or have low variation over the classes are not interesting as they have low predictive power.
 
 
@@ -356,48 +377,51 @@ Features that are homogenous or have low variation over the classes are not inte
 
 ## EVALUATION
 
-There are two types of errors that occur in a classification algorithm
-False positives, or predicting "yes", while the expected answer was "no"
-False negatives, or predicting "no", while the expected answer was "yes"
+There are two types of errors that occur in a classification algorithm:
+* False positives, or predicting "yes", while the expected answer was "no"
+* False negatives, or predicting "no", while the expected answer was "yes"
 
 In sigmoid probabilities to answer functions, you can for example change the "division point" to aim more at minimizing one error or the other.
 
 Different measures are used:
-Accuracy score: Gives % of correct answers
-precision score: Appropriate when trying to minimize false positives
-Recall score: Appropriate when trying to minimize false negatives
-f1 score: Is combination of precision and recall, used when trying to maximize both false positives and negatives
-Confusion matrix: Gives an overview of both false negatives and positives
+* Accuracy score: Gives % of correct answers
+* precision score: Appropriate when trying to minimize false positives
+* Recall score: Appropriate when trying to minimize false negatives
+* f1 score: Is combination of precision and recall, used when trying to maximize both false positives and negatives
+* Confusion matrix: Gives an overview of both false negatives and positives
 
 
 ### OVERFITTING
 
 HIGH VARIANCE: High variance between training sets, means very precise on each training set, leads to overfitting.
--> Increasing regularization can lower high variance
--> Smaller sets of features can lower high variance
--> More training data
+* Increasing regularization can lower high variance
+* Smaller sets of features can lower high variance
+* More training data
 
 
 ### UNDERFITTING
 
 HIGH BIAS: Bias acts as strong suggestor, suggesting too much can lead to under-fitting on test sets
--> Decreasing regularization can lower high bias
--> Extra features can lower high bias
--> Adding polynomials or deep layers can lower high bias
+* Decreasing regularization can lower high bias
+* Extra features can lower high bias
+* Adding polynomials or deep layers can lower high bias
 
 
 ## OTHER PROBLEMS
 
 #### Vanishing gradient problem 
 Small values are slow to change/learn, leading to no/slow convergence, problem when weights are initialized to zero for example.
+
 Proper weight initialization can help.
 
 #### local/global minima
 Gradient descend weak point is to get stuck in the local minima instead of continuing towards the global minima as it can difficultly know when it arrived at the global minima or not. Local minima are low cost points whereby the cost increases afterward, but later on decrease even more to a potential global minima, global minima being the lowest cost point. 
+
 SGD and momentum optimization method can help.
 
 #### non-relevant nodes
 Some nodes that are not relevant and should be deactivated by the activation function setting its value to 0. 
+
 ReLU and proper data features selection can help.
 
 
