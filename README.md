@@ -2,11 +2,11 @@
 - [Introduction](#INTRODUCTION)
 - [Neural network parameters](#NEURAL-NETWORK-PARAMETERS)
   - [Layers & nodes](#LAYERS--NODES)
-  - [Learning rate](#LEARNING-RATE)
   - [Gradient descend](#GRADIENT-DESCEND)
     - [Stochastic](#Stochastic)
     - [Batch](#Batch)
     - [Mini-batch](#Mini-batch)
+  - [Learning rate](#LEARNING-RATE)
   - [Activation-function](#activation-function)
   - [Cost function](#COST-FUNCTION)
   - [Weight & bias init](#Weight--bias-init)
@@ -66,29 +66,21 @@ Contains at least an input layer and output layer. Deep layers sit in between. E
 
 If the data is linearly separable, you do not need any deep layers. Deep layers allow for non-linearity like polynomials would, when polynomials get too complicated neural networks come in. One layer is similar to linear/logistic regression without polynomials.
 
-In general one hidden layer is sufficient for the majority of problems. The word deep learning a sub-field of machine learning refers to this.
+In general one hidden layer is sufficient for the majority of problems.
 
 More deep layers increase the complexity of the neural net which increases computational cost and slows down convergence, but they can improve precision, sometimes too much whereby they create overfitting if data is scarce.
 
-For the number of nodes per layer a pyramid structure is used, whereby the number of nodes is highest at input each following deep layer is lower than the prior one and lowest at ouptut.
-
-
-## LEARNING RATE
-
-Test to find out what learning rate is best, default learning rate used is 0,01.
-Learning rate is denoted as alpha.
-
-When alpha is too small algorithm needs to perform more steps until convergence and become slower.
-When alpha is too big potentially no convergence or less precision as it will hover over the minima.
+For the number of nodes per layer a pyramid structure is used, whereby the number of nodes is highest at input each following deep layer is lower than the prior one and lowest at ouptut. This is a proven node structure to use, but the question stays open for deabte.
 
 
 ## GRADIENT DESCEND
 
-Gradient descend uses derivatives or slope of cost function to find the global minima in cost function to minimize the cost by going in opposite direction of gradient. Neural Networks uses partial derivatives for each weight and bias to minimize the error.
+Gradient descend in NN uses derivatives or slope of cost function to find the global minima in cost function to minimize the cost by going in opposite direction of gradient. Neural Networks uses partial derivatives for each weight and bias to minimize the error.
 
 
 ### Stochastic:
 
+Before updating the weights and biases, goes over one training example.
 Faster convergence on small datasets but slower on big datasets due to constant weight update
 Can avoid local minimas or premature convergence but has higher variance in results due to randomness
 
@@ -101,14 +93,29 @@ Stable convergence but risk of local minima or premature convergence
 
 ### Mini-batch:
 
+Before updating the weights and biases, goes over b training example.
 Mini-batch sits between stochastic and batch, trying to optimize benefits of both, and is the recommended variant of gradient descend.
 b variable in NN holds size of batch, often 32 is used as default, some sources recommend number between 2 and 32...
 
 
+## LEARNING RATE
+
+Learning rate refers to the size of steps taken towards the global minima.
+
+Test to find out what learning rate is best, default learning rate used is 0,01.
+Learning rate is denoted as alpha.
+
+When alpha is too small algorithm needs to perform more steps until convergence and become slower.
+When alpha is too big potentially no convergence or less precision as it will hover over the minima.
+
+Optimization methods can be used to automatically choose the ideal learing rate.
+
 ## ACTIVATION FUNCTION
 
+Used to squash a number within a certain range.
+
 Linear: output -inf,inf
-ReLU: rectified linear unit, output 0,+inf, less sensitive to vanishing gradient and non-relevant nodes, less computational cost, most used
+ReLU: rectified linear unit, output 0, +inf, less sensitive to vanishing gradient and non-relevant nodes, less computational cost, most used
 Tanh: hyperbolic tangent function, output -1,1, could converge faster on larger dataset than sigmoid
 Sigmoid: ouput 0,1
 Softmax: vector total output = 1
@@ -129,23 +136,23 @@ Can all be tried in following order: ReLu, Tanh, sigmoid
 
 ## COST FUNCTION
 
-Is used to calculate total error, total error is used to indicate NN performance and in back-propagation to adjust the weights and bias accordingly.
+
+Is used to calculate total error of the predictions made by the NN. 
+Total error is used to indicate NN performance and in back-propagation to adjust the weights and bias accordingly.
 Regression -> mean square error (MSE)
 classification -> cross entropy
 
 
 ## WEIGHT & BIAS INIT
 
-Weights  initialization is based on deep layer activation function:
+Weights initialization is based on deep layer activation function:
 ReLU -> He init
 Tanh -> Xavier init
 sigmoid -> random init (default init) -> between -1,1
 
-Init to zero is also possible if bias is not equal to zero, but is not optimal.
-
 Optimizing init is practical to fasten convergence by avoiding vanishing gradient problem.
 
-Bias are usually init to 0, starting of neutral.
+Biases are usually init to 0, starting of neutral.
 
 
 ## REGULARIZATION
@@ -176,7 +183,7 @@ Lambda is used to indicate regularization L2 strength, a value between 0 and 1 i
 ### EARLY STOPPING
 
 Useful to avoid overtraining that can lead to overfitting.
-While training neural network on training set cost of test/validation set is calculated too.
+While training neural network on training set, cost of test/validation set is calculated too.
 Once a trigger of diminishing performance for validation set (ex. cost of validation set starts to increase), the training stops.
 
 Stopping too early can be bad as sometimes test set cost will increase for some time and decrease back afterward. Looking at graph without early stop can be interesting for this reason.
@@ -242,7 +249,7 @@ Adding nose to each gradient has been shown to make networks more robust towards
 - d indicates partial derivative which is same as gradient
 - @ equals dot product
 - TE is total error of NN output
-- .T is the vector/matrix transposed to allow for dot product calculations
+- .T is the vector/matrix transposed to in some cases allow for dot product calculations
 - C or cost function is used to compute total error
 - C' is used to compute derivative of cost function
 
@@ -320,7 +327,7 @@ z-score normalization: When we do want impact of outliers, also avoid problem wh
 
 #### DATA SPLITTING
 
-Data can further be split into training data and test data (0.8 - 0.2 recommended ratio), to verify overfitting. Also possible training, test and validation set (0.6, 0.2, 0.2).
+Data can further be split into training data and test data (0.8 - 0.2 recommended ratio), training data is used to train the NN and test data to verify overfitting. Also possible training, test and validation set (0.6, 0.2, 0.2).
 
 Relaunching fit function multiple times, to find good random splitting for data splitting but potentially weight init too, is possible.
 
@@ -336,11 +343,11 @@ Describe function goes over each feature in data and looks at different analytic
 
 #### PAIRPLOT
 
-Pair-plots compares two features over the different classes, in a line plot and scatterplot:
+Pair-plot compares two features over the different classes, in a line plot and scatterplot:
 -Scatterplots are useful to find correlations and homogeneity between two features.
 If two features are homogenous, one of them has low predictive power and can be eliminated.
 -Line plots are useful to find correlations between classes in one feature
-Features that are homogenous or have low variation over the classes are not interesting for AI neither as they have low predictive power.
+Features that are homogenous or have low variation over the classes are not interesting as they have low predictive power.
 
 
 
@@ -365,7 +372,7 @@ Confusion matrix: Gives an overview of both false negatives and positives
 
 ### OVERFITTING
 
-HIGH VARIANCE: High variance between training sets, means very precise on each training sets, leads to overfitting.
+HIGH VARIANCE: High variance between training sets, means very precise on each training set, leads to overfitting.
 -> Increasing regularization can lower high variance
 -> Smaller sets of features can lower high variance
 -> More training data
@@ -381,14 +388,22 @@ HIGH BIAS: Bias acts as strong suggestor, suggesting too much can lead to under-
 
 ## OTHER PROBLEMS
 
-Vanishing gradient problem -> small values are slow to change/learn, leading to no/slow convergence, problem when weights are initialized to zero for example
-local/global minima -> Gradient descend weak point is to get stuck in the local minima instead of continuing towards the global minima as it can difficultly know when it arrived at the global minima or not. Local minima are low cost points whereby the cost increases afterward, but later on decrease even more to a potential global minima, global minima being the lowest cost point.
-non-relevant nodes -> Some nodes that are not relevant should be deactivated by the activation function setting its value to 0. ReLU does this best. Proper data features selection helps.
+#### Vanishing gradient problem 
+Small values are slow to change/learn, leading to no/slow convergence, problem when weights are initialized to zero for example.
+Proper weight initialization can help.
+
+#### local/global minima
+Gradient descend weak point is to get stuck in the local minima instead of continuing towards the global minima as it can difficultly know when it arrived at the global minima or not. Local minima are low cost points whereby the cost increases afterward, but later on decrease even more to a potential global minima, global minima being the lowest cost point. 
+SGD and momentum optimization method can help.
+
+#### non-relevant nodes
+Some nodes that are not relevant and should be deactivated by the activation function setting its value to 0. 
+ReLU and proper data features selection can help.
 
 
 ## GRADIENT CHECKING
 
-Bugs can occur during your implementation of back-propagation, they can be subtle because the cost could properly descend but still the bug could lower the overall performance.
+Bugs can occur during your implementation of back-propagation, they can be subtle because the cost could properly descend but still the bug could lower the overall training performance.
 
 Gradient checking is used to debug back-propagation, by estimating them with numerical gradients(slope between two points around the one cost point) and comparing them with backpropagation gradients.
 
