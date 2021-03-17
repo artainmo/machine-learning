@@ -70,7 +70,7 @@ In general one hidden layer is sufficient for the majority of problems.
 
 More deep layers increase the complexity of the neural net which increases computational cost and slows down convergence, but they can improve precision, sometimes too much whereby they create overfitting if data is scarce.
 
-For the number of nodes per layer a pyramid structure is used, whereby the number of nodes is highest at input each following deep layer is lower than the prior one and lowest at ouptut. This is a proven node structure to use, but the question stays open for deabte.
+For the number of nodes per layer a pyramid structure is used, whereby the number of nodes is highest at input each following deep layer is lower than the prior one and lowest at ouptut. This is a proven node structure to use, but the question stays open for debate.
 
 
 ## GRADIENT DESCEND
