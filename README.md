@@ -150,6 +150,7 @@ Total error is used to indicate NN performance and in back-propagation to adjust
 * Regression -> mean square error (MSE)
 * classification -> cross entropy
 
+MSE does not punish misclassification while cross entropy does, this is why cross entropy is prefered for classification but not regression. 
 
 ## WEIGHT & BIAS INIT
 
