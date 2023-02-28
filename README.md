@@ -35,8 +35,8 @@
   - [Overfitting](#Overfitting)
   - [Underfitting](#Underfitting)
   - [Vanishing gradient problem](#Vanishing-gradient-problem)
-  - [local/global minima](#local/global-minima)
-  - [non-relevant-nodes](#non-relevant-nodes)
+  - [Local/global minima](##localglobal-minima)
+  - [Non-relevant nodes](#non-relevant-nodes)
   - [Gradient checking](#Gradient-checking)
 - [Resources](#Resources)
 
@@ -396,12 +396,12 @@ Small values are slow to change/learn, leading to no/slow convergence, problem w
 
 Proper weight initialization can help.
 
-### local/global minima
+### Local/global minima
 Gradient descend weak point is to get stuck in the local minima instead of continuing towards the global minima as it can difficultly know when it arrived at the global minima or not. Local minima are low cost points whereby the cost increases afterward, but later on decrease even more to a potential global minima, global minima being the lowest cost point. 
 
 SGD and momentum optimization method can help.
 
-### non-relevant nodes
+### Non-relevant nodes
 Some nodes that are not relevant and should be deactivated by the activation function setting its value to 0. 
 
 ReLU and proper data features selection can help.
