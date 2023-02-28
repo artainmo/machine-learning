@@ -67,7 +67,7 @@ An AI will:
 
 Contains at least an input layer and output layer. Deep layers sit in between. Each layer contains a certain amount of nodes.
 
-If the data is linearly separable, you do not need any deep layers. Deep layers allow for non-linearity like polynomials would, when polynomials get too complicated neural networks come in. One layer is similar to linear/logistic regression without polynomials.
+If the data is linearly separable, you do not need any deep layers. Deep layers allow for non-linearity like polynomials would, when polynomials get too complicated neural networks come in. One layer is similar to [linear](https://github.com/artainmo/ft_linear_regression)/[logistic](https://github.com/artainmo/dslr) regression without polynomials.
 
 In general one hidden layer is sufficient for the majority of problems.
 
