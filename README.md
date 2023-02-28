@@ -1,4 +1,10 @@
 # neural-networks
+Prior foundational learnings for neural networks:
+* [Python and data-science](https://github.com/artainmo/python_bootcamp)
+* [Statistics, linear-regression, logistic-regression and regularization](https://github.com/artainmo/machine-learning-bootcamp)
+* [Gradient descent algorithm and linear-regression](https://github.com/artainmo/ft_linear_regression)
+* [Data-science and logistic regression](https://github.com/artainmo/dslr)
+
 ## Table of contents
 - [Introduction](#INTRODUCTION)
 - [Neural network parameters](#NEURAL-NETWORK-PARAMETERS)
