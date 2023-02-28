@@ -5,6 +5,10 @@ Prior foundational learnings for neural networks:
 * [Gradient descent algorithm and linear-regression](https://github.com/artainmo/ft_linear_regression)
 * [Data-science and logistic regression](https://github.com/artainmo/dslr)
 
+Post learning, neural-network practice:
+* [Neural network library](https://github.com/artainmo/NeuralNetworkLib)
+* [Use neural networks to predict breast cancer malignancy](https://github.com/artainmo/multilayer_perceptron)
+
 ## Table of contents
 - [Introduction](#INTRODUCTION)
 - [Neural network parameters](#NEURAL-NETWORK-PARAMETERS)
