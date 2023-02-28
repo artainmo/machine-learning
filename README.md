@@ -238,7 +238,7 @@ On large datasets SGD can be slow, running it asynchronously (multiple workers/t
 Hogwild!, DownpourSGD, delay-tolerant algorithms, elastic averaging SGD are methods used to implement parallelized SGD.
 Tensorflow also contain parallelized SGD.
 
-### Gradient nose
+#### Gradient nose
 
 Adding nose to each gradient has been shown to make networks more robust towards poor initialization and increase the chance of escaping a local minima.
 
