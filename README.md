@@ -35,7 +35,7 @@
   - [Overfitting](#Overfitting)
   - [Underfitting](#Underfitting)
   - [Vanishing gradient problem](#Vanishing-gradient-problem)
-  - [Local/global minima](##localglobal-minima)
+  - [Local/global minima](#localglobal-minima)
   - [Non-relevant nodes](#non-relevant-nodes)
   - [Gradient checking](#Gradient-checking)
 - [Resources](#Resources)
