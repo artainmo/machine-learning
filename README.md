@@ -1,4 +1,5 @@
-# Table of contents
+# neural-networks
+## Table of contents
 - [Introduction](#INTRODUCTION)
 - [Neural network parameters](#NEURAL-NETWORK-PARAMETERS)
   - [Layers & nodes](#LAYERS--NODES)
@@ -37,7 +38,7 @@
   - [Gradient checking](#Gradient-checking)
 - [Resources](#Resources)
 
-# INTRODUCTION
+## Introduction
 
 > "Intelligence and artificial intelligence is data compression through laws that predict based on data patterns."
 
@@ -57,10 +58,10 @@ An AI will:
 - Evaluate: Evaluate prediction compared to expected output, calculate total error by using cost function
 - Adapt: Change weights and biases of neural network to limit the total error, in NN this process is called back propagation
 
-# NEURAL NETWORK PARAMETERS
+## Neural Network Parameters
 
 
-## LAYERS & NODES
+### Layers & Nodes
 
 Contains at least an input layer and output layer. Deep layers sit in between. Each layer contains a certain amount of nodes.
 
@@ -73,12 +74,12 @@ More deep layers increase the complexity of the neural net which increases compu
 For the number of nodes per layer a pyramid structure is used, whereby the number of nodes is highest at input each following deep layer is lower than the prior one and lowest at ouptut. This is a proven node structure to use based on emperical studies, but the question stays open for debate.
 
 
-## GRADIENT DESCEND
+### Gradient descend
 
 Gradient descend in NN uses derivatives or slope of cost function to find the global minima in cost function to minimize the cost by going in opposite direction of gradient. Neural Networks uses partial derivatives for each weight and bias to minimize the error.
 
 
-### Stochastic:
+#### Stochastic:
 
 Before updating the weights and biases, goes over one training example.
 
@@ -87,14 +88,14 @@ Faster convergence on small datasets but slower on big datasets due to constant 
 Can avoid local minimas or premature convergence but has higher variance in results due to randomness.
 
 
-### Batch:
+#### Batch:
 
 Slow but more computational efficient on big datasets.
 
 Stable convergence but risk of local minima or premature convergence.
 
 
-### Mini-batch:
+#### Mini-batch:
 
 Before updating the weights and biases, goes over b training example.
 
@@ -103,7 +104,7 @@ Mini-batch sits between stochastic and batch, trying to optimize benefits of bot
 b variable in NN holds size of batch, often 32 is used as default, some sources recommend number between 2 and 32...
 
 
-## LEARNING RATE
+### Learning rate
 
 Learning rate refers to the size of steps taken towards the global minima.
 
@@ -115,7 +116,7 @@ Learning rate is denoted as alpha.
 
 Optimization methods can be used to automatically choose the ideal learing rate.
 
-## ACTIVATION FUNCTION
+### Activation function
 
 Used to squash a number within a certain range.
 
@@ -140,8 +141,7 @@ ReLU, Tanh or sigmoid
 Can all be tried in following order: ReLu, Tanh, sigmoid
 
 
-## COST FUNCTION
-
+### Cost function
 
 Is used to calculate total error of the predictions made by the NN.
 
@@ -152,7 +152,7 @@ Total error is used to indicate NN performance and in back-propagation to adjust
 
 MSE does not punish misclassification while cross entropy does, this is why cross entropy is prefered for classification but not regression. 
 
-## WEIGHT & BIAS INIT
+### Weight & Bias init
 
 Weights initialization is based on deep layer activation function:
 * ReLU -> He init
@@ -163,15 +163,13 @@ Optimizing init is practical to fasten convergence by avoiding vanishing gradien
 
 Biases are usually init to 0, starting of neutral.
 
-
-## REGULARIZATION
+### Regularization
 
 Refers to all methods that limit over-fitting.
 
 The most common ones are dropout method, L2-regularization and early stopping.
 
-
-### DROPOUT METHOD
+#### Dropout method
 
 Tries to reduce overfitting by temporarily removing (dropping out) certain nodes and all its associated connexions.
 
@@ -185,15 +183,14 @@ Two hyper-parameters are used for drop-out:
 * deep layers no-dropout -> range 0 - 1 -> thus one being no dropout and 0 being all dropout -> default between 0.5 - 0.8
 * Input layer no-dropout -> range 0 - 1 -> thus one being no dropout and 0 being all dropout -> default is 0.8
 
-
-### L2-REGULARIZATION
+#### L2-Regularization
 
 Works by reducing the weights on certain features, encouraging the model to use all of its input features equally.
 
 Lambda is used to indicate regularization L2 strength, a value between 0 and 1 is used, 0 deactivates it.
 
 
-### EARLY STOPPING
+#### Early stopping
 
 Useful to avoid overtraining that can lead to overfitting.
 
@@ -206,13 +203,12 @@ Validation hold outset, means waiting epochs until stopping with the goal of try
 
 Afterward right trigger must be used, this can be a cost function or validation function (also depending on goal of minimizing false negatives or positives).
 
-
-## OPTIMIZATION METHODS
+### Optimization methods
 
 Refers to methods used to reduce the cost by changing the neural networks attributes like weight, bias and learing rate or to improve computational efficiency, speed and avoid common problems associated with neural networks like vanishing gradients and local minima.
 
 
-### MOMENTUM AND NESTEROV METHODS
+#### Momentum and Nesterov methods
 
 Momentum is an optimization method invented for reducing high variance in SGD, it does this through faster convergence, like a ball rolling down a hill.
 
@@ -224,8 +220,7 @@ Velocity being a value starting  with zero and accumulating values that are re-u
 
 Too high momentum can lead to the missing of local/global minima (which you do or do not want). If you do not want to miss it Nesterov method can be used who will slow down convergence when approaching a local minima.
 
-
-### ADAGRAD, ADADELTA, RMSPROP, ADAM, NADAM
+#### Adagrad, adadelta, RMSprop, adam, Nadam
 
 AdaGrad adapts the learning rate for each parameter. Helps a lot when data is sparse and improves SGD robustness.
 Main benefit is that it eliminates the need to manually tune the learning rate.
@@ -237,21 +232,17 @@ Adam is a combination of momentum and ADAdelta.
 Adam has been shown to work best compared to the other similar optimization algorithms.
 Nadam (nesterov adaptive moment estimation) similar to Adam but uses nesterov momentum instead of simple momentum.
 
-
-### PARALLELIZING SGD
+#### Parallelizing SDG
 
 On large datasets SGD can be slow, running it asynchronously (multiple workers/threads) can speed it up.
 Hogwild!, DownpourSGD, delay-tolerant algorithms, elastic averaging SGD are methods used to implement parallelized SGD.
 Tensorflow also contain parallelized SGD.
 
-
-### GRADIENT NOSE
+### Gradient nose
 
 Adding nose to each gradient has been shown to make networks more robust towards poor initialization and increase the chance of escaping a local minima.
 
-
-
-# MATH IMPLEMENTATION
+## Math implementation
 
 - L layers
 - B bias, additional node in layer that is not connected to other nodes and always equals to one, because it always equals to one we will use it to indicate its weight value that determines its final value
@@ -274,7 +265,7 @@ Adding nose to each gradient has been shown to make networks more robust towards
 Vectors representing complete layers can be used to make calculations more efficiently using numpy.
 
 
-## FORWARD PROPAGATION
+### Forward propagation
 
 ![forward propagation](imgs/forward_propagation.png)
 
@@ -296,7 +287,7 @@ Yhat = L3
 TE = C(Y, Yhat)
 
 
-## BACK PROPAGATION
+### Back propagation
 
 ![back propagation](imgs/back_propagation.png)
 
@@ -319,24 +310,22 @@ D1 -= dD1
 W2 -= dW2
 D2 -= dD2
 
-
-
-# DATA PREPARATION & VISUALIZATION
+## Data Preparation & Visualization
 
 y or predicted values and x or features should be separated.
 
 
-#### NON-NUMERIC TO NUMERIC DATA
+### Non-numeric to numeric data
 
 Features with textual data can be converted into numerical data, each label takes different number.
 
 
-#### EXPECTED/Y DATA
+### Expected/y data
 
 If your NN has multiple output nodes, the y or expected values column, should be transformed not in single values but in vectors with same size as output nodes.
 
 
-#### NORMALIZATION
+### Normalization
 
 Normalization refers to reducing scale of data and leads to all features being on same scale, elimination of outliers and decreases computational costs.
 
@@ -344,13 +333,13 @@ Normalization refers to reducing scale of data and leads to all features being o
 * z-score normalization: When we do want impact of outliers, also avoid problem whereby different data has different max values
 
 
-#### DATA SPLITTING
+### Data Splitting
 
 Data can further be split into training data and test data (0.8 - 0.2 recommended ratio), training data is used to train the NN and test data to verify overfitting. Also possible training, test and validation set (0.6, 0.2, 0.2).
 
 Relaunching fit function multiple times, to find good random splitting for data splitting but potentially weight init too, is possible.
 
-#### DESCRIBE
+### Describe
 
 Describe function goes over each feature in data and looks at different analytical parameters:
 * See if data is correct in terms of numbers, are there missing values?
@@ -360,8 +349,7 @@ Skewness, gives normal distribution of values or measure of symmetry, 0 is symme
 
 Kurtosis result high number means the dataset has lots of outliers, outliers can be good or not, if not they can be removed or min-max normalization can be used
 
-
-#### PAIRPLOT
+### Pairplot
 
 Pair-plot compares two features over the different classes, in a line plot and scatterplot:
 
@@ -371,12 +359,8 @@ If two features are homogenous, one of them has low predictive power and can be 
 * Line plots are useful to find correlations between classes in one feature
 Features that are homogenous or have low variation over the classes are not interesting as they have low predictive power.
 
-
-
-# DEBUGGING A LEARNING ALGORITHM
-
-
-## EVALUATION
+## Debugging a Learning algorithm
+### Evaluation
 
 There are two types of errors that occur in a classification algorithm:
 * False positives, or predicting "yes", while the expected answer was "no"
@@ -391,49 +375,44 @@ Different measures are used:
 * f1 score: Is combination of precision and recall, used when trying to maximize both false positives and negatives
 * Confusion matrix: Gives an overview of both false negatives and positives
 
-
-### OVERFITTING
+### Overfitting
 
 HIGH VARIANCE: High variance between training sets, means very precise on each training set, leads to overfitting.
 * Increasing regularization can lower high variance
 * Smaller sets of features can lower high variance
 * More training data
 
-
-### UNDERFITTING
+### Underfitting
 
 HIGH BIAS: Bias acts as strong suggestor, suggesting too much can lead to under-fitting on test sets
 * Decreasing regularization can lower high bias
 * Extra features can lower high bias
 * Adding polynomials or deep layers can lower high bias
 
+## Other Problems
 
-## OTHER PROBLEMS
-
-#### Vanishing gradient problem 
+### Vanishing gradient problem 
 Small values are slow to change/learn, leading to no/slow convergence, problem when weights are initialized to zero for example.
 
 Proper weight initialization can help.
 
-#### local/global minima
+### local/global minima
 Gradient descend weak point is to get stuck in the local minima instead of continuing towards the global minima as it can difficultly know when it arrived at the global minima or not. Local minima are low cost points whereby the cost increases afterward, but later on decrease even more to a potential global minima, global minima being the lowest cost point. 
 
 SGD and momentum optimization method can help.
 
-#### non-relevant nodes
+### non-relevant nodes
 Some nodes that are not relevant and should be deactivated by the activation function setting its value to 0. 
 
 ReLU and proper data features selection can help.
 
-
-## GRADIENT CHECKING
+## Gradient checking
 
 Bugs can occur during your implementation of back-propagation, they can be subtle because the cost could properly descend but still the bug could lower the overall training performance.
 
 Gradient checking is used to debug back-propagation, by estimating them with numerical gradients(slope between two points around the one cost point) and comparing them with backpropagation gradients.
 
-
-# RESOURCES
+## RESOURCES
 
 - Neural networks, a visual introduction for beginners - Michael Taylor
 
