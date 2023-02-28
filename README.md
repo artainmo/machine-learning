@@ -412,7 +412,7 @@ Bugs can occur during your implementation of back-propagation, they can be subtl
 
 Gradient checking is used to debug back-propagation, by estimating them with numerical gradients(slope between two points around the one cost point) and comparing them with backpropagation gradients.
 
-## RESOURCES
+## Resources
 
 - Neural networks, a visual introduction for beginners - Michael Taylor
 
