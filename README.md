@@ -34,7 +34,9 @@
   - [Evaluation](#Evaluation)
   - [Overfitting](#Overfitting)
   - [Underfitting](#Underfitting)
-  - [Other problems](#other-problems)
+  - [Vanishing gradient problem](#Vanishing-gradient-problem)
+  - [local/global minima](#local/global-minima)
+  - [non-relevant-nodes](#non-relevant-nodes)
   - [Gradient checking](#Gradient-checking)
 - [Resources](#Resources)
 
@@ -389,8 +391,6 @@ HIGH BIAS: Bias acts as strong suggestor, suggesting too much can lead to under-
 * Extra features can lower high bias
 * Adding polynomials or deep layers can lower high bias
 
-## Other Problems
-
 ### Vanishing gradient problem 
 Small values are slow to change/learn, leading to no/slow convergence, problem when weights are initialized to zero for example.
 
@@ -406,7 +406,7 @@ Some nodes that are not relevant and should be deactivated by the activation fun
 
 ReLU and proper data features selection can help.
 
-## Gradient checking
+### Gradient checking
 
 Bugs can occur during your implementation of back-propagation, they can be subtle because the cost could properly descend but still the bug could lower the overall training performance.
 
