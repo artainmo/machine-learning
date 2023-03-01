@@ -9,7 +9,7 @@ Post learning, neural-network practice:
 * [Neural network library](https://github.com/artainmo/NeuralNetworkLib)
 * [Use neural networks to predict breast cancer malignancy](https://github.com/artainmo/multilayer_perceptron)
 
-## Table of content
+## Table of contents
 - [Introduction](#INTRODUCTION)
 - [Neural network parameters](#NEURAL-NETWORK-PARAMETERS)
   - [Layers & nodes](#LAYERS--NODES)
