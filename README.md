@@ -422,17 +422,17 @@ Bugs can occur during your implementation of back-propagation, they can be subtl
 Gradient checking is used to debug back-propagation, by estimating them with numerical gradients(slope between two points around the one cost point) and comparing them with backpropagation gradients.
 
 ## Resources
-* [Neural networks, a visual introduction for beginners - Book by Michael Taylor](https://www.amazon.com.be/-/en/Michael-Taylor/dp/1549869132)<br>
-* [Supervised Machine Learning - Andrew Ng - Coursera](https://www.coursera.org/learn/machine-learning)<br>
-* [Elements of AI](https://course.elementsofai.com)<br>
-* [towardsDataScience](https://towardsdatascience.com)<br>
-* [machineLearningMastery](https://machinelearningmastery.com)<br>
-* [ruder.io - A blog about natural language processing and machine learning](https://ruder.io)<br>
-* [machineCurve](https://www.machinecurve.com)<br>
-* [DeepLearning.AI](https://www.deeplearning.ai)<br>
-* [Neural Networks and Deep Learning](http://neuralnetworksanddeeplearning.com)<br>
-* [medium - Open Data Science](https://medium.com/@ODSC)<br>
-* [ML from Scrarch](https://mlfromscratch.com)<br>
+* [Neural networks, a visual introduction for beginners - Book by Michael Taylor](https://www.amazon.com.be/-/en/Michael-Taylor/dp/1549869132)
+* [Supervised Machine Learning - Andrew Ng - Coursera](https://www.coursera.org/learn/machine-learning)
+* [Elements of AI - Introductory course](https://course.elementsofai.com)
+* [towardsDataScience - Blog](https://towardsdatascience.com)
+* [machineLearningMastery - Blog](https://machinelearningmastery.com)
+* [ruder.io - A blog about natural language processing and machine learning](https://ruder.io)
+* [machineCurve - Blog](https://www.machinecurve.com)
+* [DeepLearning.AI - Learning platform](https://www.deeplearning.ai)
+* [Neural Networks and Deep Learning - Blog](http://neuralnetworksanddeeplearning.com)
+* [Open Data Science - Medium](https://medium.com/@ODSC)
+* [ML from Scrarch - Blog](https://mlfromscratch.com)
 
 ## Further Reading
 Post learning, neural-network and data processing practice:
