@@ -423,19 +423,17 @@ Gradient checking is used to debug back-propagation, by estimating them with num
 
 ## Resources
 
-- Neural networks, a visual introduction for beginners - Michael Taylor
-
-- https://www.coursera.org/learn/machine-learning - Andrew Ng
-- https://course.elementsofai.com
-
-- https://towardsdatascience.com
-- https://machinelearningmastery.com
-- https://ruder.io
-- https://www.machinecurve.com
-- https://www.deeplearning.ai
-- http://neuralnetworksanddeeplearning.com
-- https://medium.com/@ODSC
-- https://mlfromscratch.com
+Neural networks, a visual introduction for beginners - Book by Michael Taylor<br>
+[Supervised Machine Learning - Andrew Ng - Coursera](https://www.coursera.org/learn/machine-learning)<br>
+[Elements of AI](https://course.elementsofai.com)<br>
+[towardsDataScience](https://towardsdatascience.com)<br>
+[machineLearningMastery](https://machinelearningmastery.com)<br>
+[ruder.io - A blog about natural language processing and machine learning](https://ruder.io)<br>
+[machineCurve](https://www.machinecurve.com)<br>
+[DeepLearning.AI](https://www.deeplearning.ai)<br>
+[Neural Networks and Deep Learning](http://neuralnetworksanddeeplearning.com)<br>
+[medium - Open Data Science](https://medium.com/@ODSC)<br>
+[ML from Scrarch](https://mlfromscratch.com)<br>
 
 ## Further Reading
 Post learning, neural-network and data processing practice:
