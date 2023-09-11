@@ -1,15 +1,6 @@
 # neural-networks
-Prior foundational knowledge for neural networks:
-* [Python and data-science](https://github.com/artainmo/python_bootcamp)
-* [Statistics, linear-regression, logistic-regression and regularization](https://github.com/artainmo/machine-learning-bootcamp)
-* [Gradient descent algorithm and linear-regression](https://github.com/artainmo/ft_linear_regression)
-* [Data-science and logistic regression](https://github.com/artainmo/dslr)
-
-Post learning, neural-network practice:
-* [Neural network library](https://github.com/artainmo/NeuralNetworkLib)
-* [Use neural networks to predict breast cancer malignancy](https://github.com/artainmo/multilayer_perceptron)
-
 ## Table of contents
+- [Before reading](#Before-Reading)
 - [Introduction](#INTRODUCTION)
 - [Neural network parameters](#NEURAL-NETWORK-PARAMETERS)
   - [Layers & nodes](#LAYERS--NODES)
@@ -49,6 +40,14 @@ Post learning, neural-network practice:
   - [Non-relevant nodes](#non-relevant-nodes)
   - [Gradient checking](#Gradient-checking)
 - [Resources](#Resources)
+- [Further reading](#Further-Reading)
+
+## Before Reading
+Prior foundational knowledge for neural networks:
+* [Python and data-science](https://github.com/artainmo/python_bootcamp)
+* [Statistics, linear-regression, logistic-regression and regularization](https://github.com/artainmo/machine-learning-bootcamp)
+* [Gradient descent algorithm and linear-regression](https://github.com/artainmo/ft_linear_regression)
+* [Data-science and logistic regression](https://github.com/artainmo/dslr)
 
 ## Introduction
 
@@ -437,3 +436,9 @@ Gradient checking is used to debug back-propagation, by estimating them with num
 - http://neuralnetworksanddeeplearning.com
 - https://medium.com/@ODSC
 - https://mlfromscratch.com
+
+## Further Reading
+Post learning, neural-network and data processing practice:
+* [Neural network library.](https://github.com/artainmo/NeuralNetworkLib)
+* [Use neural networks to predict breast cancer malignancy.](https://github.com/artainmo/multilayer_perceptron)
+* [Process EEG datas by parsing, formatting, creating a ML pipeline implementing a dimensionality reduction algorithm before classifying and handling a real time data-stream with sklearn.](https://github.com/artainmo/total_perspective_vortex/tree/main)
