@@ -57,7 +57,7 @@ Neural networks are part of machine learning which is part of AI which is part o
 
 Here we will only cover supervised machine learning which refers to the neural-network learning to answer a specific question from labeled data with given solutions.
 
-> Everything in the universe can be described using mathematical functions. Supervised machine learning tries to approximate the underlying function using observable data.
+> Everything in the universe can be described using mathematical functions. Supervised machine learning tries to approximate the underlying function of a phenomenon using observable data.
 
 Neural networks become practical when data is not linearly separable and consists of lots of parameters,
 practical for image recognition for example whereby at least each gray-scaled pixel forms a parameter input.
