@@ -59,8 +59,7 @@ Here we will only cover supervised machine learning which refers to the neural-n
 
 > Everything in the universe can be described using mathematical functions. Supervised machine learning tries to approximate the underlying function of a phenomenon using observable data.
 
-Neural networks become practical when data is not linearly separable and consists of lots of parameters,
-practical for image recognition for example whereby at least each gray-scaled pixel forms a parameter input.
+Neural networks become practical when data is not linearly separable and consists of lots of parameters, practical for image recognition for example whereby at least each gray-scaled pixel forms a parameter input.<br>
 Can be used for both classification(choose a label) or regression(choose a quantity).
 
 They consist of multiple node layers:
@@ -68,7 +67,7 @@ They consist of multiple node layers:
  - Last layer makes predictions, also called output layer.
  - Layers in between called deep layers are optional. Once deep layers are introduced the data becomes non-linearly separable and the name "deep learning" can be used.
 
-The input and deep layers all contain one weight per node besides one node per layer containing a bias ([visualize](#math-implementation)). Those weights/biases are constant values forming the mathematical function behind the neural-network making the predictions. Weights are multiplied with input values and thus relative to them while biases are not.
+Between layers all nodes/neurons are connected with synapses, each synapse contains a weight/strength. The input and deep layers also contain an additional node for the bias who synapses' weights always equal one ([visualize](#math-implementation)). Those weights/biases are constant values forming the mathematical function behind the neural-network making the predictions. Weights are multiplied with input values and thus relative to them while biases are not.
 
 A supervised neural network (NN) will:
 - Predict: Make a prediction based on input, weights and biases, in NN this process is called forward propagation.
@@ -140,10 +139,10 @@ Learning rate is denoted as alpha.
 
 Used to squash a number within a certain range.
 
-* Linear: output -inf<->+inf
-* ReLU: rectified linear unit, output 0<->+inf, less sensitive to [vanishing gradient](#Vanishing-gradient-problem) and non-relevant nodes, less computational cost, most used
-* Tanh: hyperbolic tangent function, output -1<->1, could converge faster on larger dataset than sigmoid
-* Sigmoid: ouput 0,1
+* Linear: output -inf_+inf
+* ReLU: rectified linear unit, output 0_+inf, less sensitive to [vanishing gradient](#Vanishing-gradient-problem) and non-relevant nodes, less computational cost, most used
+* Tanh: hyperbolic tangent function, output -1_1, could converge faster on larger dataset than sigmoid
+* Sigmoid: ouput 0_1
 * Softmax: vector total output = 1
 
 
@@ -185,7 +184,7 @@ Biases are usually init to 0, starting of neutral.
 
 ### Regularization
 
-Refers to all methods that limit over-fitting.
+Refers to all methods that limit [over-fitting](#Overfitting).
 
 The most common ones are dropout method, L2-regularization and early stopping.
 
@@ -218,7 +217,7 @@ While training neural network on training set, cost of test/validation set is ca
 
 Once a trigger of diminishing performance for validation set (ex. cost of validation set starts to increase), the training stops.
 
-Stopping too early can be bad as sometimes test set cost will increase for some time and decrease back afterward. Looking at graph without early stop can be interesting for this reason.
+Stopping too early can be bad as sometimes test set cost will increase for some time and decrease back afterward when passing through a local minima. Looking at graph without early stop can be interesting for this reason.<br>
 Validation hold outset, means waiting epochs until stopping with the goal of trying to capture costs that are descending back. Recommended is a validation hold outset of size 10% of training data set length.
 
 Afterward right trigger must be used, this can be a cost function or validation function (also depending on goal of minimizing false negatives or positives).
@@ -230,42 +229,41 @@ Refers to methods used to reduce the cost by changing the neural networks attrib
 
 #### Momentum and Nesterov methods
 
-Momentum is an optimization method invented for reducing high variance in SGD, it does this through faster convergence, like a ball rolling down a hill.
+Momentum is an optimization method invented for reducing high variance in [SGD](#Stochastic), it does this through faster convergence, like a ball rolling down a hill.
 
-Gamma/rho with default value 0.9 and value 0 to deactivate as momentum weight/neural network hyperparameter and makes use of EMAs (exponential moving average). 
+Gamma/rho as momentum weight/neural network hyperparameter, with default value 0.9 and value 0 to deactivate, makes use of EMAs (exponential moving average). 
 
-It simply adds to weight updating for each weight -> + gamma * velocity
+It simply adds the following to weight updating for each weight: gamma * velocity.
 
-Velocity being a value starting  with zero and accumulating values that are re-used is equal to -> velocity - learning rate * gradient
+Velocity being a value starting as zero and accumulating values that are re-used equaling: velocity - (learning rate * gradient).
 
-Too high momentum can lead to the missing of local/global minima (which you do or do not want). If you do not want to miss it Nesterov method can be used who will slow down convergence when approaching a local minima.
+Too high momentum can lead to the missing of local/global minima (which you do or do not want). If you do not want to miss it Nesterov method can be used instead and will slow down convergence when approaching a minima.
 
 #### Adagrad, adadelta, RMSprop, adam, Nadam
 
-AdaGrad adapts the learning rate for each parameter. Helps a lot when data is sparse and improves SGD robustness.
-Main benefit is that it eliminates the need to manually tune the learning rate.
-Main negative is that it ends up becoming very slow.
-ADAdelta and RMSprop resolves this problem by limiting the learning rate smallness.
+AdaGrad adapts the learning rate for each parameter. Helps a lot when data is sparse and improves SGD robustness.<br>
+Main benefit is that it eliminates the need to manually tune the learning rate.<br>
+Main negative is that it ends up becoming very slow. ADAdelta and RMSprop resolves this problem by limiting the learning rate smallness.<br>
 
-Adam (adaptive moment estimation) is another method that uses adaptive learning rates for each parameter.
-Adam is a combination of momentum and ADAdelta.
-Adam has been shown to work best compared to the other similar optimization algorithms.
+Adam (adaptive moment estimation) is another method that uses adaptive learning rates for each parameter.<br>
+Adam is a combination of momentum and ADAdelta.<br>
+Adam has been shown to work best compared to the other similar optimization algorithms.<br>
 Nadam (nesterov adaptive moment estimation) similar to Adam but uses nesterov momentum instead of simple momentum.
 
 #### Parallelizing SDG
 
-On large datasets SGD can be slow, running it asynchronously (multiple workers/threads) can speed it up.
-Hogwild!, DownpourSGD, delay-tolerant algorithms, elastic averaging SGD are methods used to implement parallelized SGD.
+On large datasets SGD can be slow, running it asynchronously (multiple workers/threads) can speed it up.<br>
+'Hogwild!', 'DownpourSGD', 'delay-tolerant algorithms', 'elastic averaging SGD' are methods used to implement parallelized SGD.<br>
 Tensorflow also contain parallelized SGD.
 
 #### Gradient nose
 
-Adding nose to each gradient has been shown to make networks more robust towards poor initialization and increase the chance of escaping a local minima.
+Adding nose to each gradient has been shown to make networks more robust towards poor initialization and increase the chance of escaping a local minima, especially in very deep networks.
 
 ## Math implementation
 
 - L layers
-- B bias, additional node in layer that is not connected to other nodes and always equals to one, because it always equals to one we will use it to indicate its weight value that determines its final value
+- B bias
 - I inputs == L0
 - W equals to weights layer
 - Z equals layer/node output before activation function
@@ -273,17 +271,18 @@ Adding nose to each gradient has been shown to make networks more robust towards
 - g equals activation function, output layer can have own activation function different from main activation function
 - g' equals activation function derivative
 - Y equals to expected output
-- Yhat or predicted output
-- D or delta is a measure of error for each layer's final activation value used in back-propagation
-- d indicates partial derivative which is same as gradient
-- @ equals dot product
+- Yhat is predicted output
 - TE is total error of NN output
-- .T is the vector/matrix transposed to in some cases allow for dot product calculations
+- D or delta is a measure of error for each layer's final activation value used in back-propagation
+- d indicates partial derivative, all the partial derivatives of one layer together is same as gradient
 - C or cost function is used to compute total error
 - C' is used to compute derivative of cost function
+- @ equals dot product
+- .T is the vector/matrix transposed to in some cases allow for dot product calculations
 
 Vectors representing complete layers can be used to make calculations more efficiently using numpy.
 
+Forward propagation is used to predict based on inputs. Backward propagation is used to adapt the NN weights and biases in relation to errors made by predictions. 
 
 ### Forward propagation
 
@@ -291,19 +290,19 @@ Vectors representing complete layers can be used to make calculations more effic
 
 L0 = I
 
-Z1 = (L0 @ W0) + B0
-A1 = g(Z1)
+Z1 = (L0 @ W0) + B0<br>
+A1 = g(Z1)<br>
 L1 = A1
 
-Z2 = (L1 @ W1) + B1
-A2 = g(Z2)
+Z2 = (L1 @ W1) + B1<br>
+A2 = g(Z2)<br>
 L2 = A2
 
-Z3 = (L2 @ W2) + B2
-A3 = g(Z3)
+Z3 = (L2 @ W2) + B2<br>
+A3 = g(Z3)<br>
 L3 = A3
 
-Yhat = L3
+Yhat = L3<br>
 TE = C(Y, Yhat)
 
 
@@ -311,24 +310,24 @@ TE = C(Y, Yhat)
 
 ![back propagation](imgs/back_propagation.png)
 
-D3 = C'(Y, Yhat) @ g'(Yhat)
-dW2 = A2 @ D3
+D3 = C'(Y, Yhat) @ g'(Yhat)<br>
+dW2 = A2 @ D3<br>
 dB2 = D3
 
-D2 = W2 @ D3 * g'(A2)
-dW1 = A1 @ D2
+D2 = W2 @ D3 * g'(A2)<br>
+dW1 = A1 @ D2<br>
 dB1 = D2
 
-D1 = W1 @ D2 * g'(A1)
-dW0 = A0 @ D1
+D1 = W1 @ D2 * g'(A1)<br>
+dW0 = A0 @ D1<br>
 dB0 = D1
 
-W0 -= dW0
-D0 -= dD0
-W1 -= dW1
-D1 -= dD1
-W2 -= dW2
-D2 -= dD2
+W0 -= dW0<br>
+B0 -= dD0<br>
+W1 -= dW1<br>
+B1 -= dD1<br>
+W2 -= dW2<br>
+B2 -= dD2
 
 ## Data Preparation & Visualization
 
