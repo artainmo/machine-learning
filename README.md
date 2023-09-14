@@ -64,34 +64,37 @@ practical for image recognition for example whereby at least each gray-scaled pi
 Can be used for both classification(choose a label) or regression(choose a quantity).
 
 They consist of multiple node layers:
- - First layer takes parameter inputs, is also called input layer
- - Last layer makes predictions, also called output layer
+ - First layer takes parameter inputs, is also called input layer.
+ - Last layer makes predictions, also called output layer.
  - Layers in between called deep layers are optional. Once deep layers are introduced the data becomes non-linearly separable and the name "deep learning" can be used.
 
-An AI will:
-- Predict: Make a prediction based on input, weights and biases, in NN this process is called forward propagation
-- Evaluate: Evaluate prediction compared to expected output, calculate total error by using cost function
-- Adapt: Change weights and biases of neural network to limit the total error, in NN this process is called back propagation
+The input and deep layers all contain one weight per node besides one node per layer containing a bias ([visualize](#math-implementation)). Those weights/biases are constant values forming the mathematical function behind the neural-network making the predictions. Weights are multiplied with input values and thus relative to them while biases are not.
+
+A supervised neural network (NN) will:
+- Predict: Make a prediction based on input, weights and biases, in NN this process is called forward propagation.
+- Evaluate: Evaluate prediction compared to expected output, calculate total error by using cost function.
+- Adapt: Change weights and biases to limit the total error, in NN this process is called back propagation.
 
 ## Neural Network Parameters
 
 
 ### Layers & Nodes
 
-Contains at least an input layer and output layer. Deep layers sit in between. Each layer contains a certain amount of nodes.
+Contains at least an input layer and output layer. Deep/hidden layers sit in between. Each layer contains a certain amount of nodes.
 
-If the data is linearly separable, you do not need any deep layers. Deep layers allow for non-linearity like polynomials would, when polynomials get too complicated neural networks come in. One layer is similar to [linear](https://github.com/artainmo/ft_linear_regression)/[logistic](https://github.com/artainmo/dslr) regression without polynomials.
+If the data is linearly separable, you do not need any deep layers. Deep layers allow for non-linearity like polynomials would. When polynomials get too complicated neural networks come in. One layer is similar to [linear](https://github.com/artainmo/ft_linear_regression)/[logistic](https://github.com/artainmo/dslr) regression without polynomials.
 
 In general one hidden layer is sufficient for the majority of problems.
 
-More deep layers increase the complexity of the neural net which increases computational cost and slows down convergence, but they can improve precision, sometimes too much whereby they create overfitting if data is scarce.
+More deep layers increase the complexity of the NN which increases computational cost and slows down convergence, but they can improve precision, sometimes too much whereby they create overfitting if data is scarce.
 
-For the number of nodes per layer a pyramid structure is used, whereby the number of nodes is highest at input each following deep layer is lower than the prior one and lowest at ouptut. This is a proven node structure to use based on emperical studies, but the question stays open for debate.
+For the number of nodes per layer the convention is to use a pyramid structure, whereby the number of nodes is highest at input and each following deep layer is lower than the prior one thus lowest at ouptut. This is a proven node structure to use based on emperical studies, but the question stays open for debate.
 
 
 ### Gradient descend
 
-Gradient descend in NN uses derivatives or slope of cost function to find the global minima in cost function to minimize the cost by going in opposite direction of gradient. Neural Networks uses partial derivatives for each weight and bias to minimize the error.
+Gradient descend is an optimization algorithm used by NN to find the minimum of a cost function. The cost function describes the NN's error rate and thus the global minima of this function is the goal for minimal errors and thus best NN performace.<br> 
+Gradient descend uses derivatives to find the slope of the cost function. In a NN each weight and bias has own partial derivative, together those are called the gradient. To find the global minima in cost function we go in opposite direction of gradient by substracting each weight/bias with own partial derivative.
 
 
 #### Stochastic:
@@ -105,6 +108,8 @@ Can avoid local minimas or premature convergence but has higher variance in resu
 
 #### Batch:
 
+Before updating the weights and biases, goes over all given training example.
+
 Slow but more computational efficient on big datasets.
 
 Stable convergence but risk of local minima or premature convergence.
@@ -116,7 +121,7 @@ Before updating the weights and biases, goes over b training example.
 
 Mini-batch sits between stochastic and batch, trying to optimize benefits of both, and is the recommended variant of gradient descend.
 
-b variable in NN holds size of batch, often 32 is used as default, some sources recommend number between 2 and 32...
+b variable in NN holds size of batch, often 32 is used as default, some sources recommend number between 2 and 32.
 
 
 ### Learning rate
@@ -126,18 +131,18 @@ Learning rate refers to the size of steps taken towards the global minima.
 Test to find out what learning rate is best, default learning rate used is 0,01.
 
 Learning rate is denoted as alpha.
-* When alpha is too small algorithm needs to perform more steps until convergence and become slower.
-* When alpha is too big potentially no convergence or less precision as it will hover over the minima.
+* When alpha is too small algorithm needs to perform more steps until convergence and thus becomes slower.
+* When alpha is too big there is a risk of potentially no convergence or less precision as it will hover over the minima.
 
-Optimization methods can be used to automatically choose the ideal learing rate.
+[Optimization methods](#OPTIMIZATION-METHODS) can be used to automatically choose the ideal learing rate.
 
 ### Activation function
 
 Used to squash a number within a certain range.
 
-* Linear: output -inf,inf
-* ReLU: rectified linear unit, output 0, +inf, less sensitive to vanishing gradient and non-relevant nodes, less computational cost, most used
-* Tanh: hyperbolic tangent function, output -1,1, could converge faster on larger dataset than sigmoid
+* Linear: output -inf<->+inf
+* ReLU: rectified linear unit, output 0<->+inf, less sensitive to [vanishing gradient](#Vanishing-gradient-problem) and non-relevant nodes, less computational cost, most used
+* Tanh: hyperbolic tangent function, output -1<->1, could converge faster on larger dataset than sigmoid
 * Sigmoid: ouput 0,1
 * Softmax: vector total output = 1
 
@@ -151,9 +156,9 @@ Used to squash a number within a certain range.
 
 #### Deep layer
 
-ReLU, Tanh or sigmoid
+ReLU, Tanh or sigmoid.
 
-Can all be tried in following order: ReLu, Tanh, sigmoid
+Recommended to be tried in following order to find best fit: ReLu, Tanh, sigmoid.
 
 
 ### Cost function
@@ -163,7 +168,7 @@ Is used to calculate total error of the predictions made by the NN.
 Total error is used to indicate NN performance and in back-propagation to adjust the weights and bias accordingly.
 
 * Regression -> mean square error (MSE)
-* classification -> cross entropy
+* Classification -> cross entropy
 
 MSE does not punish misclassification while cross entropy does, this is why cross entropy is prefered for classification but not regression. 
 
