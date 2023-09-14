@@ -140,7 +140,7 @@ Learning rate is denoted as alpha.
 Used to squash a number within a certain range.
 
 * Linear: output -inf_+inf
-* ReLU: rectified linear unit, output 0_+inf, less sensitive to [vanishing gradient](#Vanishing-gradient-problem) and non-relevant nodes, less computational cost, most used
+* ReLU: rectified linear unit, output 0_+inf, less sensitive to [vanishing gradient](#Vanishing-gradient-problem) and [non-relevant nodes](#non-relevant-nodes), less computational cost, most used
 * Tanh: hyperbolic tangent function, output -1_1, could converge faster on larger dataset than sigmoid
 * Sigmoid: ouput 0_1
 * Softmax: vector total output = 1
@@ -258,7 +258,7 @@ Tensorflow also contain parallelized SGD.
 
 #### Gradient nose
 
-Adding nose to each gradient has been shown to make networks more robust towards poor initialization and increase the chance of escaping a local minima, especially in very deep networks.
+Adding nose to each gradient has been shown to make networks more robust towards poor initialization and increase the chance of escaping a local minima, especially in very deep NN.
 
 ## Math implementation
 
@@ -331,7 +331,7 @@ B2 -= dD2
 
 ## Data Preparation & Visualization
 
-y or predicted values and x or features should be separated.
+y or predicted values and x or features should be separated. For x to be used as NN inputs and y in cost function.
 
 
 ### Non-numeric to numeric data
@@ -341,42 +341,46 @@ Features with textual data can be converted into numerical data, each label take
 
 ### Expected/y data
 
-If your NN has multiple output nodes, the y or expected values column, should be transformed not in single values but in vectors with same size as output nodes.
+If your NN has multiple output nodes, the y or expected values column, should be transformed not in single values but in vectors with same size as output nodes. Whereby the nodes that contain correct answer should equal 1 while those that do not 0.
 
 
 ### Normalization
 
-Normalization refers to reducing scale of data and leads to all features being on same scale, elimination of outliers and decreases computational costs.
+Normalization refers to reducing scale of data and leads to all features being on same scale, elimination of outliers and decreases computational costs.<br>
+Normalizing is necessary when you use different features with completely different value scales. It can also help increase the algorithm speed by making it converge quicker, this is useful when the data contains huge values.
 
-* min-max normalization: When we do not want impact of outliers.
-* z-score normalization: When we do want impact of outliers, also avoid problem whereby different data has different max values
+* min-max normalization: When we do not want impact of outliers, output 0_1.
+* z-score normalization: When we do want impact of outliers, output mean of 0 and a standard deviation of 1.
 
 
 ### Data Splitting
 
-Data can further be split into training data and test data (0.8 - 0.2 recommended ratio), training data is used to train the NN and test data to verify overfitting. Also possible training, test and validation set (0.6, 0.2, 0.2).
+Data can further be split into training dataset and test dataset (0.8 - 0.2 recommended ratio), training dataset is used to train the NN and test dataset to verify overfitting. 
 
-Relaunching fit function multiple times, to find good random splitting for data splitting but potentially weight init too, is possible.
+Also possible is to use training, validation and test dataset (0.6, 0.2, 0.2). Whereby the validation dataset is used to monitor the model's performance and fine-tune NN parameters accordingly during training.<br>
+To be more precise the validation dataset is used to evaluate overfitting after each training epoch (or a batch of epochs). This evaluation allows for NN parameter tuning, especially regularization parameters to limit overfitting such as the early-stop or dropout methods. It could also help adjust learning-rates or other parameters to avoid local-minima.
+
+Relaunching fit function multiple times, to find good random splitting for data splitting but potentially random weight init too, is possible.
 
 ### Describe
 
 Describe function goes over each feature in data and looks at different analytical parameters:
 * See if data is correct in terms of numbers, are there missing values?
-* See if data needs to be normalized? Big values or already small? Different features same scale? Alot of outliers?
+* See if data needs to be normalized? Big values or already small? Different features same scale? A lot of outliers?
 
-Skewness, gives normal distribution of values or measure of symmetry, 0 is symmetrical, +0.5 / -0.5 moderately skewed, +1/-1 is highly skewed, skewed data indicates outliers in tail region.
+One way of handling missing values is to replace them by the mean of that feature.
 
-Kurtosis result high number means the dataset has lots of outliers, outliers can be good or not, if not they can be removed or min-max normalization can be used
+Skewness, gives normal distribution of values or measure of symmetry, 0 is symmetrical, +0.5/-0.5 moderately skewed, +1/-1 is highly skewed, skewed data indicates outliers in tail region.
+
+Kurtosis, when resulting in high number means the dataset has lots of outliers, outliers can be good or not, if not they can be removed or min-max normalization can be used.
 
 ### Pairplot
 
-Pair-plot compares two features over the different classes, in a line plot and scatterplot:
+Pair-plot visually compares two features over the different classes, in a line-plot and scatter-plot:
 
-* Scatterplots are useful to find correlations and homogeneity between two features.
-If two features are homogenous, one of them has low predictive power and can be eliminated.
+* Scatter-plots are useful to find correlations and homogeneity between two features. If two features are homogenous, one of them has low predictive power and can be eliminated.
 
-* Line plots are useful to find correlations between classes in one feature
-Features that are homogenous or have low variation over the classes are not interesting as they have low predictive power.
+* Line-plots are useful to find correlations between classes relative to one feature. A feature that is homogenous, has low variation over the classes, is not interesting as it has low predictive power, thus can be removed.
 
 ## Debugging a Learning algorithm
 ### Evaluation
@@ -385,43 +389,48 @@ There are two types of errors that occur in a classification algorithm:
 * False positives, or predicting "yes", while the expected answer was "no"
 * False negatives, or predicting "no", while the expected answer was "yes"
 
-In sigmoid probabilities to answer functions, you can for example change the "division point" to aim more at minimizing one error or the other.
+When predicting an answer the activation function sigmoid can be used to squash the answer between 0 and 1. If the answer is <0.5 we predict 0 or "no" else we predict 1 or "yes". This 0.5 can be called the "division point". By moving the division point up or down we can try to limit false positives or false negatives.
 
 Different measures are used:
-* Accuracy score: Gives % of correct answers
-* precision score: Appropriate when trying to minimize false positives
-* Recall score: Appropriate when trying to minimize false negatives
-* f1 score: Is combination of precision and recall, used when trying to maximize both false positives and negatives
-* Confusion matrix: Gives an overview of both false negatives and positives
+* Accuracy score: Gives % of correct answers.
+* precision score: Appropriate when trying to minimize false positives.
+* Recall score: Appropriate when trying to minimize false negatives.
+* f1 score: Is combination of precision and recall, used when trying to optimize both false positives and negatives.
+* Confusion matrix: Gives an overview of both false negatives and positives.
 
 ### Overfitting
 
-HIGH VARIANCE: High variance between training sets, means very precise on each training set, leads to overfitting.
-* Increasing regularization can lower high variance
-* Smaller sets of features can lower high variance
-* More training data
+Overfitting can be detected when a NN performs very good on training dataset but not on test dataset. It means the NN got very specialized on training dataset which did not translate to test dataset performance due to lack of generalization. The risk of overfitting heightens when having a small training dataset and when the NN is highly optimized on that training dataset.
+
+**High variance** refers to significant performance differences of the NN on training vs test datasets. Thus high variance can be an indication of overfitting.
+
+* Increasing [regularization](#Regularization) can lower high variance.
+* Smaller sets of features can lower high variance.
+* More training data can lower high variance.
 
 ### Underfitting
+Underfitting is a phenomenon that occurs when a model is too simple to capture the underlying patterns in the data. It essentially means that the model is not able to learn the training data well, and as a result, it performs poorly not only on the training dataset but also on unseen or test dataset.
 
-HIGH BIAS: Bias acts as strong suggestor, suggesting too much can lead to under-fitting on test sets
-* Decreasing regularization can lower high bias
-* Extra features can lower high bias
-* Adding polynomials or deep layers can lower high bias
+Biases act as strong suggestors, thus too much of it can lead to underfitting, this phenomenon is also called **high bias**.
+
+* Decreasing regularization can lower high bias.
+* Extra features can lower high bias.
+* Adding polynomials or deep layers can lower high bias.
 
 ### Vanishing gradient problem 
-Small values are slow to change/learn, leading to no/slow convergence, problem when weights are initialized to zero for example.
+Small values are slow to change/learn, leading to no/slow convergence, a problem that occurs when weights are initialized to zero for example.
 
-Proper weight initialization can help.
+Proper [weight initialization](#Weight--bias-init) can help.
 
 ### Local/global minima
-Gradient descend weak point is to get stuck in the local minima instead of continuing towards the global minima as it can difficultly know when it arrived at the global minima or not. Local minima are low cost points whereby the cost increases afterward, but later on decrease even more to a potential global minima, global minima being the lowest cost point. 
+Gradient descend weak point is to get stuck in a local minima instead of continuing towards the global minima as it can be difficult to know when it arrived at the global minima or not. Local minima are low cost points whereby the cost increases afterwards, but later on decrease even more to a potential global minima, global minima being the lowest cost point. 
 
-SGD and momentum optimization method can help.
+SGD and [momentum optimization method](#MOMENTUM-AND-NESTEROV-METHODS) can help.
 
 ### Non-relevant nodes
 Some nodes that are not relevant and should be deactivated by the activation function setting its value to 0. 
 
-ReLU and proper data features selection can help.
+[ReLU](#activation-function) and proper data features selection can help.
 
 ### Gradient checking
 
