@@ -1,6 +1,6 @@
 # natural-language-processing and LLM
 ## Table of contents
-- [DeepLearning.AI course: Natural Language Processing Specialization](DeepLearning.AI-course:-Natural-Language-Processing-Specialization)
+- [DeepLearning.AI course: Natural Language Processing Specialization](#deeplearningai-course-natural-language-processing-specialization)
 - [Resources](#Resources)
 
 ## DeepLearning.AI course: Natural Language Processing Specialization
