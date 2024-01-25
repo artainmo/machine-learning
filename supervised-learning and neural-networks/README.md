@@ -1,4 +1,4 @@
-# neural-networks and supervised learning
+# supervised learning and neural-networks
 ## Table of contents
 - [Before reading](#Before-Reading)
 - [Introduction](#INTRODUCTION)
