@@ -455,4 +455,4 @@ Gradient checking is used to debug back-propagation, by estimating them with num
 Post learning, neural-network and data processing practice:
 * [Neural network library.](https://github.com/artainmo/NeuralNetworkLib)
 * [Use neural networks to predict breast cancer malignancy.](https://github.com/artainmo/multilayer_perceptron)
-* [Process EEG datas by cleaning, extracting, creating a ML pipeline implementing a dimensionality reduction algorithm before classifying and handling a real time data-stream with sklearn. Also contains some associated notes from studying.](https://github.com/artainmo/total_perspective_vortex/)
+* [Process EEG datas by cleaning, extracting, creating a ML pipeline implementing a dimensionality reduction algorithm before classifying and handling a real time data-stream with sklearn. Also contains some associated notes to find the right classifier.](https://github.com/artainmo/total_perspective_vortex/)
