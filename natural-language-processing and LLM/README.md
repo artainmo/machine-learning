@@ -50,7 +50,11 @@ P(X|Y) = P(Y|X) x P(X)/P(Y)
 The Bayes' rule will be used at multiple occasions in NLP. It allows to find the probability of X given Y (P(X|Y)) if the probability of Y given X (P(Y|X)) is already known.
 
 #### Naïve Bayes
-Naïve bayes is a quick classifier that can be used in NLP. It is a supervised learning method that shares similarities with previously reviewed logistic regression. 
+Naïve bayes is a quick and simple classifier that can be used in NLP. It is a supervised learning method that shares similarities with previously reviewed logistic regression. It is called naïve because it makes the assumption that all features are independent which in reality is rarely the case.
+
+If doing sentiment analysis of tweets, similarly as before, you need to start by creating a negative and positive frequency dictionary. From this we can extract the total amount of words present in positive and negative tweets. Following this, we will calculate the conditional probability of each word given the class (here positive or negative). For this we will divide the frequency of each word by the amount of words per class. For example if 13 words exist in positive tweets and the word happy comes forward 2 times in positive tweets, the associated conditional probability will equal 2/13. From this we will create a new dictionary of conditional probabilities. Certain words will have a nearly similar conditional probability between classes, those will be of no predictive value.
+
+When predicting the sentiment of a tweet we will use the conditional probability dictionary and follow the naïve bayes inference condition rule for binary classification. Each word of the tweet has an associated conditional probability for the positive and negative class. We will take the conditional probability of the positive class divided by the conditional probability of the negative class for each word and multiple them between words. This will give us in the end a number larger than 1 if the prediction says the tweet to be positive and smaller than 1 if the prediction says the tweet to be negative.
 
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization](https://www.coursera.org/specializations/natural-language-processing)
