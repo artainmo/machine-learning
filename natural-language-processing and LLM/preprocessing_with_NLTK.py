@@ -61,3 +61,5 @@ for word in tweets_clean:
     tweets_stem.append(stemmer.stem(word))
 print("\033[92m", end='')
 print(tweets_stem)
+
+
