@@ -33,6 +33,25 @@ While training we need to find the theta values that minimizes the cost. To do t
 
 Data should be split in training and test data set. The training set is used for training and the test set is used after training to see if predictions generalize well on previously unseen data.
 
+### Week 2: Sentiment Analysis with Naïve Bayes
+#### Probability
+Probability is of fundamental value in NLP. One way of evaluating probabilities is by counting how frequently an event occurs among other events. For example the probability of a tweet being positive (P(positive)) is equal to the amount of positive tweets divided by the total amount of tweets. 
+
+Conditional probabilities add a condition, for example what is the probability that a positive tweet contains the word 'happy' (P("happy"|positive)). The answer is the total amount of positive and 'happy' containing tweets divided by the total amount of positive tweets. Conditional probabilities basically evaluate the probability of event B given that A happened (P(A|B)) and are calculated by dividing A and B containing events (P(A ∩ B)) by B containing events (P(B)).
+
+#### Bayes' Rule
+Bayes' rule is derived from the above described conditional probabilities' formula and goes as follows, the probability of X given Y (P(X|Y)) is equal to the probability of Y given X (P(Y|X)) times the ratio of X (P(X)) over Y (P(Y)).
+
+The complete formula:
+```
+P(X|Y) = P(Y|X) x P(X)/P(Y)
+```
+
+The Bayes' rule will be used at multiple occasions in NLP. It allows to find the probability of X given Y (P(X|Y)) if the probability of Y given X (P(Y|X)) is already known.
+
+#### Naïve Bayes
+Naïve bayes is a quick classifier that can be used in NLP. It is a supervised learning method that shares similarities with previously reviewed logistic regression. 
+
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization](https://www.coursera.org/specializations/natural-language-processing)
 * [codecademy - Apply Natural Language Processing with Python](https://www.codecademy.com/learn/paths/natural-language-processing)
