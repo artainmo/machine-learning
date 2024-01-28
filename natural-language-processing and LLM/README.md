@@ -62,7 +62,14 @@ Log likelihoods are logarithms of the previously seen conditional probabilities.
 
 When taking our conditional probabilities dictionary we can calculate for each word the ratio between its probabilities per class. Thus here we divide the probability of a word being positive by the probability of the word being negative. If the ratio equals 1 we know it has a neutral sentiment while a ratio greater than 1 has a positive sentiment and a ratio smaller than 1 has a negative sentiment.
 
-Underflow consists of numbers being so small a computer cannot handle it. We are at risk of that when multiplying small numbers as we do in Naïve Bayes. To avoid this we use logarithms. Lambda is the logarithm of the probability ratio. A lambda equal to 0 indicates a neutral sentiment, greater than 0 a positive sentiment and smaller than 0 a negative sentiment. From those lambda we can create a lambda dictionary that can be used to calculate the log likelihood by summing the lambdas of each word in a phrase. If this score equals 0 the sentiment prediction is neutral, higher positive and lower negative.
+Underflow consists of numbers being so small a computer cannot handle it. We are at risk of that when multiplying small numbers as we do in Naïve Bayes. To avoid this we use logarithms. Lambda is the logarithm of the probability ratio. A lambda equal to 0 indicates a neutral sentiment, greater than 0 a positive sentiment and smaller than 0 a negative sentiment. From those lambda we can create a lambda dictionary that can be used to calculate the log likelihood by summing the lambdas of each word in a phrase. To get the prediction score we need to sum the log likelihood with log prior which consists of the logarithm of amount of positive tweets divided by amount of negative tweets. If this score equals 0 the sentiment prediction is neutral, higher positive and lower negative.
+
+#### Training Naïve Bayes
+1. The first step consists of getting annotated data. Meaning for example tweets and them being annotated as positive or negative. This data will afterwards need to be preprocessed as seen in week 1.
+2. Create a frequency dictionary.
+3. Transform the frequency dictionary into a conditional probability dictionary.
+4. Transform the conditional probability dictionary into a lambda dictionary.
+5. Calculate the log prior by taking the logarithm of the amount of positive tweets divided by the amount of negative tweets.
 
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization](https://www.coursera.org/specializations/natural-language-processing)
