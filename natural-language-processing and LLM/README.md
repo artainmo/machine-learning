@@ -57,6 +57,13 @@ Laplacian Smoothing is a technique used to avoid a conditional probability of 0 
 
 When predicting the sentiment of a tweet we will use the conditional probability dictionary and follow the naïve bayes inference condition rule for binary classification. Each word of the tweet has an associated conditional probability for the positive and negative class. We will take the conditional probability of the positive class divided by the conditional probability of the negative class for each word and multiple them between words. This will give us in the end a number larger than 1 if the prediction says the tweet to be positive and smaller than 1 if the prediction says the tweet to be negative.
 
+#### Log Likelihood
+Log likelihoods are logarithms of the previously seen conditional probabilities. They are more convenient to work with, are used in deep learning and NLP.
+
+When taking our conditional probabilities dictionary we can calculate for each word the ratio between its probabilities per class. Thus here we divide the probability of a word being positive by the probability of the word being negative. If the ratio equals 1 we know it has a neutral sentiment while a ratio greater than 1 has a positive sentiment and a ratio smaller than 1 has a negative sentiment.
+
+Underflow consists of numbers being so small a computer cannot handle it. We are at risk of that when multiplying small numbers as we do in Naïve Bayes. To avoid this we use logarithms. Lambda is the logarithm of the probability ratio. A lambda equal to 0 indicates a neutral sentiment, greater than 0 a positive sentiment and smaller than 0 a negative sentiment. From those lambda we can create a lambda dictionary that can be used to calculate the log likelihood by summing the lambdas of each word in a phrase. If this score equals 0 the sentiment prediction is neutral, higher positive and lower negative.
+
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization](https://www.coursera.org/specializations/natural-language-processing)
 * [codecademy - Apply Natural Language Processing with Python](https://www.codecademy.com/learn/paths/natural-language-processing)
