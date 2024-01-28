@@ -76,6 +76,13 @@ We will test by making predictions using lambda dictionary and log prior on test
 
 When predicting on unseen data it is possible some words are not to be found in lambda dictionary built with training set. Those words will be considered neutral.
 
+#### Applications and assumptions of Naïve Bayes
+Naïve Bayes simply predicts using the ratio between conditional probabilities of different classes for each feature. Initially it was often used for information retrievel, based on keywords it is able to filter relevant text from non-relevant text. Next to sentiment analysis it can also be used for author authentification which consists of predicting if a text is written by a certain author. Or it can be used for spam filtering of for example emails. It can also be used for word disambiguity which consists of infering the correct definition of a word, that has multiple, from the context it is being used in. 
+
+Naïve Bayes is fast and simple. Not the most accurate but still robust.
+
+In Naïve Bayes different features are assumed to be independent. Thus for text, different words are considered independent from one another while they are not. Different words in a phrase can be related and them being together would be of predictive value. Also Naïve Bayes assumes training samples to be of similar size between classes which is not always the case. Because of those assumptions we call this method 'naïve'.
+
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization](https://www.coursera.org/specializations/natural-language-processing)
 * [codecademy - Apply Natural Language Processing with Python](https://www.codecademy.com/learn/paths/natural-language-processing)
