@@ -71,6 +71,11 @@ Underflow consists of numbers being so small a computer cannot handle it. We are
 4. Transform the conditional probability dictionary into a lambda dictionary.
 5. Calculate the log prior by taking the logarithm of the amount of positive tweets divided by the amount of negative tweets.
 
+#### Testing Naïve Bayes
+We will test by making predictions using lambda dictionary and log prior on test set, after preprocessing that test set of course. We make predictions by summing log prior with log likelihood that we calculated by summing lambda values of associated words. Predictions are then compared with true labels and accuracy score is calculated from that by dividing correct predictions by total amount of made predictions for test set.
+
+When predicting on unseen data it is possible some words are not to be found in lambda dictionary built with training set. Those words will be considered neutral.
+
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization](https://www.coursera.org/specializations/natural-language-processing)
 * [codecademy - Apply Natural Language Processing with Python](https://www.codecademy.com/learn/paths/natural-language-processing)
