@@ -83,6 +83,11 @@ Naïve Bayes is fast and simple. Not the most accurate but still robust.
 
 In Naïve Bayes different features are assumed to be independent. Thus for text, different words are considered independent from one another while they are not. Different words in a phrase can be related and them being together would be of predictive value. Also Naïve Bayes assumes training samples to be of similar size between classes which is not always the case. Because of those assumptions we call this method 'naïve'.
 
+#### Error analysis
+Removing punctuations during preprocessing can sometimes contribute to errors. For example this ':)' could be of predictive value in sentiment analysis. Also during preprocessing neutral words when combined with other words can be of predictive value and thus should not be removed. For example the neutral word 'not' when combined with 'good' would become 'not good' and indicate a negative sentiment while removing it and leaving 'good' alone would indicate a positive sentiment. Similarly word order can be of importance, if the word 'not' appears before 'good' it would indicate a negative sentiment while if it would appear elsewhere it may be neutral.
+
+Adversarial attacks consist of phrases containing sarcasm, irony, euphemisms... Those can contain words not aligned with the actual sentiment and thus be confusing.
+
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization](https://www.coursera.org/specializations/natural-language-processing)
 * [codecademy - Apply Natural Language Processing with Python](https://www.codecademy.com/learn/paths/natural-language-processing)
