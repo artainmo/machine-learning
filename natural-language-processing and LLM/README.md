@@ -115,15 +115,25 @@ Vector space models are used in information extraction to answer basic questions
 Vector space models are able to identify the context around each word in a text which allows the identification of the relative meaning of the text.
 
 #### Construct vectors
-Words or documents can be encoded as vectors who are constructed based off a co-occurrence matrix. A co-occurrence matrix can capture relationships and patterns between items within a given dataset. In natural language processing a co-occurrence matrix often represents the frequency of occurrence of words within a specific context. Each cell in the matrix represents the number of times two items (such as words) appear together within a predefined window of text. For example, in a co-occurrence matrix for a set of documents, the rows might represent words in a vocabulary, and the columns might represent documents. Each cell then contains the frequency with which a particular word occurs in a particular document.
+Words or documents can be encoded as vectors who are constructed based off a co-occurrence matrix. A co-occurrence matrix can capture relationships and patterns between items within a given dataset. 
 
-The co-occurrence of two different words is the number of times they appear in the corpus together within a certain word distance (k). If words are right next to each other, k is equal to 1, if one word sits between, k is equal to 2...
-
+The co-occurrence of two different words is the number of times they appear in the corpus together within a certain word distance (k). If words are right next to each other, k is equal to 1, if one word sits between, k is equal to 2...<br>
 For example if we have the two folowing tweets: '*I like simple data*' and '*I prefer simple raw data*'. A word-by-word co-occurence matrix with k equal to 2 would look like:
 
 |      | simple | raw | like | prefer | I   |
 | ---- | ------ | --- | ---- | ------ | --- |
 | data | 2      | 1   | 1    | 0      | 0   |
+
+In natural language processing a co-occurrence matrix often represents the occurrence of words within a specific context. Each cell in the matrix represents the number of times two items (such as words) appear together within a predefined window of text.
+
+For a word-by-document design you need to count the occurence of a word in documents that belong to a certain category. For example you could have a corpus consisting of documents belonging to categories such as entertainment, economy or machine-learning. To create a word-by-document occurence matrix you would have to indicate the number of times each word appears in each category of documents.
+
+|      | entertainment | economy | machine-learning |
+| ---- | ------------- | ------- | ---------------- |
+| data | 500           | 6620    | 9320             |
+| film | 7000          | 4000    | 1000             |
+
+By comparing the values between columns you can extract the degree of similarity or other relationships between those columns.
 
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization](https://www.coursera.org/specializations/natural-language-processing)
