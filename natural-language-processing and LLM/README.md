@@ -9,7 +9,7 @@
     - [Overview of logistic regression](#Overview-of-logistic-regression)
   - [Week 2: Sentiment Analysis with Naïve Bayes](#Week-2-Sentiment-Analysis-with-Naïve-Bayes)
     - [Probability](#Probability)
-    - [Bayes' Rule](#Bayes'-Rule)
+    - [Bayes' Rule](#bayes-rule)
     - [Naïve Bayes](#Naïve-Bayes)
     - [Log Likelihood](#Log-Likelihood)
     - [Training Naïve Bayes](#Training-Naïve-Bayes)
