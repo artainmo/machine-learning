@@ -1,6 +1,21 @@
 # natural-language-processing and LLM
 ## Table of contents
 - [DeepLearning.AI course: Natural Language Processing Specialization](#deeplearningai-course-natural-language-processing-specialization)
+  - [Week 1: Sentiment Analysis with logistic regression](#Week-1:-Sentiment-Analysis-with-logistic-regression)
+    - [Introduction](#Introduction)
+    - [Extract features](#Extract-features)
+    - [Preprocessing](#Preprocessing)
+    - [Create a matrix of features](#Create-a-matrix-of-features)
+    - [Overview of logistic regression](#Overview-of-logistic-regression)
+  - [Week 2: Sentiment Analysis with Naïve Bayes](#Week-2:-Sentiment-Analysis-with-Naïve-Bayes)
+    - [Probability](#Probability)
+    - [Bayes' Rule](#Bayes'-Rule)
+    - [Naïve Bayes](#Naïve-Bayes)
+    - [Log Likelihood](#Log-Likelihood)
+    - [Training Naïve Bayes](#Training-Naïve-Bayes)
+    - [Testing Naïve Bayes](#Testing-Naïve-Bayes)
+    - [Applications and assumptions of Naïve Bayes](#Applications-and-assumptions-of-Naïve-Bayes)
+    - [Error analysis](#Error-analysis)
 - [Resources](#Resources)
 
 ## DeepLearning.AI course: Natural Language Processing Specialization
