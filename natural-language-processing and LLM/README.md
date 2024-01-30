@@ -1,7 +1,7 @@
 # natural-language-processing and LLM
 ## Table of contents
 - [DeepLearning.AI course: Natural Language Processing Specialization](#deeplearningai-course-natural-language-processing-specialization)
-  - [Week 1: Sentiment Analysis with logistic regression](##week-1-sentiment-analysis-with-logistic-regression)
+  - [Week 1: Sentiment Analysis with logistic regression](#week-1-sentiment-analysis-with-logistic-regression)
     - [Introduction](#Introduction)
     - [Extract features](#Extract-features)
     - [Preprocessing](#Preprocessing)
