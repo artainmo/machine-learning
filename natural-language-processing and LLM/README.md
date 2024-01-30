@@ -114,6 +114,17 @@ Vector space models are used in information extraction to answer basic questions
 
 Vector space models are able to identify the context around each word in a text which allows the identification of the relative meaning of the text.
 
+#### Construct vectors
+Words or documents can be encoded as vectors who are constructed based off a co-occurrence matrix. A co-occurrence matrix can capture relationships and patterns between items within a given dataset. In natural language processing a co-occurrence matrix often represents the frequency of occurrence of words within a specific context. Each cell in the matrix represents the number of times two items (such as words) appear together within a predefined window of text. For example, in a co-occurrence matrix for a set of documents, the rows might represent words in a vocabulary, and the columns might represent documents. Each cell then contains the frequency with which a particular word occurs in a particular document.
+
+The co-occurrence of two different words is the number of times they appear in the corpus together within a certain word distance (k). If words are right next to each other, k is equal to 1, if one word sits between, k is equal to 2...
+
+For example if we have the two folowing tweets: '*I like simple data*' and '*I prefer simple raw data*'. A word-by-word co-occurence matrix with k equal to 2 would look like:
+
+|      | simple | raw | like | prefer | I   |
+| ---- | ------ | --- | ---- | ------ | --- |
+| data | 2      | 1   | 1    | 0      | 0   |
+
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization](https://www.coursera.org/specializations/natural-language-processing)
 * [codecademy - Apply Natural Language Processing with Python](https://www.codecademy.com/learn/paths/natural-language-processing)
