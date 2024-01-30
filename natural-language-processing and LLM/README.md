@@ -71,6 +71,23 @@ Underflow consists of numbers being so small a computer cannot handle it. We are
 4. Transform the conditional probability dictionary into a lambda dictionary.
 5. Calculate the log prior by taking the logarithm of the amount of positive tweets divided by the amount of negative tweets.
 
+#### Testing Naïve Bayes
+We will test by making predictions using lambda dictionary and log prior on test set, after preprocessing that test set of course. We make predictions by summing log prior with log likelihood that we calculated by summing lambda values of associated words. Predictions are then compared with true labels and accuracy score is calculated from that by dividing correct predictions by total amount of made predictions for test set.
+
+When predicting on unseen data it is possible some words are not to be found in lambda dictionary built with training set. Those words will be considered neutral.
+
+#### Applications and assumptions of Naïve Bayes
+Naïve Bayes simply predicts using the ratio between conditional probabilities of different classes for each feature. Initially it was often used for information retrievel, based on keywords it is able to filter relevant text from non-relevant text. Next to sentiment analysis it can also be used for author authentification which consists of predicting if a text is written by a certain author. Or it can be used for spam filtering of for example emails. It can also be used for word disambiguity which consists of infering the correct definition of a word, that has multiple, from the context it is being used in. 
+
+Naïve Bayes is fast and simple. Not the most accurate but still robust.
+
+In Naïve Bayes different features are assumed to be independent. Thus for text, different words are considered independent from one another while they are not. Different words in a phrase can be related and them being together would be of predictive value. Also Naïve Bayes assumes training samples to be of similar size between classes which is not always the case. Because of those assumptions we call this method 'naïve'.
+
+#### Error analysis
+Removing punctuations during preprocessing can sometimes contribute to errors. For example this ':)' could be of predictive value in sentiment analysis. Also during preprocessing neutral words when combined with other words can be of predictive value and thus should not be removed. For example the neutral word 'not' when combined with 'good' would become 'not good' and indicate a negative sentiment while removing it and leaving 'good' alone would indicate a positive sentiment. Similarly word order can be of importance, if the word 'not' appears before 'good' it would indicate a negative sentiment while if it would appear elsewhere it may be neutral.
+
+Adversarial attacks consist of phrases containing sarcasm, irony, euphemisms... Those can contain words not aligned with the actual sentiment and thus be confusing.
+
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization](https://www.coursera.org/specializations/natural-language-processing)
 * [codecademy - Apply Natural Language Processing with Python](https://www.codecademy.com/learn/paths/natural-language-processing)
