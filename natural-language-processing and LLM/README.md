@@ -103,6 +103,17 @@ Removing punctuations during preprocessing can sometimes contribute to errors. F
 
 Adversarial attacks consist of phrases containing sarcasm, irony, euphemisms... Those can contain words not aligned with the actual sentiment and thus be confusing.
 
+### Week 3: Vector Space Models
+#### Vector space models
+Representing vector spaces as word vectors is fundamental to NLP because all NLP models start by transforming text/words into numerical encodings.
+
+Vector space models help identify if word groups share similar meanings even if they don't consist of similar words. For example 'What is your age?' and 'How old are you?' share similar meanings but not composition of words.<br>
+Vector space models allow capturing dependencies between words. For example in the phrase 'You eat cereal from a bowl', cereal is dependent to bowl, or in the phrase 'you buy something and someone else sells it' the action of selling depends on the initial action of buying.
+
+Vector space models are used in information extraction to answer basic questions, but also in machine translation (AIs translating texts from one human language to another) and chatbots among other applications.
+
+Vector space models are able to identify the context around each word in a text which allows the identification of the relative meaning of the text.
+
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization](https://www.coursera.org/specializations/natural-language-processing)
 * [codecademy - Apply Natural Language Processing with Python](https://www.codecademy.com/learn/paths/natural-language-processing)
