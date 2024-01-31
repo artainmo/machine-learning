@@ -135,6 +135,22 @@ For a word-by-document design you need to count the occurence of a word in docum
 
 By comparing the values between columns you can extract the degree of similarity or other relationships between those columns.
 
+#### Euclidian distance and cosine similarity
+Euclidian distance is a similarity metric that allows to identify how far two points or two vectors are from each other.
+
+Vectors can be represented as points in the vector space. The distance between those points gives us the Euclidian distance. The distance between two points is calculated with the following formula `d=√((x2 – x1)² + (y2 – y1)²)`. To get the Euclidian distance of n-dimensional vectors we need to loop over all the dimensions and sum their distance as indicated with following formula `√(N∑i=1(vi-wi)²)`. If we take the above table and want to calculate the Euclidian distance between the economy and machine-learning columns, we would get √((9320-6620)² + (1000-4000)²). This formula is same as the norm of the difference between vectors which can be implemented in python as follows `d = np.linalg.norm(v-w)`. 
+
+Cosine similarity is another similarity metric and uses the cosine of the angle between two vectors which indicates if those vectors are close to each other or not, thus how similar they are.
+
+Euclidean distance as a similarity metric can lack precision when documents are of different sizes. Cosine similarity can better represent the similarity between two vectors representing documents of different sizes because it uses angles and thus is not dependent on the size of the corpus.
+
+To calculate the cosine similarity we use the dot product and norm of vectors. The norm or magnitude of a vector is calculated with the square root of the sum of its squared elements `||v|| = √(N∑i=1(vi²))`. The dot product is the sum of elements within the product of two vectors `v.w = N∑i=1(vi.wi)`. The cosine of the angle between two vectors is calculated by taking the dot product between those vectors and dividing it by the product of the norm of those two vectors `cos(β) = (v.w) / (||v|| ||w||)`. A cosine of value 0 equates an angle of 90°, a cosine of value 1 equates an angle of 0°. Thus the closer to 1 a cosine, the more similar the two vectors.
+
+#### Manipulating word vectors
+By the use of known relationships between words we can find unknown relationships between other words. This is possible due to vector spaces capturing the relative meaning of words within a context.
+
+If one word vector represents the USA, another its capital Washington and we know the word vector of Russia but not its capital, then we can find the capital of Russia via the relationship between the USA and Washington. By substracting the word vector Washington with word vector USA we get a vector representing their relationship. If we addition this relationship vector with word vector Russia we should get the word vector representing Russia's capital. However if no existing word vector is to be found there, we need to find the closest one to that vector using cosine similarity or Euclidian distance. Then we should find Moscow as being the closest word vector and thus the capital of Russia.
+
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization](https://www.coursera.org/specializations/natural-language-processing)
 * [codecademy - Apply Natural Language Processing with Python](https://www.codecademy.com/learn/paths/natural-language-processing)
