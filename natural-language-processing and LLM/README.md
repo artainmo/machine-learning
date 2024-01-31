@@ -151,6 +151,11 @@ By the use of known relationships between words we can find unknown relationship
 
 If one word vector represents the USA, another its capital Washington and we know the word vector of Russia but not its capital, then we can find the capital of Russia via the relationship between the USA and Washington. By substracting the word vector Washington with word vector USA we get a vector representing their relationship. If we addition this relationship vector with word vector Russia we should get the word vector representing Russia's capital. However if no existing word vector is to be found there, we need to find the closest one to that vector using cosine similarity or Euclidian distance. Then we should find Moscow as being the closest word vector and thus the capital of Russia.
 
+#### Visualization and PCA
+Often, word vectors will contain a high amount of dimensions. You want to reduce those dimensions to 2 if you want to visualize them by plotting them on an XY axis. Principal component analysis (PCA) is an unsupervised dimensionality reduction algorithm allowing this.
+
+Visualization can help see the relationship between words in the vector space. When plotting, note that words with similar part of speech (POS) tags are next to one another. This is because many of the training algorithms learn words by identifying the neighboring words. Thus, words with similar POS tags tend to be found in similar locations.
+
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization](https://www.coursera.org/specializations/natural-language-processing)
 * [codecademy - Apply Natural Language Processing with Python](https://www.codecademy.com/learn/paths/natural-language-processing)
