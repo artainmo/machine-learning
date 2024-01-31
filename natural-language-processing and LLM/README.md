@@ -112,7 +112,7 @@ Vector space models allow capturing dependencies between words. For example in t
 
 Vector space models are used in information extraction to answer basic questions, but also in machine translation (AIs translating texts from one human language to another) and chatbots among other applications.
 
-Vector space models are able to identify the context around each word in a text which allows the identification of the relative meaning of the text.
+Vector space models are able to identify the context around each word in a text, which allows the identification of the relative meaning of the text.
 
 #### Construct vectors
 Words or documents can be encoded as vectors who are constructed based off a co-occurrence matrix. A co-occurrence matrix can capture relationships and patterns between items within a given dataset. 
@@ -154,7 +154,7 @@ If one word vector represents the USA, another its capital Washington and we kno
 #### Visualization and PCA
 Often, word vectors will contain a high amount of dimensions. You want to reduce those dimensions to 2 if you want to visualize them by plotting them on an XY axis. Principal component analysis (PCA) is an unsupervised dimensionality reduction algorithm allowing this.
 
-Visualization can help see the relationship between words in the vector space. When plotting, note that words with similar part of speech (POS) tags are next to one another. This is because many of the training algorithms learn words by identifying the neighboring words. Thus, words with similar POS tags tend to be found in similar locations.
+Visualization can help see the relationship between words in the vector space. When plotting, note that words with similar part of speech (POS) tags are next to one another. POS tags indicate a word in a text (corpus) as corresponding to a particular part of speech, based on both its definition and its context. Words with similar POS come together because many of the training algorithms learn words by identifying the neighboring words.
 
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization](https://www.coursera.org/specializations/natural-language-processing)
