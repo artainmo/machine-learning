@@ -156,6 +156,13 @@ Often, word vectors will contain a high amount of dimensions. You want to reduce
 
 Visualization can help see the relationship between words in the vector space. When plotting, note that words with similar part of speech (POS) tags are next to one another. POS tags indicate a word in a text (corpus) as corresponding to a particular part of speech, based on both its definition and its context. Words with similar POS come together because many of the training algorithms learn words by identifying the neighboring words.
 
+Covariance is the mean value of the product of the deviations of two variates from their respective means. A positive covariance indicates that both variates tend to be high or low at same time (similar direction) while a negative covariance indicates that if one variate is high the other will be low (opposite direction).
+A covariance matrix is a square matrix giving the covariance between each element pair in a vector.
+
+PCA uses the Eigenvalues and Eigenvectors of our covariance matrix to reduce dimensions while retaining as much salient information as possible. Eigenvectors of covariance matrices give directions of uncorrelated features and Eigenvalues indicate the variance of your data in each of these new features.
+
+For PCA the first step is to get a set of uncorrelated features. You may normalize your data. Then get your covariance matrix and perform a singular value decomposition (SVD) to get a set of three matrices. The first matrix will contain the Eigenvectors stacked column-wise, and the second matrix holds the Eigenvalues on its diagonal. SVD is already implemented in many programming libraries. The next step is to project our data on a new set of features. First you will perform the dot product between the initial uncorrelated features and the first n (n=2 if wanting to plot on XY axis) columns of the Eigenvectors matrix. The Eigenvector is used as a transformation matrix that will maximize the variance of one class and minimize the variance of another class with the goal of maximizing the differences between the two classes. Eigenvectors and Eigenvalues should be organized by the Eigenvalues in descending order. This will allow us to select the first n eigenvectors. Because they come first they will be associated with the highest eigenvalue magnitudes and thus be the most discriminative. However most libraries order those matrices for you.
+
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization](https://www.coursera.org/specializations/natural-language-processing)
 * [codecademy - Apply Natural Language Processing with Python](https://www.codecademy.com/learn/paths/natural-language-processing)
