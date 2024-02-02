@@ -163,6 +163,17 @@ PCA uses the Eigenvalues and Eigenvectors of our covariance matrix to reduce dim
 
 For PCA the first step is to get a set of uncorrelated features. You may normalize your data. Then get your covariance matrix and perform a singular value decomposition (SVD) to get a set of three matrices. The first matrix will contain the Eigenvectors stacked column-wise, and the second matrix holds the Eigenvalues on its diagonal. SVD is already implemented in many programming libraries. The next step is to project our data on a new set of features. First you will perform the dot product between the normalized data and the first n (n=2 if wanting to plot on XY axis) columns of the Eigenvectors matrix. The Eigenvector is used as a transformation matrix that will maximize the variance of one class and minimize the variance of another class with the goal of maximizing the differences between the two classes. Eigenvectors and Eigenvalues should be organized by the Eigenvalues in descending order. This will allow us to select the first n eigenvectors. Because they come first they will be associated with the highest eigenvalue magnitudes and thus be the most discriminative. However most libraries order those matrices for you.
 
+### Week 4: Machine Translation and Document Search
+#### Introduction
+We will learn how to transform word vectors, implement k-nearest neighbors which is an algorithm searching for similar items, hash tables which helps assign word vectors into subsets, divide the vector space into regions to help search of similar words, finally we will implement locality sensitive hashing which helps perform the approximated k-nearest neighbors to search for similar word vectors. 
+
+Knowing how to find similar word vectors will allow the implementation of machine translation and document search. Machine translation consists of translating text from one language to another while document search consists of finding phrases/documents with similar meanings. 
+
+#### Transforming word vectors
+For machine translation we will use word vectors to align words in two different languages. Locality sensitive hashing will speed this process up.
+
+
+
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization](https://www.coursera.org/specializations/natural-language-processing)
 * [codecademy - Apply Natural Language Processing with Python](https://www.codecademy.com/learn/paths/natural-language-processing)
