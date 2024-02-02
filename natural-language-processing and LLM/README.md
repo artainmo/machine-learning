@@ -170,9 +170,10 @@ We will learn how to transform word vectors, implement k-nearest neighbors which
 Knowing how to find similar word vectors will allow the implementation of machine translation and document search. Machine translation consists of translating text from one language to another while document search consists of finding phrases/documents with similar meanings. 
 
 #### Transforming word vectors
-For machine translation we will use word vectors to align words in two different languages. Locality sensitive hashing will speed this process up.
+If wanting to translate an English word to French, we need to transform the English word vector into the associated French word vector. Next you need to search the most similar word vector in the French word vector space to the transformed word vector.
 
-
+The transformation can be done with a matrix we will call R. To get R we will need to train a supervised learning algorithm. Thus we will need a subset of English words with their French translations to be able to find R with R allowing us to find/predict all the other translations afterwards.<br>
+If X is a matrix containing the English word vectors and Y a matrix containing the associated French word vectors, then `XR ≈ Y`. To find R we can use the loss function `Loss = ||XR - Y||` (The `|| ||` symbols refers to the norm or magnitude) and start with an R of random values. As the loss diminishes the R matrix improves. To improve R, take the gradient of the loss function `g = (2/m)(XT (XR - Y))` (with m equalling the number of training examples, and XT being the transpose of X) and substract it to R with a step size α `R = R - αg`. You can loop to improve R until the loss is small enough.
 
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization](https://www.coursera.org/specializations/natural-language-processing)
