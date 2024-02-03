@@ -188,7 +188,12 @@ Locality sensitive hashing will divide the vector space using lines. The dot pro
 
 With 'approximate' nearest neighbors you only search within a subset of all the vectors. You trade some precision for speed of search. Locality sensitive hashing is used to find the neighbors of a vector.<br> 
 When creating planes to divide the vector space we cannot know for sure what planes would be best. This is why we use multiple sets of randomly generated planes. Each set of planes creates own categories. If for certain plane sets two vectors are in different categories for another plane set they may be in same category. Taking all the neighbouring vectors found in the different categories from the different plane sets we get a more complete set of neighbours.<br>
-You can generate one set of random planes like this `random_planes_matrix = np.random.normal(size=(num_planes, num_dimensions))`. 
+You can generate one set of random planes like this `random_planes_matrix = np.random.normal(size=(num_planes, num_dimensions))`.
+
+#### Searching documents
+K-nearest neighbors can be used to search for text related to a query in a large collection of documents. You simply need to create vectors for both and find the nearest neighbors.
+
+A document can be represented as a vector by summing all the word vectors it contains who are also present in our library of word vectors.
 
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization](https://www.coursera.org/specializations/natural-language-processing)
