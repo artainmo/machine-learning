@@ -1,6 +1,6 @@
 # Natural Language Processing with Classification and Vector Spaces
 ## Table of contents
-- [DeepLearning.AI: Natural Language Processing Specialization: Natural Language Processing with Classification and Vector Spaces](#DeepLearning.AI-Natural-Language-Processing-Specialization-Natural-Language-Processing-with-Classification-and-Vector-Spaces)
+- [DeepLearning.AI: Natural Language Processing Specialization: NLP with Classification and Vector Spaces](#DeepLearning.AI-Natural-Language-Processing-Specialization-NLP-with-Classification-and-Vector-Spaces)
   - [Week 1: Sentiment Analysis with logistic regression](#week-1-sentiment-analysis-with-logistic-regression)
     - [Introduction](#Introduction)
     - [Extract features](#Extract-features)
@@ -29,7 +29,7 @@
     - [Searching documents](#Searching-documents)
 - [Resources](#Resources)
 
-## DeepLearning.AI: Natural Language Processing Specialization: Natural Language Processing with Classification and Vector Spaces
+## DeepLearning.AI: Natural Language Processing Specialization: NLP with Classification and Vector Spaces
 ### Week 1: Sentiment Analysis with logistic regression
 #### Introduction
 In the first week we will learn about logistic regression. Logistic regression takes as inputs features (X) and labels (Y). It uses parameters (theta) to make predictions (Yhat). While training, parameters are updated in relation to the error (cost) in Yhat compared to Y, until the cost becomes minimized.
