@@ -1,6 +1,6 @@
 # natural-language-processing and LLM
 ## Table of contents
-- [DeepLearning.AI course: Natural Language Processing Specialization](#deeplearningai-course-natural-language-processing-specialization)
+- [DeepLearning.AI: Natural Language Processing Specialization: Natural Language Processing with Classification and Vector Spaces](#DeepLearning.AI-Natural-Language-Processing-Specialization-Natural-Language-Processing-with-Classification-and-Vector-Spaces)
   - [Week 1: Sentiment Analysis with logistic regression](#week-1-sentiment-analysis-with-logistic-regression)
     - [Introduction](#Introduction)
     - [Extract features](#Extract-features)
@@ -16,9 +16,20 @@
     - [Testing Naïve Bayes](#Testing-Naïve-Bayes)
     - [Applications and assumptions of Naïve Bayes](#Applications-and-assumptions-of-Naïve-Bayes)
     - [Error analysis](#Error-analysis)
+  - [Week 3: Vector Space Models](Week-3-Vector-Space-Models)
+    - [Vector space models](#Vector-space-models)
+    - [Construct-vectors](#Construct-vectors)
+    - [Euclidian distance and cosine similarity](#Euclidian-distance-and-cosine-similarity)
+    - [Manipulating word vectors](#Manipulating-word-vectors)
+    - [Visualization and PCA](#Visualization-and-PCA)
+  - [Week 4: Machine Translation and Document Search](Week-4-Machine-Translation-and-Document-Search)
+    - [Introduction](#introduction-1)
+    - [Transforming word vectors](#Transforming-word-vectors)
+    - [K-nearest neighbors and hashing](#k-nearest-neighbors-and-hashing)
+    - [Searching documents](#Searching-documents)
 - [Resources](#Resources)
 
-## DeepLearning.AI course: Natural Language Processing Specialization
+## DeepLearning.AI: Natural Language Processing Specialization: Natural Language Processing with Classification and Vector Spaces
 ### Week 1: Sentiment Analysis with logistic regression
 #### Introduction
 In the first week we will learn about logistic regression. Logistic regression takes as inputs features (X) and labels (Y). It uses parameters (theta) to make predictions (Yhat). While training, parameters are updated in relation to the error (cost) in Yhat compared to Y, until the cost becomes minimized.
@@ -198,4 +209,3 @@ A document can be represented as a vector by summing all the word vectors it con
 
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization](https://www.coursera.org/specializations/natural-language-processing)
-* [codecademy - Apply Natural Language Processing with Python](https://www.codecademy.com/learn/paths/natural-language-processing)
