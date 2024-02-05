@@ -1,4 +1,4 @@
-# natural-language-processing and LLM
+# Natural Language Processing with Classification and Vector Spaces
 ## Table of contents
 - [DeepLearning.AI: Natural Language Processing Specialization: Natural Language Processing with Classification and Vector Spaces](#DeepLearning.AI-Natural-Language-Processing-Specialization-Natural-Language-Processing-with-Classification-and-Vector-Spaces)
   - [Week 1: Sentiment Analysis with logistic regression](#week-1-sentiment-analysis-with-logistic-regression)
