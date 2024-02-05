@@ -22,7 +22,7 @@
     - [Euclidian distance and cosine similarity](#Euclidian-distance-and-cosine-similarity)
     - [Manipulating word vectors](#Manipulating-word-vectors)
     - [Visualization and PCA](#Visualization-and-PCA)
-  - [Week 4: Machine Translation and Document Search](Week-4-Machine-Translation-and-Document-Search)
+  - [Week 4: Machine Translation and Document Search](#Week-4-Machine-Translation-and-Document-Search)
     - [Introduction](#introduction-1)
     - [Transforming word vectors](#Transforming-word-vectors)
     - [K-nearest neighbors and hashing](#k-nearest-neighbors-and-hashing)
