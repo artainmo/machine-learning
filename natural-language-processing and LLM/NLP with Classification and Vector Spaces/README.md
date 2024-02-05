@@ -16,7 +16,7 @@
     - [Testing Naïve Bayes](#Testing-Naïve-Bayes)
     - [Applications and assumptions of Naïve Bayes](#Applications-and-assumptions-of-Naïve-Bayes)
     - [Error analysis](#Error-analysis)
-  - [Week 3: Vector Space Models](Week-3-Vector-Space-Models)
+  - [Week 3: Vector Space Models](#Week-3-Vector-Space-Models)
     - [Vector space models](#Vector-space-models)
     - [Construct-vectors](#Construct-vectors)
     - [Euclidian distance and cosine similarity](#Euclidian-distance-and-cosine-similarity)
