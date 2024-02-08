@@ -54,7 +54,8 @@ D[m,n], in above example D[4,4] equaling 4, represents the minimum edit distance
 
 Sometimes the minimum edit distance is not sufficient. You need to know the steps to get it. The distance matrix D remembers those steps by calculating them all. A backtrace lets you know what path you took across the distance matrix from the top left to bottom right corner.
 
-Dynamic programming refers to solving a small problem to help solve a bigger problem, to then solve an even bigger problem using prior result, and so forth. This is what we did in the distance matrix D, we started calculating the edit distance of two empty strings and ended with calculating the edit distance between two complete words.
+Dynamic programming refers to solving a small problem to help solve a bigger problem, to then solve an even bigger problem using prior result, and so forth. This is what we did in the distance matrix D, we started calculating the edit distance of two empty strings and ended with calculating the edit distance between two complete words.<br>
+Dynamic programming is not only used for minimum edit distance, it can also be used to find the shortest paths as in Google maps.
 
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization: Natural Language Processing with Probabilistic Models](https://www.coursera.org/learn/probabilistic-models-in-nlp)
