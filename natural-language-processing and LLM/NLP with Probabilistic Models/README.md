@@ -11,7 +11,8 @@ In this course we will learn about word models and how to use them to predict wo
 
 In the first week we will build an autocorrect system by using probabilities of character sequences. An important concept is 'minimum edit distance' which consists of evaluating the minimum amount of edits to change one word into another. 'Dynamic programming' is the 'minimum edit distance' algorithm we will use. It is an important programming concept which frequently comes up in interviews and could be used to solve a lot of optimization problems.
 
-Autocorrect is an application that changes misspelled words into the correct ones. It works first by identifying misspelled words, second find words who are a certain amount of edits away, lastly calculate word probabilities which calculates the chance of a word appearing in a certain context.
+Autocorrect is an application that changes misspelled words into the correct ones. It works first by identifying misspelled words, second find words who are a certain amount of edits away, lastly calculate word probabilities which calculates the chance of a word appearing in a certain context.<br>
+In this week's exercise we won't take the following in account, but autocorrect can also change words who exist but are used in wrong context. For example "Happy birthday deer friend", where 'deer' is an existing word but should be replaced with 'dear' in this context.
 
 #### Building the model
 We can identify misspelled words by verifying if they exist in a dictionary.<br>
