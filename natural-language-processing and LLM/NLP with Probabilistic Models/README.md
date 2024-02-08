@@ -27,28 +27,34 @@ We make distinction between three edit operations:
 * Delete (remove a letter)
 * Replace (change 1 letter to another)
 
-'Insert' has an edit cost of 1, 'delete' too and 'replace' has an edit cost of 2. Thus if 'play' needs to replace edits two times to become 'stay', the total edit cost will equal 2 + 2 = 4.
+'Insert' has an edit cost of 1, 'delete' too and 'replace' has an edit cost of 2. Thus if 'play' needs two replace edits to become 'stay', the total edit cost will equal 2 + 2 = 4. Measuring the edit distance like this is known as Levenshtein distance.
 
 As strings become larger, it becomes harder to calculate the 'minimum edit distance'. This is why we will use the 'minimum edit distance' algorithm called 'dynamic programming'.
 
-#### Dynamic programming
+#### Minimum edit distance algorithm
 First we will create a distance matrix called D.
 
 |   | # | s | t | a | y |
 | - | - | - | - | - | - |
 | # | 0 | 1 | 2 | 3 | 4 |
-| p | 1 | 2 |   | 4 |   |
-| l | 2 |   | 4 |   |   |
-| a | 3 |   |   | 4 |   |
-| y | 4 |   |   |   | 4 |
+| p | 1 | 2 | 3 | 4 | 5 |
+| l | 2 | 3 | 4 | 5 | 6 |
+| a | 3 | 4 | 5 | 4 | 5 |
+| y | 4 | 5 | 6 | 5 | 4 |
 
 The # indicates an empty string. The minimum edit distance between two empty strings is 0. The minimum edit distance between p or s and an empty string is 1. The minimum edit distance between p and s is 2.<br>
 For the transformation of pl into an empty string the minimum edit distance is 2, for the transformation of pla into an empty string the minimum edit distance is 3 and for the transformation of play into an empty string the minimum edit distance is 4.<br>
 
-In D[2,2] we need to calculate the minimum edit distance between pl and st. For that we can take D[1,1] which is 2 and add to that the minimum edit distance between l and t which is also 2, thus D[2,2] equals 4. Similarly D[3,3] can be calculated by taking D[2,2] which equals 4 and adding to that the minimum edit distance between a and a which is 0, thus D[3,3] equals 4.<br>
-If we would want to calculate for example D[1,3] we can take D[0,2] which equals 2 and add to that the difference minimum edit distance between p and a which is 2, thus D[1,3] equals 4.
+To calculate all the cells, three equations can be used, depending on what edit operation you should use to find the minimum amount of edits:
+* D[i,j] = D[i-1,j] + delete cost: this indicates you want to populate the current cell (i,j) by using the cost in the cell found directly above.
+* D[i,j] = D[i,j-1] + insert cost: this indicates you want to populate the current cell (i,j) by using the cost in the cell found directly to its left.
+* D[i,j] = D[i-1,j-1] + replace cost
 
 D[m,n], in above example D[4,4] equaling 4, represents the minimum edit distance between the two compared words, in this example 'stay' and 'play'.
+
+Sometimes the minimum edit distance is not sufficient. You need to know the steps to get it. The distance matrix D remembers those steps by calculating them all. A backtrace lets you know what path you took across the distance matrix from the top left to bottom right corner.
+
+Dynamic programming refers to solving a small problem to help solve a bigger problem, to then solve an even bigger problem using prior result, and so forth. This is what we did in the distance matrix D, we started calculating the edit distance of two empty strings and ended with calculating the edit distance between two complete words.
 
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization: Natural Language Processing with Probabilistic Models](https://www.coursera.org/learn/probabilistic-models-in-nlp)
