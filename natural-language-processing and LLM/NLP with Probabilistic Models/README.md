@@ -58,5 +58,16 @@ Sometimes the minimum edit distance is not sufficient. You need to know the step
 Dynamic programming refers to solving a small problem to help solve a bigger problem, to then solve an even bigger problem using prior result, and so forth. This is what we did in the distance matrix D, we started calculating the edit distance of two empty strings and ended with calculating the edit distance between two complete words.<br>
 Dynamic programming is not only used for minimum edit distance, it can also be used to find the shortest paths as in Google maps.
 
+### Week 2: Part of Speech Tagging and Hidden Markov Models
+#### Part of Speech Tagging
+Part of speech (POS) refers to categories of words such as noun, verb, adjective, adverb, pronoun, preposition. Tags are used to tag the words in a sentence with their part of speech category.
+
+Semantics is the study of meaning in language. It can be applied to entire texts or to single words. For example, "destination" and "last stop" technically mean the same thing, but students of semantics analyze their subtle shades of meaning.<br>
+Because POS tags describe the characteristic structure of words in a sentence or text, you can use them to make assumptions about semantics. Named entities can be identified using POS tags. 
+
+Co-reference resolution consists of determining what a pronoun refers to. For example take the following text: 'The Eiffel tower is beautiful. It is found in Paris'. Here the pronoun 'it' refers to the named entity 'Eiffel tower'. POS tags are used for co-reference resolution.
+
+When guessing/suggesting words you can use the probabilities of POS tags occuring near one another to come up with the most reasonable output. This is used in speech recognition.
+
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization: Natural Language Processing with Probabilistic Models](https://www.coursera.org/learn/probabilistic-models-in-nlp)
