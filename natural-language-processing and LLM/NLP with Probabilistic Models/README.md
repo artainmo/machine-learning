@@ -47,9 +47,9 @@ The # indicates an empty string. The minimum edit distance between two empty str
 For the transformation of pl into an empty string the minimum edit distance is 2, for the transformation of pla into an empty string the minimum edit distance is 3 and for the transformation of play into an empty string the minimum edit distance is 4.<br>
 
 To calculate all the cells, three equations can be used, depending on what edit operation you should use to find the minimum amount of edits:
-* D[i,j] = D[i-1,j] + delete cost: this indicates you want to populate the current cell (i,j) by using the cost in the cell found directly above.
-* D[i,j] = D[i,j-1] + insert cost: this indicates you want to populate the current cell (i,j) by using the cost in the cell found directly to its left.
-* D[i,j] = D[i-1,j-1] + replace cost
+* `D[i,j] = D[i-1,j] + delete cost`. This indicates you want to populate the current cell (i,j) by using the cost in the cell found directly above. Delete cost is usually equal to 1.
+* `D[i,j] = D[i,j-1] + insert cost`. This indicates you want to populate the current cell (i,j) by using the cost in the cell found directly to its left. Insert cost is usually equal to 1.
+* `D[i,j] = D[i-1,j-1] + (replace cost if source[i] != target[j] else 0)`. Replace cost is usually equal to 2.
 
 D[m,n], in above example D[4,4] equaling 4, represents the minimum edit distance between the two compared words, in this example 'stay' and 'play'.
 
