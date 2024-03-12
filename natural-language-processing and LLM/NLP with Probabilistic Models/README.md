@@ -111,8 +111,16 @@ B = |b2,1  b2,2  b2,3|
     |b3,1  b3,2  b3,3|
 ```
 
-This emission matrix B, will be used with the transition matrix A, to help identify the POS of a word in a sentence.
+This emission matrix B, will be used together with the transition matrix A, to help identify the POS tag of a word in a sentence.
 
+#### Calculating probabilities
+Given a corpus, we can calculate the probabilities that populate our transition and emission matrices.
+
+To calculate the transition probability of POS tag Alpha to POS tag Beta. First take all the occurences in corpus of Alpha followed by Beta, and divide it by all the occurences of Alpha. Do this for all the POS tag combinations to fill the transition matrix.<br>
+To fill the 'init' row you simply need to count the occurence of a POS tag appearing as first word of a phrase divided by total amount of first words.<br>
+A division by 0 can occur when a POS tag does not appear in the corpus leading to a probability of 'undefined'. Or a probability of 0 can occur when a POS tag combination does not appear in corpus. This can be problematic when trying to generalize the model. To resolve this problem add a small value 'epsilon' (ex. 0.001) to the counts in the numerator and add 'amount_of_POS_tags * epsilon' to the divisor. This operation can be called smoothing, it prevents 0 values during calculations. Usually smoothing is not used however on the first 'init' row.
+
+To calculate the emission probability, you first need to calculate the number of co-occurence between a POS tag with a specific word, and divide that number by the total amount of occurences of that same POS tag. Do this for all the POS tag, word combinations inside the emission matrix. Similarly we can apply smoothing for generalization of the model.
 
 
 
