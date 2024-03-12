@@ -83,6 +83,7 @@ Markov chains can also be represented in a table that we would call a transition
 | Init | 0.7  | 0.3  |
 | noun | 0.4  | 0.6  |
 | verb | 0.6  | 0.4  |
+
 In such a matrix the first row represents the current states, first column the potential next states, and the values inside the matrix represent the associated transiton probabilities.<br>
 The 'init' state refers to initial and is used for predicting the first word of a sentence, thus the initial word that cannot be predicted from a previous word.<br>
 Such a matrix can be mathematically written/described like this for example:
@@ -102,6 +103,7 @@ A hidden Markov model can be descibed inside an emission matrix. For example:
 | ---- | ---- | ---- |
 | verb | 0.7  | 0.3  |
 | noun | 0.4  | 0.6  |
+
 Such a matrix can be mathematically written/described like this for example:
 ```
     |b1,1  b1,2  b1,3|
