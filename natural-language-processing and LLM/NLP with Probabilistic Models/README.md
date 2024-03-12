@@ -69,5 +69,50 @@ Co-reference resolution consists of determining what a pronoun refers to. For ex
 
 When guessing/suggesting words you can use the probabilities of POS tags occuring near one another to come up with the most reasonable output. This is used in speech recognition.
 
+#### Markov chains
+Markov chains are used for identifying the probability of the next word using POS tagging.
+
+We can predict the POS tag of a word in a sentence from the POS tag of the previous word in the sentence. Each POS tag has a certain chance of being followed by a certain POS tag.<br>
+A markov chain can be depicted as a directed graph. A graph wherein each node represents a POS tag connected to another POS tag node by a one direction line representing the probability that the initial POS tag is followed by the POS tag it is connected to.<br>
+We can call those graph nodes, the 'states' of our model. `Q = {q1, q2, q3}` is a way of mathematically describing/writing the set of states in our model.<br>
+Transition probabilities describe the chance of one POS tag being followed by another POS tag, thus they are the same as the directed lines in our graph.
+
+Markov chains can also be represented in a table that we would call a transition matrix.
+|      | noun | verb |
+| ---- | ---- | ---- |
+| Init | 0.7  | 0.3  |
+| noun | 0.4  | 0.6  |
+| verb | 0.6  | 0.4  |
+In such a matrix the first row represents the current states, first column the potential next states, and the values inside the matrix represent the associated transiton probabilities.<br>
+The 'init' state refers to initial and is used for predicting the first word of a sentence, thus the initial word that cannot be predicted from a previous word.<br>
+Such a matrix can be mathematically written/described like this for example:
+```
+    |a1,1  a1,2  a1,3|
+A = |a2,1  a2,2  a2,3|
+    |a3,1  a3,2  a3,3|
+```
+
+#### Hidden Markov Models
+Hidden Markov models are used to decode the hidden state of a word. In this case, the hidden state is the POS tag of that word.<br>
+The POS tag of a word is considered hidden because when reading the text a machine cannot automatically deduce the POS of each word in that text.<br>
+
+In hidden Markov models, emission probabilities are used to give the probability of one state (POS tag) going to a specific word.<br>
+A hidden Markov model can be descibed inside an emission matrix. For example:
+|      | lamp | pear |
+| ---- | ---- | ---- |
+| verb | 0.7  | 0.3  |
+| noun | 0.4  | 0.6  |
+Such a matrix can be mathematically written/described like this for example:
+```
+    |b1,1  b1,2  b1,3|
+B = |b2,1  b2,2  b2,3|
+    |b3,1  b3,2  b3,3|
+```
+
+This emission matrix B, will be used with the transition matrix A, to help identify the POS of a word in a sentence.
+
+
+
+
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization: Natural Language Processing with Probabilistic Models](https://www.coursera.org/learn/probabilistic-models-in-nlp)
