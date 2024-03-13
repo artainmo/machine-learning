@@ -122,7 +122,49 @@ A division by 0 can occur when a POS tag does not appear in the corpus leading t
 
 To calculate the emission probability, you first need to calculate the number of co-occurence between a POS tag with a specific word, and divide that number by the total amount of occurences of that same POS tag. Do this for all the POS tag, word combinations inside the emission matrix. Similarly we can apply smoothing for generalization of the model.
 
+#### The Viterbi Algorithm
+The Viterbi algorithm tries to find the sequence of hidden states, here in other words, the POS tag for each word in a phrase, with the highest probability.<br>
+The Viterbi algorithm is a graph algorithm at its core, however matrix manipulation formulas will be used for its calculations.
 
+Let's take the phrase 'I love to learn' with the following graph.<br>
+![Screenshot 2024-03-13 at 11 57 11](https://github.com/artainmo/machine-learning/assets/53705599/e822ce54-9faf-4753-8444-ab5c8e6c5972)<br>
+The first word 'I' can only be emitted by the O state. As shown in picture the transition probability of initial state (also called Pi) to O state is 0.3 and the emission state from O to 'I' is 0.5. The joint probability is 0.15.<br>
+Next the word love can be found in NN and VB states. The probability of prior state O to NN is 0.5 and from O to VB also 0.5. The probability of NN state to word 'love' is 0.1 while of VB state is 0.5. Thus the joint probability of O to VB to 'love' is higher with a value of 0.25. Thus VB will be the chosen POS tag this time.<br>
+Word 'to' can only be found in O state. Transition probability from VB state to O state is 0.2 and emission probability from O state to word 'to' is 0.4. thus joint probability is 0.08.<br>
+Word 'learn' can only be found in VB state. Transition probability from O state to VB state is 0.5 and emission probability from VB state to word 'learn' is 0.2, thus joint probability is 0.1.<br>
+Finally, the probability of this word sequence can be calculated like this, 0.15 * 0.25 * 0.08 * 0.1, and equals 0.0003.
+
+The Viterbi algorithm can be divided into three steps.
+1. Initialization
+2. Forward pass
+3. Backward pass
+
+For our calculations we will use the auxiliary matrices C and D. The matrix C holds the probabilities and matrix D the indices of the visited states.<br>
+These two matrices have n rows, where n is the number of POS tags or hidden states in our model, and k columns, where k is the number of words in the given sequence.
+
+##### Viterbi: Initialization
+In the initialization step, the first column of each of our matrices C and D is populated.
+
+The first column of C represents the joint probabilities from our initial state (pi) to the POS tags of associated rows and word of associated column. This can be calculated by the product of transition probability from pi to state with emission probability from state to word.
+
+The first column of D is set to 0 as there are no preceding POS tags we have traversed.
+
+##### Viterbi: Forward pass
+During the forward pass we will populate the remaining C and D matrix entries, column per column.
+
+To find the probabilities in the C matrix, we first need to take the previous POS tag with highest probability. This can be done by looking at highest probability of previous column. Then we need to multiply the transition probability from prior POS tag to current POS tag with emission probability from current POS tag to word. And finally you need to multiply that by the highest probability of previously traversed path, thus the probability you found to find most probable previous POS tag. The formula looks like this: c<sub>i,j</sub> = max<sub>k</sub>c<sub>k,j-1</sub> * a<sub>k,i</sub> * b<sub>i,cindex(wj)</sub>.
+
+Note that the only difference between C and D, is that in the former you compute the probability and in the latter you keep track of the index of the row where that probability came from. So you keep track of which k was used to get that max probability.
+
+##### Viterbi: Backward pass
+Here we will use the previously created matrices C and D to create a path and assign a POS tag to every word.
+
+We have to extract the path through our graph using the matrix D. First we go to last column of matrix C and there take the index of the highest probability row. We call this index s and use the formula: s = argmax<sub>i</sub>c<sub>i,K</sub>. Then go back to D, look at last column and the value at index s. That value equates the row index of previous column. Thus for example if s equals 1, we know our last state to be state 1. If the value inside D last row at that index 1 is 3, we know the second last state to be 3. Then we need to go to second last column of D at index 3 and find the value that will tell us the third last state. And so forth. Look at following example of traversing the matrix D.<br>
+![Screenshot 2024-03-13 at 13 38 07](https://github.com/artainmo/machine-learning/assets/53705599/4e0cfcb2-49c3-42e7-8c12-9358cbc35b8e)<br>
+This thus gives us the sequence of states (POS tags) for our sequence of words.
+
+Coution with indices as in python they start with 0 not 1.<br>
+Also caution when using probabilities with very small values. To avoid very small values use 'log probabilities'.
 
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization: Natural Language Processing with Probabilistic Models](https://www.coursera.org/learn/probabilistic-models-in-nlp)
