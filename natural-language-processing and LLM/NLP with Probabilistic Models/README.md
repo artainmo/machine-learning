@@ -164,7 +164,7 @@ We have to extract the path through our graph using the matrix D. First we go to
 This thus gives us the sequence of states (POS tags) for our sequence of words.
 
 Coution with indices as in python they start with 0 not 1.<br>
-Also caution when using probabilities with very small values. To avoid very small values use 'log probabilities'.
+Also caution when using probabilities with very small values. To avoid very small values use 'log probabilities'. With log probabilities we addition the logarithm of transition probability by the logarithm of emission probability when calculating matrix C, instead of multiplying the transition and emission probabilities.
 
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization: Natural Language Processing with Probabilistic Models](https://www.coursera.org/learn/probabilistic-models-in-nlp)
