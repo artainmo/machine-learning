@@ -1,7 +1,20 @@
 # NLP with Probabilistic Models
 ## Table of contents
 - [DeepLearning.AI: Natural Language Processing Specialization: NLP with Probabilistic Models](#DeepLearning.AI-Natural-Language-Processing-Specialization-NLP-with-Probabilistic-Models)
-  - [Week 1: Autocorrect](Week-1-Autocorrect) 
+  - [Week 1: Autocorrect](#Week-1-Autocorrect)
+    - [Introduction](#introduction)
+    - [Building the model](#Building-the-model)
+    - [Minimum edit distance](#Minimum-edit-distance)
+    - [Minimum edit distance algorithm](#Minimum-edit-distance-algorithm)
+ - [Week 2: Part of Speech Tagging and Hidden Markov Models](#week-2-part-of-speech-tagging-and-hidden-markov-models)
+   - [Part of Speech Tagging](#Part-of-Speech-Tagging)
+   - [Markov chains](#Markov-chains)
+   - [Hidden Markov Models](#Hidden-Markov-Models)
+   - [Calculating probabilities](#Calculating-probabilities)
+   - [The Viterbi Algorithm](#The-Viterbi-Algorithm)
+     - [Viterbi: Initialization](#Viterbi-Initialization)
+     - [Viterbi: Forward pass](#Viterbi-Forward-pass)
+     - [Viterbi: Backward pass](#Viterbi-Backward-pass)
 - [Resources](#Resources)
 
 ## DeepLearning.AI: Natural Language Processing Specialization: NLP with Probabilistic Models
