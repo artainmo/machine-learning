@@ -143,7 +143,7 @@ Let's take the phrase 'I love to learn' with the following graph.<br>
 ![Screenshot 2024-03-13 at 11 57 11](https://github.com/artainmo/machine-learning/assets/53705599/e822ce54-9faf-4753-8444-ab5c8e6c5972)<br>
 The first word 'I' can only be emitted by the O state. As shown in picture the transition probability of initial state (also called Pi) to O state is 0.3 and the emission state from O to 'I' is 0.5. The joint probability is 0.15.<br>
 Next the word love can be found in NN and VB states. The probability of prior state O to NN is 0.5 and from O to VB also 0.5. The probability of NN state to word 'love' is 0.1 while of VB state is 0.5. Thus the joint probability of O to VB to 'love' is higher with a value of 0.25. Thus VB will be the chosen POS tag this time.<br>
-Word 'to' can only be found in O state. Transition probability from VB state to O state is 0.2 and emission probability from O state to word 'to' is 0.4. thus joint probability is 0.08.<br>
+Word 'to' can only be found in O state. Transition probability from VB state to O state is 0.2 and emission probability from O state to word 'to' is 0.4, thus joint probability is 0.08.<br>
 Word 'learn' can only be found in VB state. Transition probability from O state to VB state is 0.5 and emission probability from VB state to word 'learn' is 0.2, thus joint probability is 0.1.<br>
 Finally, the probability of this word sequence can be calculated like this, 0.15 * 0.25 * 0.08 * 0.1, and equals 0.0003.
 
