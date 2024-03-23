@@ -1,6 +1,6 @@
 # NLP with Probabilistic Models
 ## Table of contents
-- [DeepLearning.AI: Natural Language Processing Specialization: NLP with Probabilistic Models](#DeepLearning.AI-Natural-Language-Processing-Specialization-NLP-with-Probabilistic-Models)
+- [DeepLearning.AI: Natural Language Processing Specialization: NLP with Probabilistic Models](#deeplearningai-natural-language-processing-specialization-nlp-with-probabilistic-models)
   - [Week 1: Autocorrect](#Week-1-Autocorrect)
     - [Introduction](#introduction)
     - [Building the model](#Building-the-model)
