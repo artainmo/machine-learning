@@ -247,12 +247,10 @@ Criterias can exist for words of the corpus to become part of the vocabulary. Fo
 
 \<UNK\> tends to lower perplexity score. Thus using \<UNK\> excessively can lead to false belief of good model. Thus use \<UNK\> sparingly. When using the perplexity metric, only language models with same vocabulary are comparable.
 
-#### Smoothing
-When using N-Grams on a small corpus, the probabilities of some words may be skewed. Smoothing can remedy that.
+#### Missing N-Grams
+If certain N-Grams are missing in the corpus their probability will result in 0. Laplacian smoothing, also called add-one smoothing, can be used to avoid N-Gram probabilities equaling 0. To use Laplacian smoothing when calculating N-Gram probabilities, add 1 to the numerator and add the vocabulary size to the denominator. With add-k-smoothing, add k to the numerator and add the vocabulary size times k to the denominator.
 
-If certain N-Grams are missing in the corpus their probability will result in 0. Laplacian smoothing, also called add-one smoothing, can be used to avoid N-Gram probabilities equaling 0. To use Laplacian smoothing when calculating N-Gram probabilities, add 1 to the numerator and add the vocabulary size to the denominator. With k-smoothing, add k to the numerator and add the vocabulary size times k to the denominator.
-
-Another way of dealing with missing N-Grams is to use the Backoff method. Which consists of transitioning to using (N - 1)-Grams until no N-Grams are missing anymore. Thus if for example you search probability of trigram 'are you happy' but you cannot find a probability for it or the given probability is 0, then look at the associated bigram 'you happy' and if its probability isn't found either, you can search the probability of unigram 'happy'. If using the probability of a lower-N-gram you need to multiply that probability with lambda (value between 0 and 1) times the difference in N.<br>
+Another way of dealing with missing N-Grams is to use the Backoff method. Which consists of lowering the N order, use the associated (N - 1)-Gram, until the N-Gram is not missing anymore. Thus if for example you search probability of trigram 'are you happy' but you cannot find a probability for it or the given probability is 0, then look at the associated bigram 'you happy' and if its probability isn't found either, you can search the probability of unigram 'happy'. If using the probability of a lower-N-gram you need to multiply that probability with lambda (value between 0 and 1) times the difference in N.<br>
 Alternatively the interpolation method can be used. It consists of combining the probability of the N-Gram with the (N - 1)-Gram probability down to the Uni-Gram probability. For example you would calculate the following trigram like this: P(chocolate|John drinks) = 0.7 x P(chocolate|John drinks) + 0.2 x P(chocolate|drinks) + 0.1 x P(chocolate). As you can see more weight is given to higher order N-Grams but lower order N-Grams are still taken in account to avoid 0 values. Those 'weights' are called lambdas and when summed need to equal 1.
 
 ## Resources
