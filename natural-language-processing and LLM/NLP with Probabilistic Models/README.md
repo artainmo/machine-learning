@@ -179,5 +179,30 @@ This thus gives us the sequence of states (POS tags) for our sequence of words.
 Coution with indices as in python they start with 0 not 1.<br>
 Also caution when using probabilities with very small values. To avoid very small values use 'log probabilities'. With log probabilities we addition the previous probability with logarithm of transition probability and the logarithm of emission probability when calculating matrix C, instead of multiplying the previous probability, transition and emission probabilities.
 
+### Week 3: Autocomplete and language models
+#### N-Grams
+N-Grams are fundamental in NLP and foundational for understanding more complicated models.<br>
+This week we will create an N-Gram language model from a text corpus and use it to auto-complete a sentence. A corpus can be any text collection but generally is a large database of text documents, such as all the Wikipedia pages, or books from one author, or tweets from one account. A language model estimates the probability of an upcoming word given a history of previous words.<br>
+An N-Gram language model is created from a text corpus. Users of the autocomplete system will provide the starting words and the model should answer by predicting and suggesting the following words.<br>
+N-Gram language models can be used in speech recognition to predict what got most likely heard. They can also be used in spelling correction to identify the use of incorrect words in a phrase's context. Search suggestion tools also use N-Gram language models.
+
+An N-Gram is a sequence of unique words wherein the order matters. When processing the corpus, punctuations are treated like words, but other special characters are removed.<br>
+Take the corpus 'I am happy because I am learning'. A unigram is a set of all unique words. The unigram for prior text corpus would be {I, am , happy, because, learning}. A bigram is a set of all unique two words combinations that appear side-by-side. Here the bigram would be {I am, am happy, happy because, because I, am learning}. Trigrams represent unique triplets of words that appear together in the corpus.
+
+A corpus consists of a sequence of words and that sequence can be denoted as 'w<sub>1</sub><sup>m</sup> = w<sub>1</sub> w<sub>2</sub> ... w<sub>m</sub>'. To denote only a subsequence of that vocabulary 'w<sub>1</sub><sup>3</sup> = w<sub>1</sub> w<sub>2</sub> w<sub>3</sub>'.
+
+The probability of a unigram can be calculated by dividing the total amount of occurences of a word by the total amount of words in the corpus. The probability of a word B occuring if the previous word was A can be calculated by dividing the total amount of AB bigrams by the total amount of A unigrams. The probability of the word C occuring next to words AB can be calculated by dividing the total amount of ABC trigrams by the total amount of AB bigrams.<br>
+The N-Gram probability formula can be written as such 'P(w<sub>N</sub> | w<sub>1</sub><sup>N - 1</sup>) = c(w<sub>1</sub><sup>N - 1</sup>w<sub>N</sub>) / C(w<sub>1</sub><sup>N - 1</sup>)'.
+
+#### Sequence Probabilities
+To calculate the probability of the following phrase 'the teacher drinks tea' we need to multiply the probability of 'the' with the probability of 'the' being followed by 'teacher' and with the probability of 'the teacher' being followed by 'drinks' and with the probability of 'the teacher drinks' being followed by 'tea'.<br>
+Mathematically we can write it like this: P(the teacher drinks tea) = P(the)P(teacher|the)P(drinks|the teacher)P(tea|the teacher drinks).<br>
+As sentences become longer, the chance of it occuring elsewhere in the corpus becomes smaller and smaller. This leads to probability calculations with zero values which is erroneous.<br>
+Thus instead you may want to approximate the probability result by only using probabilities of two words occuring together (bigrams). This would look like: P(the teacher drinks tea) ≈ P(the)P(teacher|the)P(drinks|teacher)P(tea|drinks). This is based on the Markov assumption which states that the probability of each word only depends on N previous words.
+
+If conditional probabilities used in N-Grams are calculated using a sliding window of two or more words, what happens at the beginning and end of a sentence?<br>
+The start symbol '<s>' is used to indicate the beginning of a sentence and is used to calculate the bigram probability of the sentence's first word. This means 'the teacher drinks tea' becomes '<s> the teacher drinks tea' and P(<s> the teacher drinks tea) ≈ P(the|<s>)P(teacher|the)P(drinks|teacher)P(tea|drinks). For trigrams you would use two '<s>' start symbols for the first word and one for second word.<br>
+The end symbol '</s>' is used at end of phrase to calculate the bigram probability of the sentence's last word like this: P(<s> the teacher drinks tea </s>) ≈ P(the|<s>)P(teacher|the)P(drinks|teacher)P(tea|drinks)P(</s>|tea). You always only need one end symbol.
+
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization: Natural Language Processing with Probabilistic Models](https://www.coursera.org/learn/probabilistic-models-in-nlp)
