@@ -240,7 +240,20 @@ The perplexity is measured by computing the probabilies of all sentences in test
 
 To calculate the perplexity of a bigram model, you first need to get the probability of all sentences in test set by calculating product of bigram probabilities of all sentences. Then take that to the power of -1 over m. Sometimes 'log perplexity' is used whereby -1/m is multiplied by the sum of logarithms with base 2 of all bigram probabilities. Again, this would be used to prevent underflow.
 
+#### Out of vocabulary words
+A vocabulary is a set of unique words supported by our language model. Sometimes you may encounter words who are not part of this vocabulary. We can call those, unknown words, or out of vocabulary words (OOV). To handle OOV you can replace them by the special tag \<UNK\> in corpus and calculate your probabilities by treating \<UNK\> as any other word.
 
+Criterias can exist for words of the corpus to become part of the vocabulary. For example a word may need to appear a minimum amount of times in the corpus to become part of the vocabulary. You can also define a maximum vocabulary size and select words with highest frequency to be part of that limited vocabulary. 
+
+\<UNK\> tends to lower perplexity score. Thus using \<UNK\> excessively can lead to false belief of good model. Thus use \<UNK\> sparingly. When using the perplexity metric, only language models with same vocabulary are comparable.
+
+#### Smoothing
+When using N-Grams on a small corpus, the probabilities of some words may be skewed. Smoothing can remedy that.
+
+If certain N-Grams are missing in the corpus their probability will result in 0. Laplacian smoothing, also called add-one smoothing, can be used to avoid N-Gram probabilities equaling 0. To use Laplacian smoothing when calculating N-Gram probabilities, add 1 to the numerator and add the vocabulary size to the denominator. With k-smoothing, add k to the numerator and add the vocabulary size times k to the denominator.
+
+Another way of dealing with missing N-Grams is to use the Backoff method. Which consists of transitioning to using (N - 1)-Grams until no N-Grams are missing anymore.<br>
+Alternatively the interpolation method can be used. It consists of combining the probability of the N-Gram with the (N - 1)-Gram probability down to the Uni-Gram probability. For example you would calculate the following trigram like this: P(chocolate|John drinks) = 0.7 x P(chocolate|John drinks) + 0.2 x P(chocolate|drinks) + 0.1 x P(chocolate). As you can see more weight is given to higher order N-Grams but lower order N-Grams are still taken in account to avoid 0 values. Those 'weights' are called lambdas and when summed need to equal 1.
 
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization: Natural Language Processing with Probabilistic Models](https://www.coursera.org/learn/probabilistic-models-in-nlp)
