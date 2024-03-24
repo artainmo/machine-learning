@@ -1,7 +1,20 @@
 # NLP with Probabilistic Models
 ## Table of contents
-- [DeepLearning.AI: Natural Language Processing Specialization: NLP with Probabilistic Models](#DeepLearning.AI-Natural-Language-Processing-Specialization-NLP-with-Probabilistic-Models)
-  - [Week 1: Autocorrect](Week-1-Autocorrect) 
+- [DeepLearning.AI: Natural Language Processing Specialization: NLP with Probabilistic Models](#deeplearningai-natural-language-processing-specialization-nlp-with-probabilistic-models)
+  - [Week 1: Autocorrect](#Week-1-Autocorrect)
+    - [Introduction](#introduction)
+    - [Building the model](#Building-the-model)
+    - [Minimum edit distance](#Minimum-edit-distance)
+    - [Minimum edit distance algorithm](#Minimum-edit-distance-algorithm)
+  - [Week 2: Part of Speech Tagging and Hidden Markov Models](#week-2-part-of-speech-tagging-and-hidden-markov-models)
+    - [Part of Speech Tagging](#Part-of-Speech-Tagging)
+    - [Markov chains](#Markov-chains)
+    - [Hidden Markov Models](#Hidden-Markov-Models)
+    - [Calculating probabilities](#Calculating-probabilities)
+    - [The Viterbi Algorithm](#The-Viterbi-Algorithm)
+      - [Viterbi: Initialization](#Viterbi-Initialization)
+      - [Viterbi: Forward pass](#Viterbi-Forward-pass)
+      - [Viterbi: Backward pass](#Viterbi-Backward-pass)
 - [Resources](#Resources)
 
 ## DeepLearning.AI: Natural Language Processing Specialization: NLP with Probabilistic Models
@@ -130,7 +143,7 @@ Let's take the phrase 'I love to learn' with the following graph.<br>
 ![Screenshot 2024-03-13 at 11 57 11](https://github.com/artainmo/machine-learning/assets/53705599/e822ce54-9faf-4753-8444-ab5c8e6c5972)<br>
 The first word 'I' can only be emitted by the O state. As shown in picture the transition probability of initial state (also called Pi) to O state is 0.3 and the emission state from O to 'I' is 0.5. The joint probability is 0.15.<br>
 Next the word love can be found in NN and VB states. The probability of prior state O to NN is 0.5 and from O to VB also 0.5. The probability of NN state to word 'love' is 0.1 while of VB state is 0.5. Thus the joint probability of O to VB to 'love' is higher with a value of 0.25. Thus VB will be the chosen POS tag this time.<br>
-Word 'to' can only be found in O state. Transition probability from VB state to O state is 0.2 and emission probability from O state to word 'to' is 0.4. thus joint probability is 0.08.<br>
+Word 'to' can only be found in O state. Transition probability from VB state to O state is 0.2 and emission probability from O state to word 'to' is 0.4, thus joint probability is 0.08.<br>
 Word 'learn' can only be found in VB state. Transition probability from O state to VB state is 0.5 and emission probability from VB state to word 'learn' is 0.2, thus joint probability is 0.1.<br>
 Finally, the probability of this word sequence can be calculated like this, 0.15 * 0.25 * 0.08 * 0.1, and equals 0.0003.
 
@@ -165,6 +178,31 @@ This thus gives us the sequence of states (POS tags) for our sequence of words.
 
 Coution with indices as in python they start with 0 not 1.<br>
 Also caution when using probabilities with very small values. To avoid very small values use 'log probabilities'. With log probabilities we addition the previous probability with logarithm of transition probability and the logarithm of emission probability when calculating matrix C, instead of multiplying the previous probability, transition and emission probabilities.
+
+### Week 3: Autocomplete and language models
+#### N-Grams
+N-Grams are fundamental in NLP and foundational for understanding more complicated models.<br>
+This week we will create an N-Gram language model from a text corpus and use it to auto-complete a sentence. A corpus can be any text collection but generally is a large database of text documents, such as all the Wikipedia pages, or books from one author, or tweets from one account. A language model estimates the probability of an upcoming word given a history of previous words.<br>
+An N-Gram language model is created from a text corpus. Users of the autocomplete system will provide the starting words and the model should answer by predicting and suggesting the following words.<br>
+N-Gram language models can be used in speech recognition to predict what got most likely heard. They can also be used in spelling correction to identify the use of incorrect words in a phrase's context. Search suggestion tools also use N-Gram language models.
+
+An N-Gram is a sequence of unique words wherein the order matters. When processing the corpus, punctuations are treated like words, but other special characters are removed.<br>
+Take the corpus 'I am happy because I am learning'. A unigram is a set of all unique words. The unigram for prior text corpus would be {I, am , happy, because, learning}. A bigram is a set of all unique two words combinations that appear side-by-side. Here the bigram would be {I am, am happy, happy because, because I, am learning}. Trigrams represent unique triplets of words that appear together in the corpus.
+
+A corpus consists of a sequence of words and that sequence can be denoted as 'w<sub>1</sub><sup>m</sup> = w<sub>1</sub> w<sub>2</sub> ... w<sub>m</sub>'. To denote only a subsequence of that vocabulary 'w<sub>1</sub><sup>3</sup> = w<sub>1</sub> w<sub>2</sub> w<sub>3</sub>'.
+
+The probability of a unigram can be calculated by dividing the total amount of occurences of a word by the total amount of words in the corpus. The probability of a word B occuring if the previous word was A can be calculated by dividing the total amount of AB bigrams by the total amount of A unigrams. The probability of the word C occuring next to words AB can be calculated by dividing the total amount of ABC trigrams by the total amount of AB bigrams.<br>
+The N-Gram probability formula can be written as such 'P(w<sub>N</sub> | w<sub>1</sub><sup>N - 1</sup>) = c(w<sub>1</sub><sup>N - 1</sup>w<sub>N</sub>) / C(w<sub>1</sub><sup>N - 1</sup>)'.
+
+#### Sequence Probabilities
+To calculate the probability of the following phrase 'the teacher drinks tea' we need to multiply the probability of 'the' with the probability of 'the' being followed by 'teacher' and with the probability of 'the teacher' being followed by 'drinks' and with the probability of 'the teacher drinks' being followed by 'tea'.<br>
+Mathematically we can write it like this: P(the teacher drinks tea) = P(the)P(teacher|the)P(drinks|the teacher)P(tea|the teacher drinks).<br>
+As sentences become longer, the chance of it occuring elsewhere in the corpus becomes smaller and smaller. This leads to probability calculations with zero values which is erroneous.<br>
+Thus instead you may want to approximate the probability result by only using probabilities of two words occuring together (bigrams). This would look like: P(the teacher drinks tea) ≈ P(the)P(teacher|the)P(drinks|teacher)P(tea|drinks). This is based on the Markov assumption which states that the probability of each word only depends on N previous words.
+
+If conditional probabilities used in N-Grams are calculated using a sliding window of two or more words, what happens at the beginning and end of a sentence?<br>
+The start symbol \<s\> is used to indicate the beginning of a sentence and is used to calculate the bigram probability of the sentence's first word. This means 'the teacher drinks tea' becomes '\<s\> the teacher drinks tea' and P(\<s\> the teacher drinks tea) ≈ P(the|\<s\>)P(teacher|the)P(drinks|teacher)P(tea|drinks). For trigrams you would use two '\<s\>' start symbols for the first word and one for second word.<br>
+The end symbol '\</s\>' is used at end of phrase to calculate the bigram probability of the sentence's last word like this: P(\<s\> the teacher drinks tea \</s\>) ≈ P(the|\<s\>)P(teacher|the)P(drinks|teacher)P(tea|drinks)P(\</s\>|tea). You always only need one end symbol.
 
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization: Natural Language Processing with Probabilistic Models](https://www.coursera.org/learn/probabilistic-models-in-nlp)

@@ -174,7 +174,7 @@ print(f"Accuracy of prediction using predict_pos is {accuracy_predict_pos:.4f}")
 w2_unittest.test_predict_pos(predict_pos, prep, y, emission_counts, vocab, states)
 
 #Now we will be implementing a Hidden Markov Model (HMM) 
-#by calculating transition matrix A and transition matrix B
+#by calculating transition matrix A and emission matrix B
 
 # UNQ_C3 GRADED FUNCTION: create_transition_matrix
 def create_transition_matrix(alpha, tag_counts, transition_counts):
