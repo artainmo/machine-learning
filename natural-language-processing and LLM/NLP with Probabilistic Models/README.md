@@ -201,8 +201,8 @@ As sentences become longer, the chance of it occuring elsewhere in the corpus be
 Thus instead you may want to approximate the probability result by only using probabilities of two words occuring together (bigrams). This would look like: P(the teacher drinks tea) ≈ P(the)P(teacher|the)P(drinks|teacher)P(tea|drinks). This is based on the Markov assumption which states that the probability of each word only depends on N previous words.
 
 If conditional probabilities used in N-Grams are calculated using a sliding window of two or more words, what happens at the beginning and end of a sentence?<br>
-The start symbol '<s>' is used to indicate the beginning of a sentence and is used to calculate the bigram probability of the sentence's first word. This means 'the teacher drinks tea' becomes '<s> the teacher drinks tea' and P(<s> the teacher drinks tea) ≈ P(the|<s>)P(teacher|the)P(drinks|teacher)P(tea|drinks). For trigrams you would use two '<s>' start symbols for the first word and one for second word.<br>
-The end symbol '</s>' is used at end of phrase to calculate the bigram probability of the sentence's last word like this: P(<s> the teacher drinks tea </s>) ≈ P(the|<s>)P(teacher|the)P(drinks|teacher)P(tea|drinks)P(</s>|tea). You always only need one end symbol.
+The start symbol \<s\> is used to indicate the beginning of a sentence and is used to calculate the bigram probability of the sentence's first word. This means 'the teacher drinks tea' becomes '\<s\> the teacher drinks tea' and P(\<s\> the teacher drinks tea) ≈ P(the|\<s\>)P(teacher|the)P(drinks|teacher)P(tea|drinks). For trigrams you would use two '\<s\>' start symbols for the first word and one for second word.<br>
+The end symbol '\</s\>' is used at end of phrase to calculate the bigram probability of the sentence's last word like this: P(\<s\> the teacher drinks tea \</s\>) ≈ P(the|\<s\>)P(teacher|the)P(drinks|teacher)P(tea|drinks)P(\</s\>|tea). You always only need one end symbol.
 
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization: Natural Language Processing with Probabilistic Models](https://www.coursera.org/learn/probabilistic-models-in-nlp)
