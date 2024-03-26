@@ -269,7 +269,29 @@ To create word embeddings you need a corpus and embedding method. The corpus giv
 #### Word embedding methods
 A lot of word embedding methods exist. New methods are created to capture more and more meaning.
 
-'word2vec' was created by Google and uses a shallow neural network to learn word embeddings. 
+Here is a little history of word-embedding methods.
+
+Google created in 2013 'word2vec' which uses a shallow neural network to learn word embeddings. It proposes two model architechtures. Continuous bag-of-words (CBOW) is a simple and efficient model that learns to predict a missing word given the surrounding words. Continuous skip gram or skip gram with negative sampling (SGNS) learns to predict a word surrounding a given input word.<br>
+Stanford created in 2014 'Global Vectors' (GloVe) which uses a count matrix as we have seen before.<br>
+Facebook created in 2016 'fastText'. It is based on the continuous skip gram model and takes in account the structure of words by representing words as n-grams of characters. This enables the model to support out of vocabulary words.
+
+Some more advanced word embedding methods use deep neural network architectures to refine the representation of the words' meaning according to their context.<br>
+For example Google created in 2018 BERT, Allen institute for AI created in 2018 ELMo, OpenAI created in 2018 GPT-2. You can download pre-trained embeddings of those models. 
+
+#### Continuous Bag-of-Words Model
+The objective of the CBOW model is to predict a missing word from the surrounding words. If two words are often used around similar contextual words in various sentences their meaning tends to be related.
+
+The model needs to learn from training examples. Take the corpus 'I am happy because I am learning'. We can create a training example of context half-size (C) of 2 and window size of 5 for example. 'I am' and 'because I' would be the surrounding context words, while 'happy' would be the center word, and together the context and center words form the window of size 5. The context half-size (C) can be tuned as a model hyperparameter. To find next training examples the window can slide forward one word and here would thus become 'am happy because I am' with 'because' as center word.<br>
+The model should take the context words as input and output the predicted center word.
+
+Tokenization means splitting into words. Before CBOW we will clean and tokenize the corpus. In the first NLP course we already talked about data preparation, cleaning and tokenization. However, here we will go in more details.<br>
+Words of corpus should be case insensitive, meaning you can convert the corpus to all lowercase characters.<br>
+Punctuations should be handled. They can all be replaced by a special word of the vocabulary like '.' or some can even be dropped. Multiple punctuations like ??? can be seen as one entity and also be replaced by that special word '.'.<br>
+Handle numbers by dropping them if they don't have meaning. However, certain numbers have meanings, such as 3.14 meaning Pi or 42 being a school, those can be left as is. If a lot of unique numbers have similar meanings such as different area codes, those can be replaced with a special token <NUMBER>.<br>
+You also need to handle special characters like @#$*... It is usually safe to drop them.<br>
+Special words such as emojis or hashtags like #nlp can be treated like individual words.
+
+The context and central words need to be transformed into a mathematical form that can be consumed by the CBOW. We use one-hot-vectors, as explained above, for central words. For context words we create one vector for the whole context by taking the average of all words' one-hot-vectors.
 
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization: Natural Language Processing with Probabilistic Models](https://www.coursera.org/learn/probabilistic-models-in-nlp)
