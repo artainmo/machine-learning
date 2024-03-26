@@ -253,5 +253,23 @@ If certain N-Grams are missing in the corpus their probability will result in 0.
 Another way of dealing with missing N-Grams is to use the Backoff method. Which consists of lowering the N order, use the associated (N - 1)-Gram, until the N-Gram is not missing anymore. Thus if for example you search probability of trigram 'are you happy' but you cannot find a probability for it or the given probability is 0, then look at the associated bigram 'you happy' and if its probability isn't found either, you can search the probability of unigram 'happy'. If using the probability of a lower-N-gram you need to multiply that probability with lambda (value between 0 and 1) times the difference in N.<br>
 Alternatively the interpolation method can be used. It consists of combining the probability of the N-Gram with the (N - 1)-Gram probability down to the Uni-Gram probability. For example you would calculate the following trigram like this: P(chocolate|John drinks) = 0.7 x P(chocolate|John drinks) + 0.2 x P(chocolate|drinks) + 0.1 x P(chocolate). As you can see more weight is given to higher order N-Grams but lower order N-Grams are still taken in account to avoid 0 values. Those 'weights' are called lambdas and when summed need to equal 1.
 
+### Week 4: Word embeddings with neural networks
+#### Introduction
+Word embeddings can also be called word vectors. They are used in most NLP applications as they allow the transformation of text into numerical code.<br>
+We will learn to implement them for machine translation, information extraction, question answering, semantic analogies, sentiment analysis, and classification of customer feedback.
+
+#### Word representations
+A vocabulary can be represented by a matrix containing word vectors.
+
+Imagine a vocabulary of 1000 words. The first word could receive code number 1 and last one code number 1000. This simple integer representation uses an order with no semantic logic. Instead, we can create word vectors consisting of 1000 values all equal to zero besides the value at index of word that can be set to one. Thus, the first word would consist of a vector starting with value one followed by 999 zeros, for example. Those vectors are called one-hot-vectors. Their advantage is that they don't imply any relationship between different words. However, limitations are that they require high memory space and that they don't carry the word's meaning.<br>
+Alternatively word vectors can consist of values representing the degree of attributes for the word. If a word has a positive value of 1.3 and an abstract value of -3, then a word vector can be formed like this (1.3, -3). This type of word vector we call word embeddings. It encodes the word's meaning in a low dimensional space. However, certain words may end up with similar vector values which can make it less precise.
+
+To create word embeddings you need a corpus and embedding method. The corpus gives a word a context which is what we use to deduce its meaning. The embedding method creates the embedding from the corpus. Many methods exist, however here we will use modern machine learning models who are self-supervised as their training data (the corpus) is not labeled but does contain the context allowing us to extract the labels. When training word vectors there are some parameters who can be tuned such as the word vector's dimension.
+
+#### Word embedding methods
+A lot of word embedding methods exist. New methods are created to capture more and more meaning.
+
+'word2vec' was created by Google and uses a shallow neural network to learn word embeddings. 
+
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization: Natural Language Processing with Probabilistic Models](https://www.coursera.org/learn/probabilistic-models-in-nlp)
