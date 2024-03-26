@@ -293,5 +293,14 @@ Special words such as emojis or hashtags like #nlp can be treated like individua
 
 The context and central words need to be transformed into a mathematical form that can be consumed by the CBOW. We use one-hot-vectors, as explained above, for central words. For context words we create one vector for the whole context by taking the average of all words' one-hot-vectors.
 
+The CBOW model architecture is based on a shallow neural-network with an input layer, single hidden layer and an output layer. The input layer takes the context words vector and the output layer predicts the center word vector. Because one-hot-vectors are used the input and output layers are of the size of the vocabulary's size. The hidden layer is given the same size as word embedding's size which is given to the model as hyperparameter. In between layers weights and biases can be found. The activation function ReLU is used between input and hidden layer and softmax between hidden and output layer.<br>
+![Screenshot 2024-03-26 at 20 37 33](https://github.com/artainmo/machine-learning/assets/53705599/5d4f37ec-852e-47e0-b5d2-bb4b57fd68bf)<br>
+![Screenshot 2024-03-26 at 20 56 27](https://github.com/artainmo/machine-learning/assets/53705599/e169568a-41da-4b7b-b699-c9e1075f108f)<br>
+[Learn more about how neural networks work.](https://github.com/artainmo/machine-learning/tree/main/supervised-learning%20and%20neural-networks)
+
+Feeding multiple examples to the neural-network simultaneously is known as batch processing. M defines the batch size and is a model hyperparameter. You can join the examples' input vectors to form a matrix of m columns and feed it to the neural-network. Then the neural-network will output a matrix that contains the predicted center word vectors of the associated input examples.
+
+In CBOW model when predicting the center word we output a vector that has the vocabulary's size like a one-hot-vector would. Softmax is used to transform the values in that vector into 0-1 probabilities. Each value at a particular index in that output vector thus represents the chance of the associated word being the center word.
+
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization: Natural Language Processing with Probabilistic Models](https://www.coursera.org/learn/probabilistic-models-in-nlp)
