@@ -253,5 +253,45 @@ If certain N-Grams are missing in the corpus their probability will result in 0.
 Another way of dealing with missing N-Grams is to use the Backoff method. Which consists of lowering the N order, use the associated (N - 1)-Gram, until the N-Gram is not missing anymore. Thus if for example you search probability of trigram 'are you happy' but you cannot find a probability for it or the given probability is 0, then look at the associated bigram 'you happy' and if its probability isn't found either, you can search the probability of unigram 'happy'. If using the probability of a lower-N-gram you need to multiply that probability with lambda (value between 0 and 1) times the difference in N.<br>
 Alternatively the interpolation method can be used. It consists of combining the probability of the N-Gram with the (N - 1)-Gram probability down to the Uni-Gram probability. For example you would calculate the following trigram like this: P(chocolate|John drinks) = 0.7 x P(chocolate|John drinks) + 0.2 x P(chocolate|drinks) + 0.1 x P(chocolate). As you can see more weight is given to higher order N-Grams but lower order N-Grams are still taken in account to avoid 0 values. Those 'weights' are called lambdas and when summed need to equal 1.
 
+### Week 4: Word embeddings with neural networks
+#### Introduction
+Word embeddings can also be called word vectors. They are used in most NLP applications as they allow the transformation of text into numerical code.<br>
+We will learn to implement them for machine translation, information extraction, question answering, semantic analogies, sentiment analysis, and classification of customer feedback.
+
+#### Word representations
+A vocabulary can be represented by a matrix containing word vectors.
+
+Imagine a vocabulary of 1000 words. The first word could receive code number 1 and last one code number 1000. This simple integer representation uses an order with no semantic logic. Instead, we can create word vectors consisting of 1000 values all equal to zero besides the value at index of word that can be set to one. Thus, the first word would consist of a vector starting with value one followed by 999 zeros, for example. Those vectors are called one-hot-vectors. Their advantage is that they don't imply any relationship between different words. However, limitations are that they require high memory space and that they don't carry the word's meaning.<br>
+Alternatively word vectors can consist of values representing the degree of attributes for the word. If a word has a positive value of 1.3 and an abstract value of -3, then a word vector can be formed like this (1.3, -3). This type of word vector we call word embeddings. It encodes the word's meaning in a low dimensional space. However, certain words may end up with similar vector values which can make it less precise.
+
+To create word embeddings you need a corpus and embedding method. The corpus gives a word a context which is what we use to deduce its meaning. The embedding method creates the embedding from the corpus. Many methods exist, however here we will use modern machine learning models who are self-supervised as their training data (the corpus) is not labeled but does contain the context allowing us to extract the labels. When training word vectors there are some parameters who can be tuned such as the word vector's dimension.
+
+#### Word embedding methods
+A lot of word embedding methods exist. New methods are created to capture more and more meaning.
+
+Here is a little history of word-embedding methods.
+
+Google created in 2013 'word2vec' which uses a shallow neural network to learn word embeddings. It proposes two model architechtures. Continuous bag-of-words (CBOW) is a simple and efficient model that learns to predict a missing word given the surrounding words. Continuous skip gram or skip gram with negative sampling (SGNS) learns to predict a word surrounding a given input word.<br>
+Stanford created in 2014 'Global Vectors' (GloVe) which uses a count matrix as we have seen before.<br>
+Facebook created in 2016 'fastText'. It is based on the continuous skip gram model and takes in account the structure of words by representing words as n-grams of characters. This enables the model to support out of vocabulary words.
+
+Some more advanced word embedding methods use deep neural network architectures to refine the representation of the words' meaning according to their context.<br>
+For example Google created in 2018 BERT, Allen institute for AI created in 2018 ELMo, OpenAI created in 2018 GPT-2. You can download pre-trained embeddings of those models. 
+
+#### Continuous Bag-of-Words Model
+The objective of the CBOW model is to predict a missing word from the surrounding words. If two words are often used around similar contextual words in various sentences their meaning tends to be related.
+
+The model needs to learn from training examples. Take the corpus 'I am happy because I am learning'. We can create a training example of context half-size (C) of 2 and window size of 5 for example. 'I am' and 'because I' would be the surrounding context words, while 'happy' would be the center word, and together the context and center words form the window of size 5. The context half-size (C) can be tuned as a model hyperparameter. To find next training examples the window can slide forward one word and here would thus become 'am happy because I am' with 'because' as center word.<br>
+The model should take the context words as input and output the predicted center word.
+
+Tokenization means splitting into words. Before CBOW we will clean and tokenize the corpus. In the first NLP course we already talked about data preparation, cleaning and tokenization. However, here we will go in more details.<br>
+Words of corpus should be case insensitive, meaning you can convert the corpus to all lowercase characters.<br>
+Punctuations should be handled. They can all be replaced by a special word of the vocabulary like '.' or some can even be dropped. Multiple punctuations like ??? can be seen as one entity and also be replaced by that special word '.'.<br>
+Handle numbers by dropping them if they don't have meaning. However, certain numbers have meanings, such as 3.14 meaning Pi or 42 being a school, those can be left as is. If a lot of unique numbers have similar meanings such as different area codes, those can be replaced with a special token <NUMBER>.<br>
+You also need to handle special characters like @#$*... It is usually safe to drop them.<br>
+Special words such as emojis or hashtags like #nlp can be treated like individual words.
+
+The context and central words need to be transformed into a mathematical form that can be consumed by the CBOW. We use one-hot-vectors, as explained above, for central words. For context words we create one vector for the whole context by taking the average of all words' one-hot-vectors.
+
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization: Natural Language Processing with Probabilistic Models](https://www.coursera.org/learn/probabilistic-models-in-nlp)
