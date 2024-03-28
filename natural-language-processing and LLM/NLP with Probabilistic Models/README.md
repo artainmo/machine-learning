@@ -259,8 +259,6 @@ Word embeddings can also be called word vectors. They are used in most NLP appli
 We will learn to implement them for machine translation, information extraction, question answering, semantic analogies, sentiment analysis, and classification of customer feedback.
 
 #### Word representations
-A vocabulary can be represented by a matrix containing word vectors.
-
 Imagine a vocabulary of 1000 words. The first word could receive code number 1 and last one code number 1000. This simple integer representation uses an order with no semantic logic. Instead, we can create word vectors consisting of 1000 values all equal to zero besides the value at index of word that can be set to one. Thus, the first word would consist of a vector starting with value one followed by 999 zeros, for example. Those vectors are called one-hot-vectors. Their advantage is that they don't imply any relationship between different words. However, limitations are that they require high memory space and that they don't carry the word's meaning.<br>
 Alternatively word vectors can consist of values representing the degree of attributes for the word. If a word has a positive value of 1.3 and an abstract value of -3, then a word vector can be formed like this (1.3, -3). This type of word vector we call word embeddings. It encodes the word's meaning in a low dimensional space. However, certain words may end up with similar vector values which can make it less precise.
 
