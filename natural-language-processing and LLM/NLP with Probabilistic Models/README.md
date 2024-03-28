@@ -318,7 +318,7 @@ H = ReLU(Z<sub>1</sub>)<br>
 Z<sub>2</sub> = W<sub>2</sub>H + B<sub>2</sub><br>
 Ŷ = softmax(Z<sub>2</sub>)<br>
 
-Backpropagation calculates the partial derivatives of the cost with respect to weights and biases using gradient descend. Weights and biases are updated by being substracting with the associated partial derivatives with the goal of minizing the cost.
+Backpropagation calculates the partial derivatives of the cost with respect to weights and biases using gradient descend. Weights and biases are updated by being substracting with the associated partial derivatives times [alpha](https://github.com/artainmo/machine-learning/tree/main/supervised-learning%20and%20neural-networks#LEARNING-RATE) with the goal of minizing the cost.
 
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization: Natural Language Processing with Probabilistic Models](https://www.coursera.org/learn/probabilistic-models-in-nlp)
