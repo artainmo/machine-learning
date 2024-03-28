@@ -320,5 +320,14 @@ Z<sub>2</sub> = W<sub>2</sub>H + B<sub>2</sub><br>
 
 Backpropagation calculates the partial derivatives of the cost with respect to weights and biases using gradient descend. Weights and biases are updated by being substracting with the associated partial derivatives times [alpha](https://github.com/artainmo/machine-learning/tree/main/supervised-learning%20and%20neural-networks#LEARNING-RATE) with the goal of minizing the cost.
 
+##### Extracting word embedding vectors
+Word embeddings are vectors that carry the meaning of words based on the contextual words in the corpus. Word embeddings are not the output of the CBOW model they are a by-product of it.
+
+After training the neural network, three word embedding representations can be extracted.<br>
+The first possibility is to consider each column of W<sub>1</sub> as the embedding vector of a word of the vocabulary. Recall that matrix W<sub>1</sub> has V number of columns, so it has one column for each word in the vocabulary.<br>
+The second possibility is to use each row of W<sub>2</sub> as the embedding vector of a word in the vocabulary. W<sub>2</sub> has V rows and thus one row for each vocabulary word.<br>
+The last option is to use the average of W<sub>1</sub> columns and W<sub>2</sub> rows. The order of those rows/columns conincides with the order of the associated words in the vocabulary. Thus first row/column represents the first vocabulary word and so forth.
+
+
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization: Natural Language Processing with Probabilistic Models](https://www.coursera.org/learn/probabilistic-models-in-nlp)
