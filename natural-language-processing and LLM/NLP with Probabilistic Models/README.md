@@ -282,6 +282,7 @@ The objective of the CBOW model is to predict a missing word from the surroundin
 The model needs to learn from training examples. Take the corpus 'I am happy because I am learning'. We can create a training example of context half-size (C) of 2 and window size of 5 for example. 'I am' and 'because I' would be the surrounding context words, while 'happy' would be the center word, and together the context and center words form the window of size 5. The context half-size (C) can be tuned as a model hyperparameter. To find next training examples the window can slide forward one word and here would thus become 'am happy because I am' with 'because' as center word.<br>
 The model should take the context words as input and output the predicted center word.
 
+##### Data preparation
 Tokenization means splitting into words. Before CBOW we will clean and tokenize the corpus. In the first NLP course we already talked about data preparation, cleaning and tokenization. However, here we will go in more details.<br>
 Words of corpus should be case insensitive, meaning you can convert the corpus to all lowercase characters.<br>
 Punctuations should be handled. They can all be replaced by a special word of the vocabulary like '.' or some can even be dropped. Multiple punctuations like ??? can be seen as one entity and also be replaced by that special word '.'.<br>
@@ -291,6 +292,7 @@ Special words such as emojis or hashtags like #nlp can be treated like individua
 
 The context and central words need to be transformed into a mathematical form that can be consumed by the CBOW. We use one-hot-vectors, as explained above, for central words. For context words we create one vector for the whole context by taking the average of all words' one-hot-vectors.
 
+##### Architecture
 The CBOW model architecture is based on a shallow neural-network with an input layer, single hidden layer and an output layer. The input layer takes the context words vector and the output layer predicts the center word vector. Because one-hot-vectors are used, the input and output layers are of the size of the vocabulary's size. The hidden layer is given the same size as word embedding's size which is given to the model as hyperparameter. In between layers, weights and biases can be found. The activation function ReLU is used between input and hidden layer and softmax between hidden and output layer.<br>
 ![Screenshot 2024-03-26 at 20 37 33](https://github.com/artainmo/machine-learning/assets/53705599/5d4f37ec-852e-47e0-b5d2-bb4b57fd68bf)<br>
 ![Screenshot 2024-03-26 at 20 56 27](https://github.com/artainmo/machine-learning/assets/53705599/e169568a-41da-4b7b-b699-c9e1075f108f)<br>
@@ -299,6 +301,24 @@ The CBOW model architecture is based on a shallow neural-network with an input l
 Feeding multiple examples to the neural-network simultaneously is known as batch processing. M defines the batch size and is a model hyperparameter. You can join the examples' input vectors to form a matrix of m columns and feed it to the neural-network. Then the neural-network will output a matrix that contains the predicted center word vectors of the associated input examples.
 
 In CBOW model when predicting the center word we output a vector that has the vocabulary's size like a one-hot-vector would. Softmax is used to transform the values in that vector into 0-1 probabilities. Each value at a particular index in that output vector thus represents the chance of the associated word being the center word.
+
+##### Cost function
+The cost function measures the degree of error between the predicted output and true label. The goal of the learning proccess is to find the model parameters that minimizes the cost.
+
+CBOW uses the cross-entropy loss function which is often used during classification because it punishes misclassifications with a higher cost. It is also called log loss function.
+
+y refers to input vector. ŷ refers to prediction/output-vector. To calculate the log loss we will create a vector that contains the logarithm of all ŷ values. We will multiply that vector log(ŷ) with the initial y vector. We will sum all values of the vector 'y * log(ŷ)' and multiple the result with -1 to get the final cost value.
+
+To calculate the cost of multiple examples as we would with batch processing. We will average the cost of each individual training example. Thus sum cost of each vector in matrix and divide that by the batch size m.
+
+##### Forward and backward propagation
+Forward propagation consists of the input going through the neural-network layers until it becomes a prediction. It mathematically looks like:<br>
+Z<sub>1</sub> = W<sub>1</sub>X + B<sub>1</sub><br>
+H = ReLU(Z<sub>1</sub>)<br>
+Z<sub>2</sub> = W<sub>2</sub>H + B<sub>2</sub><br>
+Ŷ = softmax(Z<sub>2</sub>)<br>
+
+Backpropagation calculates the partial derivatives of the cost with respect to weights and biases using gradient descend. Weights and biases are updated by being substracting with the associated partial derivatives with the goal of minizing the cost.
 
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization: Natural Language Processing with Probabilistic Models](https://www.coursera.org/learn/probabilistic-models-in-nlp)
