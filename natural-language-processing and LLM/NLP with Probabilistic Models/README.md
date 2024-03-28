@@ -328,6 +328,15 @@ The first possibility is to consider each column of W<sub>1</sub> as the embeddi
 The second possibility is to use each row of W<sub>2</sub> as the embedding vector of a word in the vocabulary. W<sub>2</sub> has V rows and thus one row for each vocabulary word.<br>
 The last option is to use the average of W<sub>1</sub> columns and W<sub>2</sub> rows. The order of those rows/columns conincides with the order of the associated words in the vocabulary. Thus first row/column represents the first vocabulary word and so forth.
 
+#### Evaluating word embeddings
+Intrinsic and extrinsic evaluation are two types of evaluations, one is best used over another depending on the task you are trying to optimize for.
+
+Intrinsic evaluation methods assess how well word embeddings capture the semantic (meaning) or syntactic (grammar) relationships between words.<br>
+Those word relationships can be assesed via analogies. An example of a semantic analogy is 'France is to Paris as Italy is to \<?\>'. An example of a syntactic analogy is 'seen is to saw as been is to \<?\>'.<br>
+A clustering algorithm that groups similar word embedding vectors can also be used to perform intrinsic evaluation.<br>
+Visualizing the word embedding vectors in a graph can also be considered a simple intrinsic evaluation method as it allows you to see if similar words are close to each other.
+
+To evaluate word embeddings with extrinsic evaluation you use the word embeddings to perform an external task which usually is the real-world task you initially needed the word embeddings for. Such an external task can be speech recognition for example, more specifically tasks like named entity recognition, parts-of-speech tagging, etc. The performance metric of this task will be used as a proxy evaluating the word embeddings. Extrinsic evaluation is the ultimate evaluation of word embeddings being useful in practice. However this type of evaluation is more time-consuming and provides less indications on where the problem lies if the performance is poor. 
 
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization: Natural Language Processing with Probabilistic Models](https://www.coursera.org/learn/probabilistic-models-in-nlp)
