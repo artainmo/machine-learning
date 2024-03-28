@@ -307,7 +307,7 @@ The cost function measures the degree of error between the predicted output and 
 
 CBOW uses the cross-entropy loss function which is often used during classification because it punishes misclassifications with a higher cost. It is also called log loss function.
 
-y refers to input vector. ŷ refers to prediction/output-vector. To calculate the log loss we will create a vector that contains the logarithm of all ŷ values. We will multiply that vector log(ŷ) with the initial y vector. We will sum all values of the vector 'y * log(ŷ)' and multiple the result with -1 to get the final cost value.
+y refers to correct answer vector. ŷ refers to prediction/output-vector. To calculate the log loss we will create a vector that contains the logarithm of all ŷ values. We will multiply that vector log(ŷ) with the initial y vector. We will sum all values of the vector 'y * log(ŷ)' and multiple the result with -1 to get the final cost value.
 
 To calculate the cost of multiple examples as we would with batch processing. We will average the cost of each individual training example. Thus sum cost of each vector in matrix and divide that by the batch size m.
 
