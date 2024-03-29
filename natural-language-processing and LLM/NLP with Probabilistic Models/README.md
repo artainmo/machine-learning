@@ -255,8 +255,9 @@ Alternatively the interpolation method can be used. It consists of combining the
 
 ### Week 4: Word embeddings with neural networks
 #### Introduction
-Word embeddings can also be called word vectors. They are used in most NLP applications as they allow the transformation of text into numerical code.<br>
-We will learn to implement them for machine translation, information extraction, question answering, semantic analogies, sentiment analysis, and classification of customer feedback.
+Word embeddings numerically represent the meaning of words via vectors. They are used in most NLP applications as they allow the transformation of text into numerical code.
+
+Machine learning models learn the meaning of words by creating word embeddings. Although we will learn to implement such basic models from scratch, in the real world NLP libraries can be used to easily implement more advanced models. Keras and Pytorch are two libraries that easily allow the implementation of word embeddings created from neural networks.
 
 #### Word representations
 Imagine a vocabulary of 1000 words. The first word could receive code number 1 and last one code number 1000. This simple integer representation uses an order with no semantic logic. Instead, we can create word vectors consisting of 1000 values all equal to zero besides the value at index of word that can be set to one. Thus, the first word would consist of a vector starting with value one followed by 999 zeros, for example. Those vectors are called one-hot-vectors. Their advantage is that they don't imply any relationship between different words. However, limitations are that they require high memory space and that they don't carry the word's meaning.<br>
