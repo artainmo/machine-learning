@@ -23,7 +23,7 @@
     - [Out of vocabulary words](#out-of-vocabulary-words)
     - [Missing N-Grams](#Missing-N-Grams)
   - [Week 4: Word embeddings with neural networks](#week-4-word-embeddings-with-neural-networks)
-    - [Introduction](#Introduction)
+    - [Introduction](#introduction-1)
     - [Word representations](#Word-representations)
     - [Word embedding methods](#Word-embedding-methods)
     - [Continuous Bag-of-Words Model](#continuous-bag-of-words-model)
