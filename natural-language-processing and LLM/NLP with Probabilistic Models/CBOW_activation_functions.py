@@ -11,7 +11,7 @@ def relu(z):
 # Softmax returns a probability that lies between 0 and 1
 def softmax(z):
     e_z = np.exp(z)
-    sum_e_z = np.sum(e_z)
+    sum_e_z = np.sum(e_z, axis=0)
     return e_z / sum_e_z
 
 
