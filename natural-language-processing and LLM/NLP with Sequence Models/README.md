@@ -52,5 +52,33 @@ h<sup>t</sup> = g(W<sub>hh</sub>h<sup>t-1</sup> + W<sub>hx</sub>x<sup>t</sup> + 
 
 You end up training W<sub>hh</sub>, W<sub>hx</sub>, W<sub>yh</sub>, b<sub>h</sub> and b<sub>y</sub>.
 
+##### Cost function for RNN
+Using cross-entropy-loss, with K being number of classes, you can caluclate the cost like this:<br>
+J = -Σ<sub>i=1</sub><sup>K</sup> y<sub>i</sub> log(ŷ<sub>i</sub>)
+
+RNNs consist of multiple steps t with total amount of steps T. We calculate a ŷ at every step. Thus for RNNs we need to adapt the cross-entropy-loss like this:<br>
+J = -1/T Σ<sub>t=1</sub><sup>T</sup> Σ<sup>K</sup><sub>i=1</sub> y<sub>i</sub><sup>t</sup> log(ŷ<sub>i</sub><sup>t</sup>)
+
+For RNNs the loss function is the average loss over its multiple steps.
+
+##### Implement RNNs
+Scan functions are like absctract RNNs and allow for faster computation.
+
+A scan function takes a function, list of elements and initialization value. It initializes the hidden state and applies the function on all elements. It basically loops over each step of the RNN.
+```
+def scan(fn, elems, initializer):
+  cur_value = initializer #This variable is same as hidden state H in RNN
+  ys = []
+  for x in elems:
+    y, cur_value = fn(x, cur_value) #This function returns current hidden state H and ŷ similar to the activation function in RNN
+    ys.append(y)
+  return ys, cur_value
+```
+
+The tensorflow framework uses the scan function (`tf.scan()`) as an abstraction that mimics RNNs. Those absctractions are necessary in deep learning frameworks because they allow the use of GPUs and parallel computation for speed.
+
+##### Gated Recurrent Units
+Regular RNNs don't work well in a context where word sequences are long. Because the information tends to vanish.
+
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization: Natural Language Processing with Sequence Models](https://www.coursera.org/learn/probabilistic-models-in-nlp)
