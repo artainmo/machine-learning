@@ -9,7 +9,6 @@
 ## DeepLearning.AI: Natural Language Processing Specialization: NLP with Sequence Models
 ### Week 1: Recurrent Neural Networks for Language Modeling
 #### Introduction to Neural Networks and Tensorflow
-##### Introduction
 Logistic regression and naive bayes were used during first NLP course for sentiment analysis. In this course we will use deep neural networks to perform sentiment analysis more robustly.
 
 The first lesson of this week is here for you to remember how neural networks work and to revisit the problem of classification that you have already seen in previous courses. The sequential models start in the second lesson of this week. The first week helps you transition from traditional NLP techniques in the previous courses to the sequence-based models in this course.
@@ -30,6 +29,17 @@ Embedding and mean layers also exist. In serial models the mean layer follows th
 An embedding layer consists of trainable weights who represent the word embeddings. Word embeddings, being vectors holding the meaning of words numerically. Its row length is the vocabulary's length and column length is embedding length. Thus each row vector can represent one vocabulary word.
 
 When padded vectors come into the embedding layer, certain rows of the embedding layer will equal zero. To avoid those zero values we use the mean layer to transform the weight matrix found in embedding layer into a one dimensional vector of embedding length that takes the average of each embedding layer column, thus eliminating the rows consisting of zero values. This layer has no trainable parameters as it is only calculating the mean of word embeddings.
+
+#### N-Grams vs Sequence Models
+Sequence models are a class of machine learning models designed for tasks that involve sequential data, where the order of elements in the input is important. Sequential data includes textual data, time series data, audio signals, video streams or any other ordered data.<br>
+A recurrent neural network (RNN) can model sequence data and thus form a sequence model.
+
+Large [N-Grams](https://github.com/artainmo/machine-learning/tree/main/natural-language-processing%20and%20LLM/NLP%20with%20Probabilistic%20Models#n-grams) are necessary to capture dependencies between distant words. This demands a lot of memory space. RNNs solve this issue and outperform N-Gram models in language generation tasks.
+
+##### Recurrent Neural Networks
+RNNs are not limited to only taking into account the last N words. They take in account the whole sentence and as a result make better predictions.
+
+
 
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization: Natural Language Processing with Sequence Models](https://www.coursera.org/learn/probabilistic-models-in-nlp)
