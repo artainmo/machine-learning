@@ -3,7 +3,7 @@
 - [DeepLearning.AI: Natural Language Processing Specialization: NLP with Sequence Models](#DeepLearningAI-Natural-Language-Processing-Specialization-NLP-with-Sequence-Models)
   - [Week 1: Recurrent Neural Networks for Language Modeling](#Week-1-Recurrent-Neural-Networks-for-Language-Modeling)
     - [Introduction to Neural Networks and Tensorflow](#Introduction-to-Neural-Networks-and-Tensorflow)
-      - [Introduction](#Introduction)  
+      - [Neural Networks for Sentiment Analysis](#Neural-Networks-for-Sentiment-Analysis)  
 - [Resources](#Resources)
 
 ## DeepLearning.AI: Natural Language Processing Specialization: NLP with Sequence Models
@@ -34,12 +34,23 @@ When padded vectors come into the embedding layer, certain rows of the embedding
 Sequence models are a class of machine learning models designed for tasks that involve sequential data, where the order of elements in the input is important. Sequential data includes textual data, time series data, audio signals, video streams or any other ordered data.<br>
 A recurrent neural network (RNN) can model sequence data and thus form a sequence model.
 
-Large [N-Grams](https://github.com/artainmo/machine-learning/tree/main/natural-language-processing%20and%20LLM/NLP%20with%20Probabilistic%20Models#n-grams) are necessary to capture dependencies between distant words. This demands a lot of memory space. RNNs solve this issue and outperform N-Gram models in language generation tasks.
+Large [N-Grams](https://github.com/artainmo/machine-learning/tree/main/natural-language-processing%20and%20LLM/NLP%20with%20Probabilistic%20Models#n-grams) are necessary to capture dependencies between distant words. This demands a lot of memory space. RNNs mitigate this issue and outperform N-Gram models in language generation tasks.
 
 ##### Recurrent Neural Networks
-RNNs are not limited to only taking into account the last N words. They take in account the whole sentence and as a result make better predictions.
+RNNs are not limited to only taking in account the last N words. They take in account the whole sentence(s) and as a result make better predictions.
 
+RNNs start by computing values with first word. It then propagates those values into calculations with second word to compute other values that will be used during calculations related to third word, and so forth, until it computes values for the to be predicted word. Calculations are repeated for every word in sequence/phrase(s) that is why the neural-network is 'recurrent'. 
 
+Different types of RNN architectures exist. They can take one or many inputs and outputs. For example one image as input and a phrase of multiple words (caption) as output would equal a 'one-to-many' architecture. Other architectures are 'one-to-one', 'many-to-one' and 'many-to-many'. Translation of phrases is an example of a 'many-to-many' architecture. RNNs can thus be implemented for a variety of NLP tasks such as machine translation or caption generation.
+
+##### Math in Simple RNNs
+An RNN consists of multiple steps across time t. Each step takes input x<sup>t</sup>, a hidden state h<sup>t-1</sup>, calculates h<sup>t</sup> and makes a prediction ŷ<sup>t</sup>. x<sup>1</sup> may be the first word of a sentence. The hidden state h<sup>t</sup> gets computed with activation function g and subsequently prediction ŷ<sup>t</sup> too.
+
+Here are the activation function formulas:<br>
+h<sup>t</sup> = g(W<sub>hh</sub>h<sup>t-1</sup> + W<sub>hx</sub>x<sup>t</sup> + b<sub>h</sub>)<br>
+ŷ<sup>t</sup> = g(W<sub>yh</sub>h<sup>t</sup> + b<sub>y</sub>)
+
+You end up training W<sub>hh</sub>, W<sub>hx</sub>, W<sub>yh</sub>, b<sub>h</sub> and b<sub>y</sub>.
 
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization: Natural Language Processing with Sequence Models](https://www.coursera.org/learn/probabilistic-models-in-nlp)
