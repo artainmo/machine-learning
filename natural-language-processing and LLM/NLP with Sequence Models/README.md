@@ -67,10 +67,10 @@ Scan functions are like absctract RNNs and allow for faster computation.
 A scan function takes a function, list of elements and initialization value. It initializes the hidden state and applies the function on all elements. It basically loops over each step of the RNN.
 ```
 def scan(fn, elems, initializer):
-  cur_value = initializer #This variable is same as hidden state H in RNN
+  cur_value = initializer #This variable is same as hidden state h in RNN
   ys = []
   for x in elems:
-    y, cur_value = fn(x, cur_value) #This function returns current hidden state H and ŷ similar to the activation function in RNN
+    y, cur_value = fn(x, cur_value) #This function returns current hidden state h and ŷ similar to the activation function in RNN
     ys.append(y)
   return ys, cur_value
 ```
@@ -101,7 +101,7 @@ h<sup>t</sup> = (1 - Γ<sub>u</sub>) * h<sup>t-1</sup> + Γ<sub>u</sub> * h'<sup
 ##### Deep and Bi-directional RNNs
 Deep RNNs allow the capture of more dependencies and thus make better predictions. Deep RNNs are multiple regular RNNs stacked together. Each regular RNN inside a deep RNN is considered as a layer. Each layer calculates its hidden states and passes its activations to the next layer.
 
-Take the following text example 'I was trying really hard to get a hold of ___. Louise, finally answered when I was about to give up.'. Regular RNNs will only read what comes before the word that has to be predicted and as a result cannot correctly predict 'Louise' in this example. Bi-directional RNNs also read from the end to the beginning thus they also read what comes after the word that has to be predicted. To make a prediction ŷ, hidden states from both directions are combined to form one hidden state.
+Take the following text example 'I was trying really hard to get a hold of ___. Louise, finally answered when I was about to give up.'. Regular RNNs will only read what comes before the word that has to be predicted and as a result cannot correctly predict 'Louise' in this example. Bi-directional RNNs also read from the end to the beginning thus they also read what comes after the word that has to be predicted. In bi-directional RNN, to make a prediction ŷ, hidden states from both directions are combined to form one hidden state.
 
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization: Natural Language Processing with Sequence Models](https://www.coursera.org/learn/probabilistic-models-in-nlp)
