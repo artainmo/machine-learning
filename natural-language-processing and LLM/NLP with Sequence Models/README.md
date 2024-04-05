@@ -43,7 +43,7 @@ RNNs start by computing values with first word. It then propagates those values 
 
 Different types of RNN architectures exist. They can take one or many inputs and outputs. For example one image as input and a phrase of multiple words (caption) as output would equal a 'one-to-many' architecture. Other architectures are 'one-to-one', 'many-to-one' and 'many-to-many'. Translation of phrases is an example of a 'many-to-many' architecture. RNNs can thus be implemented for a variety of NLP tasks such as machine translation or caption generation.
 
-##### Math in Simple RNNs
+###### Math in Simple RNNs
 An RNN consists of multiple steps across time t. Each step takes input x<sup>t</sup>, a hidden state h<sup>t-1</sup>, calculates h<sup>t</sup> and makes a prediction ŷ<sup>t</sup>. x<sup>1</sup> may be the first word of a sentence. The hidden state h<sup>t</sup> gets computed with activation function g and subsequently prediction ŷ<sup>t</sup> too.
 
 Here are the activation function formulas:<br>
@@ -52,7 +52,7 @@ h<sup>t</sup> = g(W<sub>hh</sub>h<sup>t-1</sup> + W<sub>hx</sub>x<sup>t</sup> + 
 
 You end up training W<sub>hh</sub>, W<sub>hx</sub>, W<sub>yh</sub>, b<sub>h</sub> and b<sub>y</sub>.
 
-##### Cost function for RNN
+###### Cost function for RNN
 Using cross-entropy-loss, with K being number of classes, you can caluclate the cost like this:<br>
 J = -Σ<sub>i=1</sub><sup>K</sup> y<sub>i</sub> log(ŷ<sub>i</sub>)
 
@@ -61,7 +61,7 @@ J = -1/T Σ<sub>t=1</sub><sup>T</sup> Σ<sup>K</sup><sub>i=1</sub> y<sub>i</sub>
 
 For RNNs the loss function is the average loss over its multiple steps.
 
-##### Implement RNNs
+###### Implement RNNs
 Scan functions are like absctract RNNs and allow for faster computation.
 
 A scan function takes a function, list of elements and initialization value. It initializes the hidden state and applies the function on all elements. It basically loops over each step of the RNN.
@@ -97,6 +97,11 @@ What follows are the mathematical formulas. `[x, y]` in mathematical notation in
 h'<sup>t</sup> = tanh(W<sub>h</sub>[Γ<sub>r</sub> * h<sup>t-1</sup>, x<sup>t</sup>] + b<sub>h</sub>)<br>
 h<sup>t</sup> = (1 - Γ<sub>u</sub>) * h<sup>t-1</sup> + Γ<sub>u</sub> * h'<sup>t</sup><br>
 ŷ<sup>t</sup> = g(W<sub>y</sub>h<sup>t</sup> + b<sub>y</sub>)
+
+##### Deep and Bi-directional RNNs
+Deep RNNs allow the capture of more dependencies and thus make better predictions. Deep RNNs are multiple regular RNNs stacked together. Each regular RNN inside a deep RNN is considered as a layer. Each layer calculates its hidden states and passes its activations to the next layer.
+
+Take the following text example 'I was trying really hard to get a hold of ___. Louise, finally answered when I was about to give up.'. Regular RNNs will only read what comes before the word that has to be predicted and as a result cannot correctly predict 'Louise' in this example. Bi-directional RNNs also read from the end to the beginning thus they also read what comes after the word that has to be predicted. To make a prediction ŷ, hidden states from both directions are combined to form one hidden state.
 
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization: Natural Language Processing with Sequence Models](https://www.coursera.org/learn/probabilistic-models-in-nlp)
