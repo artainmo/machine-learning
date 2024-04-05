@@ -78,7 +78,25 @@ def scan(fn, elems, initializer):
 The tensorflow framework uses the scan function (`tf.scan()`) as an abstraction that mimics RNNs. Those absctractions are necessary in deep learning frameworks because they allow the use of GPUs and parallel computation for speed.
 
 ##### Gated Recurrent Units
-Regular RNNs don't work well in a context where word sequences are long. Because the information tends to vanish.
+Regular RNNs don't work well in a context where word sequences are long. The Gated Recurrent Unit (GRU) is a more complex model able to handle longer word sequences.
+
+One important difference is that GRUs allow relevant information to be kept in the hidden state over long sequences. While information tends to vanish over long sequences in regular RNN models.
+
+Take the text 'Ants are really interesting. ___ are everywhere.' The missing word is 'They' because 'ants' is plural. GRUs remember such important information that occurs at the beginning of text.
+
+GRUs perform additional calculations. They calculate the 'relevance gate' (Γ<sub>r</sub>) and 'update gate' (Γ<sub>u</sub>) at the beginning of each step. These calculate the sigmoid activation function (σ)and thus output a vector with values between 0 and 1. They keep/update relevant information in the hidden state (h<sup>t</sup>).
+
+The relevance gate (Γ<sub>r</sub>) finds a relevance score and allows computing the hidden state candidates (h'<sup>t</sup>).<br>
+The hidden state's candidates (h'<sup>t</sup>) stores the information that could be used to override the one passed from the previous hidden state (h<sup>t-1</sup>).<br>
+The updates gate (Γ<sub>u</sub>) determines how much information from the previous hidden state (h<sup>t-1</sup>) will be overwritten and allows computing the current hidden state (h<sup>t</sup>).<br>
+The final prediction (ŷ) is calculated using the current hidden state (h<sup>t</sup>) similarly as in a regular RNN.
+
+What follows are the mathematical formulas. `[x, y]` in mathematical notation indicates concatenation between matrices.<br>
+Γ<sub>u</sub> = σ(W<sub>u</sub>[h<sup>t-1</sup>, x<sup>t</sup>] + b<sub>u</sub>)<br>
+Γ<sub>r</sub> = σ(W<sub>r</sub>[h<sup>t-1</sup>, x<sup>t</sup>] + b<sub>r</sub>)<br>
+h'<sup>t</sup> = tanh(W<sub>h</sub>[Γ<sub>r</sub> * h<sup>t-1</sup>, x<sup>t</sup>] + b<sub>h</sub>)<br>
+h<sup>t</sup> = (1 - Γ<sub>u</sub>) * h<sup>t-1</sup> + Γ<sub>u</sub> * h'<sup>t</sup><br>
+ŷ<sup>t</sup> = g(W<sub>y</sub>h<sup>t</sup> + b<sub>y</sub>)
 
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization: Natural Language Processing with Sequence Models](https://www.coursera.org/learn/probabilistic-models-in-nlp)
