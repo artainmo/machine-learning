@@ -32,7 +32,9 @@ When padded vectors come into the embedding layer, certain rows of the embedding
 
 #### N-Grams vs Sequence Models
 Sequence models are a class of machine learning models designed for tasks that involve sequential data, where the order of elements in the input is important. Sequential data includes textual data, time series data, audio signals, video streams or any other ordered data.<br>
-A recurrent neural network (RNN) can model sequence data and thus form a sequence model.
+A recurrent neural network (RNN) can model sequence data and thus form a sequence model. 
+
+You understand a word based on your understanding of previous words. Your thoughts have persistence, this is maybe what we call working-memory. Traditional neural-networks cannot persist information but RNNs have loops in them that allow information to persist.
 
 Large [N-Grams](https://github.com/artainmo/machine-learning/tree/main/natural-language-processing%20and%20LLM/NLP%20with%20Probabilistic%20Models#n-grams) are necessary to capture dependencies between distant words. This demands a lot of memory space. RNNs mitigate this issue and outperform N-Gram models in language generation tasks.
 
@@ -109,7 +111,7 @@ Named entity recognition (NER) is a subtask of information extraction that locat
 To implement NER we will use long short-term memory units (LSTMs). They are similar to GRUs except that they have even more gates.
 
 #### RNNs and Vanishing Gradients
-Vanishing or exploding gradients are problems commonly found in RNNs who deal with long sequences. They consist of values used during backpropagation calculations coming close to zero or infinity. If coming close to zero, certain items' contributions get neglected, and if approaching infinity, convergence problems arise. 
+Vanishing or exploding gradients are problems commonly found in RNNs who deal with long sequences. They consist of values used during backpropagation calculations coming close to zero or infinity respectively. If coming close to zero, certain items' contributions get neglected, and if approaching infinity, convergence problems arise. 
 
 Initializing weights to an identity matrix and using the ReLU activation function are ways of preventing vanishing gradients. Skip connections consists of direct connections to earlier layers, thus skipping activation functions and preventing those earlier values from vanishing through the layers, thus allowing them to impact the final output.<br>
 Gradient clipping consists of transformation any value larger than a predefined value to that predefined value. This helps prevent exploding gradients.
@@ -117,7 +119,23 @@ Gradient clipping consists of transformation any value larger than a predefined 
 GRUs and LSTMs mitigate those problems.
 
 #### Introduction to LSTMs
+LSTM is a variety of RNN that allows your model to remember and forget certain inputs. It is composed of a cell state which represents its memory, a hidden state to compute what changes to make, and lastly three gates that transform the states in the network to remember and forget informations. These gates also prevent the risk of vanishing or exploding gradients across long sequences.<br>
+LSTMs are basically useful to handle long sequences by remembering important past information while preventing gradient problems.
 
+An LSTM stores information in the cell state and hidden state, who are denoted by c and h respectively. Inputs are denoted by x and outputs by ŷ.<br>
+In an LSTM, multiple computations are performed in a single unit. The information flows through three different gates:
+* First, the forget gate, which uses the inputs and previous hidden state to decide what information from the cell state to forget.
+* Second, the input gate, decides what information from the inputs and previous hidden state should be remembered and thus added to the cell state.
+* Lastly, the output gate determines what information from the cell state gets stored in the hidden state and used to construct an output.
+
+LSTMs are useful for building language models. It can be used to predict the next character in your email, build chatbots capable of remembering longer conversations. Music is composed of long sequences of nodes like text uses long word sequences, and thus LSTMs can also compose music. Other applications are automatic image captioning and speech recognition.
+
+#### LSTM architecture
+The three gates start by using the sigmoid activation function on the input and previous hidden state to ensure values are between 0 and 1. Because gates use such values to indicate the degree to which information can flow, with a value of 0 meaning the gate is closed and does not let information through while a value of 1 lets the information flow through freely.
+
+The candidate cell state is another important computation made. It starts by using the tanh activation function on input and previous hidden state to squeeze values between -1 and 1. This transformation is used to improve training performance by preventing any of the values from the current inputs from becoming so large that they make the other values insignificant.<br>
+Once you have the forget gate, input gate and the candidate cell state, you can update the cell state. To compute the new cell state you need to sum the current cell state passing through the forget gate with the candidate cell state passing through the input gate.<br>
+Finally, you can compute the new hidden state used to produce the output. For that, you can optionally first pass the new cell state through the tanh activation function. Subsequently through the output gate.  
 
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization: Natural Language Processing with Sequence Models](https://www.coursera.org/learn/probabilistic-models-in-nlp)
