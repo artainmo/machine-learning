@@ -103,5 +103,21 @@ Deep RNNs allow the capture of more dependencies and thus make better prediction
 
 Take the following text example 'I was trying really hard to get a hold of ___. Louise, finally answered when I was about to give up.'. Regular RNNs will only read what comes before the word that has to be predicted and as a result cannot correctly predict 'Louise' in this example. Bi-directional RNNs also read from the end to the beginning thus they also read what comes after the word that has to be predicted. In bi-directional RNN, to make a prediction ŷ, hidden states from both directions are combined to form one hidden state. Bidirectional RNNs are acyclic graphs, which means that the computations in one direction are independent from the ones in the other direction.
 
+### Week 2: LSTMs and Named Entity Recognition
+Named entity recognition (NER) is a subtask of information extraction that locates and classifies named entities. Named entities can refer to organizations, persons, locations. For example, if you look at the sentence 'The French people are visiting Morocco for Christmas.', Fench is a geopolitical entity, Morocco is a geographic entity and Christmas is a time indicator.
+
+To implement NER we will use long short-term memory units (LSTMs). They are similar to GRUs except that they have even more gates.
+
+#### RNNs and Vanishing Gradients
+Vanishing or exploding gradients are problems commonly found in RNNs who deal with long sequences. They consist of values used during backpropagation calculations coming close to zero or infinity. If coming close to zero, certain items' contributions get neglected, and if approaching infinity, convergence problems arise. 
+
+Initializing weights to an identity matrix and using the ReLU activation function are ways of preventing vanishing gradients. Skip connections consists of direct connections to earlier layers, thus skipping activation functions and preventing those earlier values from vanishing through the layers, thus allowing them to impact the final output.<br>
+Gradient clipping consists of transformation any value larger than a predefined value to that predefined value. This helps prevent exploding gradients.
+
+GRUs and LSTMs mitigate those problems.
+
+#### Introduction to LSTMs
+
+
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization: Natural Language Processing with Sequence Models](https://www.coursera.org/learn/probabilistic-models-in-nlp)
