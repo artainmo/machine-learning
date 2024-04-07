@@ -154,7 +154,7 @@ NERs are used to improve search engine efficiency, recommendation engines, match
 
 #### Training NERs: Data Processing
 First, assign each entity class/type a unique number. Also convert each word in text into its associated number in an array. Basically using an integer representation for both text input and entity classes.<br>
-All sequences in LSTM need to be of same size. If necessary padding can be used with the associated tag/token \<PAD\>.<br>
+All sequences in LSTM need to be of same size when forming matrices for batch processing. If necessary padding can be used with the associated tag/token \<PAD\>.<br>
 Create a data generator to output the created tensors (vectors/matrices of numbers) in batches which speeds up training.<br>
 Then, feed the batches into an LSTM unit. Its output will be run trough a Dense layer and a prediction is made using log-softmax over K classes.
 
