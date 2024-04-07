@@ -135,7 +135,44 @@ The three gates start by using the sigmoid activation function on the input and 
 
 The candidate cell state is another important computation made. It starts by using the tanh activation function on input and previous hidden state to squeeze values between -1 and 1. This transformation is used to improve training performance by preventing any of the values from the current inputs from becoming so large that they make the other values insignificant.<br>
 Once you have the forget gate, input gate and the candidate cell state, you can update the cell state. To compute the new cell state you need to sum the current cell state passing through the forget gate with the candidate cell state passing through the input gate.<br>
-Finally, you can compute the new hidden state used to produce the output. For that, you can optionally first pass the new cell state through the tanh activation function. Subsequently through the output gate.  
+Finally, you can compute the new hidden state used to produce the output. For that, you can optionally first pass the new cell state through the tanh activation function. Subsequently through the output gate.
+
+#### Introduction to Named Entity Recognition
+Many NLP systems make use of an NER component to handle named entities. 
+
+Different entity types exist such as:
+* geographical entities - ex. Thailand
+* organization entities - ex. Google
+* geopolitical entities - ex. Indian
+* time indicator entities - ex. December
+* artifact entities - ex. artifact
+* person entities - ex. Barack Obama
+
+Take the phrase 'Sharon flew to Miami last Friday'. A NER system would classify Sharon as a personal name, Miami as a geographical entity, and Friday as a time indicator.
+
+NERs are used to improve search engine efficiency, recommendation engines, matching customer to proper customer service, and in automatic trading it can help find relevant news articles, subsequently using sentiment analysis on those news articles. NERs help by scanning large documents for certain tags quickly. In the case of a search engine the queried tags can be matched against tags in documents. Recommendation engines would for example scan tags in your history against matching tags for new candidate material.
+
+#### Training NERs: Data Processing
+First, assign each entity class/type a unique number. Also convert each word in text into its associated number in an array. Basically using an integer representation for both text input and entity classes.<br>
+All sequences in LSTM need to be of same size. If necessary padding can be used with the associated tag/token \<PAD\>.<br>
+Create a data generator to output the created tensors (vectors/matrices of numbers) in batches which speeds up training.<br>
+Then, feed the batches into an LSTM unit. Its output will be run trough a Dense layer and a prediction is made using log-softmax over K classes.
+
+Here is how layers might look like in practice:
+```
+model = tf.keras.Sequential([
+    tf.keras.layers.Embedding(),
+    tf.keras.layers.LSTM(),
+    tf.keras.layers.Dense()
+])
+```
+
+#### Computing accuracy
+After taining the NER you need to evaluate it.
+
+Make predictions on test set using your model. Take the highest value in prediction array which represents the highest probability entity class and thus made prediction. Those predictions can be compared against true labels to see how accurate the model is on unseen data.
+
+Padded tokens /<PAD/> need to be masked/skipped when calculating accuracy.
 
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization: Natural Language Processing with Sequence Models](https://www.coursera.org/learn/probabilistic-models-in-nlp)
