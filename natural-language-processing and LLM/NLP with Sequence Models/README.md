@@ -186,7 +186,23 @@ Siamese networks have two identical subnetworks who merge together in the end to
 
 The following is an example of a Siamese network. Not all Siamese networks are designed to contain LSTMs.<br>
 ![Screenshot 2024-04-08 at 17 56 59](https://github.com/artainmo/machine-learning/assets/53705599/fb76f738-c1cc-475f-aac9-cfa1a34881c6)<br>
-In such a network 'question 1' and 'question 2' represent the inputs. The embedding layer is used to transform the inputs into embeddigs, who are run through an LSTM layer to model the question's meaning. Each LSTM outputs a vector. In the end the cosine similarity is used to measure the similarity between the two output vectors and provides the model's prediction ŷ which will be a value between -1 and 1. If ŷ is greater than some treshold, we will call tau (Τ), then the two questions are deemed similar, else different. 
+In such a network 'question 1' and 'question 2' represent the inputs. The embedding layer is used to transform the inputs into embeddigs, who are run through an LSTM layer to model the question's meaning. Each LSTM outputs a vector. In the end the cosine similarity is used to measure the similarity between the two output vectors and provides the model's prediction ŷ which will be a value between -1 and 1. If ŷ is greater than some treshold, we will call tau (Τ), then the two questions are deemed similar, else different. Similar questions should output a value closer to 1 while different questions a value closer to -1.
+
+#### Cost function
+A siamese network uses a cost function named the 'triplet loss'.
+
+The triplet loss looks at:
+* an anchor, which is the base question we will compare another question to.
+* a positive, which is another question who is similar to the anchor.
+* a negative, which is another question who is different than the anchor.
+
+We expect an anchor and positive to have a cosine similarity close to 1. While we expect an anchor and negative to have a cosine similarity close to -1.<br>
+You basically try to minimize the following equation: `-cos(A, P) + cos(A, N)`. Where cos refers to cosine similarity, A to anchor, P to positive, and N to negative. If cos(A,P) equals 1 as it should and cos(A,N) equals -1 as it should, then the cost will definitely be less than 0.
+
+The triplet loss uses the margin value alpha to transform slightly negative losses into positive ones to ensure training continues. Else, negative losses can quickly occur and stunt training. For example if alpha is 0.2 and loss -0.1, then we will add alpha to the loss making it positive. It is also important to note that we transform negative losses into 0. So the new loss function becomes `max((-cos(A, P) + cos(A, N) + alpha), 0)`.
+
+If you were to select triplets randomly, you would be likely to choose anchors, positives, and negative examples that will lead to losses close to zero. The network will have nothing to learn from those triplets. You can train more efficiently if you choose triplets that create a challenge to the model. So instead of selecting random triplets, you specifically select so called hard triplets where the negative and positive examples are harder to tell apart.
+
 
 
 ## Resources
