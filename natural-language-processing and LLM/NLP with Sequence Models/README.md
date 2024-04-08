@@ -174,5 +174,20 @@ Make predictions on test set using your model. Take the highest value in predict
 
 Padded tokens /<PAD/> need to be masked/skipped when calculating accuracy.
 
+### Week 3: Siamese Networks
+A siamese network consists of two identical neural networks who use the same weights and merge at the end while working alongside two different input vectors to compute comparable output vectors. You can then compare those output vectors to see if they are similar. In NLP, you can use this to identify question duplicates. Platforms like Stack Overflow or Quoara implement such techniques to avoid question duplicates. In NLP, it can also be used to identify similar signatures.
+
+Take the following questions, "How old are you?" and "What is your age?". Those are similar questions even if they are phrased differently. Here, we want to use Siamese Networks to compare the meaning of word sequences and identify question duplicates. We do this by computing a similarity score representing the relationship between the two questions. If that score surpasses a certain treshold we can predict the questions to be of similar meaning and thus duplicates.
+
+While classification learns what an input is, siamese networks learns how similar two inputs are.
+
+#### Architecture
+Siamese networks have two identical subnetworks who merge together in the end to produce a final output representing the similarity score. It is important to note that the learned parameters (weights and biases) of each subnetwork are exactly the same.
+
+The following is an example of a Siamese network. Not all Siamese networks are designed to contain LSTMs.<br>
+![Screenshot 2024-04-08 at 17 56 59](https://github.com/artainmo/machine-learning/assets/53705599/fb76f738-c1cc-475f-aac9-cfa1a34881c6)<br>
+In such a network 'question 1' and 'question 2' represent the inputs. The embedding layer is used to transform the inputs into embeddigs, who are run through an LSTM layer to model the question's meaning. Each LSTM outputs a vector. In the end the cosine similarity is used to measure the similarity between the two output vectors and provides the model's prediction ŷ which will be a value between -1 and 1. If ŷ is greater than some treshold, we will call tau (Τ), then the two questions are deemed similar, else different. 
+
+
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization: Natural Language Processing with Sequence Models](https://www.coursera.org/learn/probabilistic-models-in-nlp)
