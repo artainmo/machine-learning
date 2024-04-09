@@ -217,5 +217,16 @@ Second, we need to find the closest negative. As mentioned earlier, hard triplet
 The triplet loss function can be modified into two losses now.<br>
 The first loss looks like this `max((mean_negative - cos(A, P) + alpha), 0)`. We replaced `cos(A, N)` with recently calculated `mean_negative` which helps the model converge faster by reducing noise. The second loss looks like this `max((closest_negative - cos(A, P) + alpha), 0)`. We replaced `cos(A, N)` with recently calculated `closest_negative` which will produce the largest loss and thus highest potential for learning. The final/full loss will be the sum of first and second loss. The overall cost will be the sum of each training example's loss.
 
+#### One Shot Learning
+Imagine you want to identify if the author of a certain poem is Lucas or not. You can use a classifier to predict the author of the poem between multiple authors using a large dataset. If the author list stays the same, classification is not a problem. However if the author list changes, the whole model needs to be retrained and the new author needs a solid dataset. Instead, you can use one-shot-learning which consists of comparing one of Lucas' poems to another poem. You can use a learned similarity function for this. Thus, instead of determining the class, we measure the similarity between two classes with one-shot-learning.<br>
+One-shot-learning is very useful in banks to identify signatures. When new signatures arrive, instead of retraining the whole classification model, you learn a similarity function that can identify if two signatures are the same or not.<br>
+Siamese networks are used to produce a similarity score in one-shot-learning.
+
+#### Train and Test
+As explained in [cost function section](#Cost-function), first prepare your data in two batches. The first question in batch 1 is similar to the first question in batch 2, the second one in batch 1 is similar to the second one in batch 2, and so forth. However question one in batch 1 is different than all the other questions in the batch. In general, both in batch 1 and 2, all questions are unique compared to the other questions of the same batch.<br>
+Pass those inputs through the subnetworks of the siamese network to get output vectors. Perform cosine similarity on those output vectors to get similarity scores. Those similarity scores can be used to calculate the cost or make a prediction.
+
+When testing the model you will perform one-shot-learning by finding a similarity score between two inputs and comparing it to the treshold value tau to predict if duplicate or not.
+
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization: Natural Language Processing with Sequence Models](https://www.coursera.org/learn/probabilistic-models-in-nlp)
