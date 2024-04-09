@@ -175,7 +175,7 @@ Make predictions on test set using your model. Take the highest value in predict
 Padded tokens /<PAD/> need to be masked/skipped when calculating accuracy.
 
 ### Week 3: Siamese Networks
-A siamese network consists of two identical neural networks who use the same weights and merge at the end while working alongside two different input vectors to compute comparable output vectors. You can then compare those output vectors to see if they are similar. In NLP, you can use this to identify question duplicates. Platforms like Stack Overflow or Quoara implement such techniques to avoid question duplicates. In NLP, it can also be used to identify similar signatures.
+A siamese network consists of two identical neural networks who use the same weights and merge at the end while working alongside two different input vectors to compute output vectors. You can then compare those output vectors to see if they are similar. In NLP, you can use this to identify question duplicates. Platforms like Stack Overflow or Quoara implement such techniques to avoid question duplicates. In NLP, it can also be used to identify similar signatures.
 
 Take the following questions, "How old are you?" and "What is your age?". Those are similar questions even if they are phrased differently. Here, we want to use Siamese Networks to compare the meaning of word sequences and identify question duplicates. We do this by computing a similarity score representing the relationship between the two questions. If that score surpasses a certain treshold we can predict the questions to be of similar meaning and thus duplicates.
 
@@ -211,7 +211,7 @@ In such a similarity matrix the diagonal should consist of higher values indicat
 Creating non-duplicate pairs by using batches like this removes the need for additional non-duplicate examples in the input data. Thus instead of needing specific batches with negative examples, batches with different duplicate pairs can suffice to extract both positive and negative examples. From the similarity matrix, the diagonal values provide duplicate examples and off-diagonal values provide non-duplicate-examples.<br>
 The triplet loss function can now be used on the values in the similarity matrix. The overall cost will be the sum of each training example's loss.
 
-The off-diagonal information can be used to improve the triplet loss function. For this we need to extract two values from the off-diagonal values of each row of the similarity matrix.<br>
+The off-diagonal information can be used to improve the triplet loss function. For this we need to extract two values from the off-diagonal values of each row of the similarity matrix. We call this 'hard negative mining'.<br>
 First, we need to compute the mean negative, which is the mean/average of all the off-diagonal values in each row of the similarity matrix. To clarify, the word 'negative' is used because it refers to non-duplicate-examples which is what the off-diagonal values should represent.<br>
 Second, we need to find the closest negative. As mentioned earlier, hard triplets are preferred for training. They have a cosine similarity of the negative example close to the cosine similarity of the positive example. This forces the model to learn the subtle differences they hold. To find the closest negative we search for each row the non-diagonal value who is the closest to, but still less than, the diagonal value of that row.<br>
 The triplet loss function can be modified into two losses now.<br>
