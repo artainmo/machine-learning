@@ -132,6 +132,7 @@ w3_unittest.test_Siamese(Siamese)
 # Triplet Loss with Hard Negative Mining
 
 # As this will be run inside Tensorflow, use all operation supplied by tf.math or tf.linalg, instead of numpy functions.
+# However, we also put numpy functions in comments.
 # GRADED FUNCTION: TripletLossFn
 def TripletLossFn(v1, v2,  margin=0.25):
     """Custom Loss function.
@@ -147,38 +148,49 @@ def TripletLossFn(v1, v2,  margin=0.25):
     ### START CODE HERE ###
     # use `tf.linalg.matmul` to take the dot product of the two batches.
     # Don't forget to transpose the second argument using `transpose_b=True`
-    scores = tf.linalg.matmul(v1, v2, transpose_b=True)
+    scores = tf.transpose(tf.linalg.matmul(v1, v2, transpose_b=True)) #Needs to be transposed for correct final output for unknown reason
+    #scores2 = (np.dot(v1, v2.T)).T
+    #scores2 = np.dot(v1, v2.T)
     # calculate new batch size and cast it as the same datatype as scores.
     batch_size = tf.cast(tf.shape(v1)[0], scores.dtype)
+    #batch_size2 = len(scores2)
     # use `tf.linalg.diag_part` to grab the cosine similarity of all positive examples
     positive = tf.linalg.diag_part(scores)
+    #positive2 = np.diagonal(scores2)
     # subtract the diagonal from scores. You can do this by creating a diagonal matrix with the values
     # of all positive examples using `tf.linalg.diag`
     negative_zero_on_duplicate = scores - tf.linalg.diag(positive)
+    #negative_zero_on_duplicate2 = (1-np.eye(batch_size2)) * scores2
     # use `tf.math.reduce_sum` on `negative_zero_on_duplicate` for `axis=1` and divide it by `(batch_size - 1)`
     mean_negative = tf.math.reduce_sum(negative_zero_on_duplicate, axis=1) / (batch_size - 1)
+    #mean_negative2 = np.sum(negative_zero_on_duplicate2, axis=1)/(batch_size2-1)
     # create a composition of two masks:
     # the first mask to extract the diagonal elements (make sure you use the variable batch_size here),
     # the second mask to extract elements in the negative_zero_on_duplicate matrix that are larger than the elements in the diagonal
     mask1 = tf.eye(batch_size) == 1 # Exclude diagonal containing positives
     mask2 = negative_zero_on_duplicate > tf.expand_dims(positive, 1) # Exclude similarity scores higher than the one in diagonal
     mask_exclude_positives = tf.cast(mask1|mask2, scores.dtype)
+    #mask_exclude_positives2 = (np.identity(batch_size2) == 1)|(negative_zero_on_duplicate2 > positive2.reshape(batch_size2, 1))
     # multiply `mask_exclude_positives` with 2.0 and subtract it out of `negative_zero_on_duplicate`
     negative_without_positive = negative_zero_on_duplicate - 2.0*mask_exclude_positives
+    #negative_without_positive2 = negative_zero_on_duplicate2 - (mask_exclude_positives2*2)
     # take the row by row `max` of `negative_without_positive`.
     # Hint: `tf.math.reduce_max(negative_without_positive, axis = None)`
-    closest_negative = tf.math.reduce_max(negative_without_positive, axis=None)
+    closest_negative = tf.math.reduce_max(negative_without_positive, axis=1)
+    #closest_negative2 = negative_without_positive2.max(axis=1)
     # compute `tf.maximum` among 0.0 and `A`
     # A = subtract `positive` from `margin` and add `closest_negative`
-    triplet_loss1 = tf.math.maximum((closest_negative - positive + margin), 0)
+    triplet_loss1 = tf.maximum(closest_negative - positive + margin, 0)
+    #triplet_loss12 = np.maximum(0, margin-positive2+closest_negative2)
     # compute `tf.maximum` among 0.0 and `B`
     # B = subtract `positive` from `margin` and add `mean_negative`
-    triplet_loss2 = tf.math.maximum((mean_negative - positive + margin), 0)
+    triplet_loss2 = tf.maximum(mean_negative - positive + margin, 0)
+    #triplet_loss22 = np.maximum(0, margin-positive2+mean_negative2)
     # add the two losses together and take the `tf.math.reduce_sum` of it
     triplet_loss = tf.math.reduce_sum(triplet_loss1 + triplet_loss2)
+    #triplet_loss_2 = np.sum(triplet_loss12 + triplet_loss22)
     ### END CODE HERE ###
     return triplet_loss
-
 #For keras to recognize it as a loss function you need to take 'out' which coincides with the output of the siamese network
 #which is the concatenation of each subnetwork's output.
 def TripletLoss(labels, out, margin=0.25):
