@@ -82,7 +82,18 @@ Before going through the decoder, you drop the mask. You then pass the context v
 In the end, your model returns log probabilities and the copy of the target tokens that you made at the beginning.<br>
 ![Screenshot 2024-04-18 at 19 08 41](https://github.com/artainmo/machine-learning/assets/53705599/b8db6fbc-f2f6-4f1a-8eb9-b6162362de21)
 
+#### BLEU Score
+Bilingual evaluation understudy (BLEU) is one metric among others used to evaluate machine translation models. It evaluates the quality of machine-translated candidate text by comparing it to one or more references who usually are human translations. The closer to 1 the BLEU score, the better the model is, while the closer to 0, the worse it is.
 
+To get the BLUE score you have to compute the precision of the candidate translation by comparing its [n-grams](https://github.com/artainmo/machine-learning/tree/main/natural-language-processing%20and%20LLM/NLP%20with%20Probabilistic%20Models#n-grams) with reference translations.<br>
+Here is a demonstration using unigrams. You basically need to count the number of unigrams from the candidate translation that appear in any of the references and divide that count by the total amount of words in the candidate translation.<br>
+![Screenshot 2024-04-18 at 23 45 18](https://github.com/artainmo/machine-learning/assets/53705599/bb363e6d-dcd0-40b0-b75e-7f72ced1ec7d)<br>
+In this example a bad translation got a perfect score. This is because the bad translation consisted of common words only. A modified BLEU score could prevent this erroneous score.
+
+For the modified version of the BLEU score, after you find a word from the candidates in one or more of the references, you stop considering that word from the reference for the following words in the candidates. In other words, you exhaust the words in the references after you match them with a word in the candidates.
+![Screenshot 2024-04-18 at 23 58 41](https://github.com/artainmo/machine-learning/assets/53705599/3f50b72c-d125-4d8b-95aa-5a9cec3c990c)
+
+BLEU score is the most widely adopted evaluation metric for machine translation. However you should be aware of its limitations. It does not consider semantic meaning, neither sentence structure.
 
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization: Natural Language Processing with Attention Models](https://www.coursera.org/learn/attention-models-in-nlp)
