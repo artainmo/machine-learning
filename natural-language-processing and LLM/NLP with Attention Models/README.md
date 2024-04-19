@@ -91,8 +91,20 @@ Here is a demonstration using unigrams. You basically need to count the number o
 In this example a bad translation got a perfect score. This is because the bad translation consisted of common words only. A modified BLEU score could prevent this erroneous score.
 
 For the modified version of the BLEU score, after you find a word from the candidates in one or more of the references, you stop considering that word from the reference for the following words in the candidates. In other words, you exhaust the words in the references after you match them with a word in the candidates.
-![Screenshot 2024-04-18 at 23 58 41](https://github.com/artainmo/machine-learning/assets/53705599/3f50b72c-d125-4d8b-95aa-5a9cec3c990c)
+![Screenshot 2024-04-18 at 23 58 41](https://github.com/artainmo/machine-learning/assets/53705599/3f50b72c-d125-4d8b-95aa-5a9cec3c990c)<br>
 
+The table below shows the typical values of BLEU score. 
+| Score | Interpretation |
+| -- | -- |
+| < 10	| Almost useless |
+| 10 - 19	| Hard to get the gist |
+| 20 - 29	| The gist is clear, but has significant grammatical errors |
+| 30 - 40	| Understandable to good translations |
+| 40 - 50	| High quality translations |
+| 50 - 60	| Very high quality, adequate, and fluent translations |
+| > 60 | Quality often better than human |
+
+<br>
 BLEU score is the most widely adopted evaluation metric for machine translation. However you should be aware of its limitations. It does not consider semantic meaning, neither sentence structure.
 
 ## Resources
