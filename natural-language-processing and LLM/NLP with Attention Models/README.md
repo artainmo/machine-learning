@@ -119,6 +119,43 @@ You have now seen how to compute the modified BLEU and the sample ROUGE-N scores
 
 While the BLEU score does not consider semantic meaning, nor sentence structure, the ROUGE score neither.
 
+#### Decoding and Sampling
+Greedy decoding and random sampling are methods used to construct a sentence.
+
+In a seq2seq model the decoder outputs at each step a probability distribution over all the words and symbols in the target vocabulary. The final output of the seq2seq model depends on what word you choose out of that probability distribution at each step.
+
+Greedy decoding is the simplest way to select a word out of the model's predicted probability distribution as it selects the most probable word at every step. The problem with this method is that when handling long sequences it can select common words repeatedly and form a phrase like this "I am am am I".<br>
+
+If for example in the probability distribution the word 'I' has a probability of 0.2 and word 'am' of 0.04, then with random sampling the word 'I' will be selected 20% of the time and 'am' 4% of the time. Random sampling basically randomly selects one of the words, knowing words with higher probabilities will also have a higher chance of being selected. The problem is that it is too random. Temperature is a parameter you can adjust to modulate the randomness when using random sampling. It is measured on a scale of 0-1, indicating low to high randomness. Temperature basically increases the probability of probable words.
+
+#### Beam Search
+Since taking the output with the highest probability at each time step is not ideal. We will look at beam search instead.
+
+If you had infinite computational power, you could calculate the probability of every possible output sentence and choose the best one. In the real world we use beam search. This method attempts to find the most likely output sentence by choosing some number of best sequences based on conditional probabilities at each time step.
+
+Now at each time step with beam search you have to calculate the probability of potential sequences given the outputs of the previous time step.<br>
+Beam width (parameter B) is used to limit the possible sequences you will compute the probability of. At each step you only keep the B most probable sequences and drop all others. You keep generating new words until all the B most probable sequences end with the end of sequence \<EOS\> token/symbol.<br>
+Technically greedy decoding is the same as beam search with B equal to 1.
+
+Here is how beam search can look like with B equal to 2. You start with a start of sequence \<sos\> token/symbol. Then you take the following two words with highest probability. For each of those words you branch out and evaluate their next words' probability distribution. Multiplying first and second word probabilities will give sequence probabilities. Choose the two sequences with highest probabilities. And so forth.<br>
+![Screenshot 2024-04-19 at 13 24 56](https://github.com/artainmo/machine-learning/assets/53705599/8035bb5a-8640-4c02-9ec8-579c5718dd06)<br>
+
+The vanilla version of beam search has some disadvantages.<br>
+For instance it penalizes long sequences because the probability of a sequence is computed as the product of multiple conditional probabilities. A solution is to normalize the probability of each sequence by its sequence length.<br>
+Depending on B size, beam search can be expensive computationally and on on memory.
+
+#### Minimum Bayes Risk
+Minimum bayes risk (MBR) is a method that compares multiple candidate translations and selects the best one.
+
+Begin by generating several candidate translations, then compare each candidate translation against each other using a similarity score or a loss function. ROUGE would be a good choice. Finally, choose the sample with the highest average similarity or the lowest loss.<br>
+![Screenshot 2024-04-19 at 15 31 08](https://github.com/artainmo/machine-learning/assets/53705599/e930af3f-46a0-4403-b9c1-6b92b966fa67)<br>
+Here are the steps for implementing MVR with ROUGE on a small set of four candidate translations.<br>
+![Screenshot 2024-04-19 at 15 42 27](https://github.com/artainmo/machine-learning/assets/53705599/aa958e42-681a-4451-88bc-5d8550a5d4e7)<br>
+Finally, you select the candidate with the highest average ROUGE score and that's it for MBR.
+
+MBR provides a more contextually accurate translation compared to random sampling and greedy decoding.
+
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization: Natural Language Processing with Attention Models](https://www.coursera.org/learn/attention-models-in-nlp)
 * [Understanding masking & padding](https://www.tensorflow.org/guide/keras/understanding_masking_and_padding#:~:text=Masking%20is%20a%20way%20to,the%20end%20of%20a%20sequence.)
+* [Decoding Strategies that You Need to Know for Response Generation](https://towardsdatascience.com/decoding-strategies-that-you-need-to-know-for-response-generation-ba95ee0faadc)
