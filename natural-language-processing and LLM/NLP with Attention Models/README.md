@@ -107,6 +107,18 @@ The table below shows the typical values of BLEU score.
 <br>
 BLEU score is the most widely adopted evaluation metric for machine translation. However you should be aware of its limitations. It does not consider semantic meaning, neither sentence structure.
 
+#### ROUGE-N Score
+The recall-oriented-understudy-of-gisting-evaluation (ROUGE) score is another performance metric estimating the quality of machine-translation. ROUGE was initially developed to evaluate the quality of machine summarized texts, but is also helpful in assessing the quality of machine translation. While BLEU measures how much of the candidate translation appears in the references, ROUGE measures how much of the references appears in the candidate translation. 
+
+Different versions exist of ROUGE. Let's look at ROUGE-N. First, count how many n-grams from the references also appear in the candidate translation and divide this number by the number of n-grams in the reference. If having multiple references, get the ROUGE-N score for each reference and keep the maximum score which is 0.4 in following example.<br>
+![Screenshot 2024-04-19 at 11 56 49](https://github.com/artainmo/machine-learning/assets/53705599/1c28544f-d073-4598-8f60-51deb7d4c022)
+
+This basic version of the ROUGE-N score is based on [recall](https://github.com/artainmo/machine-learning/tree/main/supervised-learning%20and%20neural-networks#evaluation) while the BLEU score you saw previously is [precision](https://github.com/artainmo/machine-learning/tree/main/supervised-learning%20and%20neural-networks#evaluation) based. But why not combine both to get a metric like an [F1 score](https://github.com/artainmo/machine-learning/tree/main/supervised-learning%20and%20neural-networks#evaluation).<br>
+![Screenshot 2024-04-19 at 12 07 25](https://github.com/artainmo/machine-learning/assets/53705599/65149d0d-f662-4eaa-b207-c264477e5afa)<br>
+You have now seen how to compute the modified BLEU and the sample ROUGE-N scores to evaluate your model. You can view these metrics like precision and recall. Therefore, you can use both to get an F1 score that could better assess the performance of your machine translation model.
+
+While the BLEU score does not consider semantic meaning, nor sentence structure, the ROUGE score neither.
+
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization: Natural Language Processing with Attention Models](https://www.coursera.org/learn/attention-models-in-nlp)
 * [Understanding masking & padding](https://www.tensorflow.org/guide/keras/understanding_masking_and_padding#:~:text=Masking%20is%20a%20way%20to,the%20end%20of%20a%20sequence.)
