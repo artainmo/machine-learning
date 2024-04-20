@@ -24,7 +24,7 @@ One major limitation of the traditional seq2seq model is the 'information bottle
 One workaround is to use the hidden state of each word in the encoder instead of only using the final output hidden state. For this, an attention layer will be used to process those hidden states before passing them to the decoder.
 
 #### Seq2seq model with attention
-The attention layer specifies where to focus when translating. For example, when translating one paragraph from English to French, you can focus on translating one sentence at a time or even a couple of words at a time. The attention layer was initially developed for machine translation but is now used successfully in other domains too.
+The attention layer specifies where to focus when translating. The attention layer was initially developed for machine translation but is now used successfully in other domains too.
 
 Seq2seq without attention starts to diminish in performance when reaching sentences longer than 20 words. This is because without attention, seq2seq needs to store the whole sequence's meaning in a fixed size vector. Seq2seq with attention performs as well no matter the input sequence length. This is because it is able to focus on specific inputs to predict words in the output translation, instead of having to memorize the entire input sentence into a fixed size vector.
 
@@ -37,13 +37,13 @@ First we calculate alignment indicated by e<sub>ij</sub>. It represents how well
 New variations exist of the attention layer. In 2017 a paper introduced an efficient form of attention based on information retrieval, using queries, keys and values. It is called the scaled dot product attention or QKV (query, keys, values) attention. 
 
 Conceptually, you can think of keys and values as a lookup table. A query is matched to a key and the associated value is returned. For example when translating the French word 'heure' it matches with the English key 'time' and its value being a numerical vector is returned.<br>
-In practice however, queries, keys and values are all represented by numerical vectors. This allows the model to learn which words are most similar between source and target language. The similarity between words we call alignment. The query and key vectors are used to calculate alignment scores that measures how well the query and keys match. In the end, the alignment scores are turned into weights who are used for summing the value vector. The weighted sum of the value vector becomes the attention vector.<br>
+In practice however, queries, keys and values are all represented by numerical vectors. This allows the model to learn which words are most similar between source and target language. The similarity between words we call alignment. The query and key vectors are used to calculate alignment scores that measures how well the query and keys match. In the end, the alignment scores are turned into weights who are used on the value vector to form the context vector.<br>
 This process can be performed using scaled dot-product attention. The queries of each step are packed together into a matrix so that the attention can be computed simultaneously for each query. The keys and values are also packed into their own matrices and used as inputs together with the query matrix for the attention function.<br>
-The attention function goes as follows. First the query and key matrices are multiplied to get a matrix of alignment scores. These are then divided by the square root of the key vector size for regularization. The result of this we transform into weights using the softmax function. Finally, the weight and value matrices are multiplied to get the attention vectors for each query.
+The attention function goes as follows. First the query and key matrices are multiplied to get a matrix of alignment scores. These are then divided by the square root of the key vector size for regularization. The result of this we transform into weights using the softmax function. Finally, the weight and value matrices are multiplied to get the context vectors for each query.
 
 While in the previously seen original form of attention we used a feedforward neural network, in the scaled dot product attention seen here we only use two matrix multiplications. Since matrix multiplication is highly optimized in modern deep learning frameworks, this form of attention is much faster to compute.
 
-In the scaled dot product attention, usually the alignments between source and target languages are not learned in attention layer but instead in the embedding layer or other layer that comes before the attention layer. The alignment weights form a matrix where queries lie on the rows and keys on the columns. Each entry in this matrix is the weight for the corresponding query-key pair. Similar words will have larger weights. Via training, the model learns which words have similar meanings and encodes that information in the query and key vectors. Learning alignment like this is beneficial for translating between languages with different grammatical structures. Since attention looks at the entire input and target sentences at once and calculates alignments based on word pairs, weights are assigned appropriately regardless of word order. For example in the following picture you can see two phrases where words with similar meanings 'zone' and 'area' don't occur in same word order in phrase but using a matrix we can still detect their similarity/alignment.<br>
+In the scaled dot product attention, usually the alignments between source and target languages are not learned in attention layer but instead in the embedding layer or other layer that comes before the attention layer. The alignment weights form a matrix where queries lie on the rows and keys on the columns. Each entry in this matrix is the weight for the corresponding query-key pair. Similar words will have larger weights. Via training, the model learns which words have similar meanings and encodes that information in the query and key vectors. Learning alignment like this is beneficial for translating between languages with different grammatical structures. Since attention looks at the entire input and target sentences at once and calculates alignments based on word pairs where weights are assigned appropriately regardless of word order. For example in the following picture you can see two phrases where words with similar meanings 'zone' and 'area' don't occur in same word order in phrase but using a matrix we can still detect their similarity/alignment.<br>
 ![Screenshot 2024-04-18 at 13 47 50](https://github.com/artainmo/machine-learning/assets/53705599/82e60118-f8a5-4e95-8d73-08501e4a8812)
 
 #### Machine Translation Setup
@@ -68,7 +68,7 @@ Previously we have seen a model that looks like this.<br>
 Recall that the decoder is supposed to pass its hidden states to the attention mechanism for the attention mechanism to produce context vectors who are used by the decoder to produce hidden states. To resolve this issue we will use two decoders instead. A pre-attention decoder to provide hidden states and a post-attention decoder for the translations.
 
 The new model containing two decoders looks like this.<br>
-![Screenshot 2024-04-18 at 18 54 20](https://github.com/artainmo/machine-learning/assets/53705599/2a2abde7-cb83-4d8b-9754-92e352b5314e)
+![Screenshot 2024-04-18 at 18 54 20](https://github.com/artainmo/machine-learning/assets/53705599/2a2abde7-cb83-4d8b-9754-92e352b5314e)<br>
 
 Masking is a way to tell sequence-processing layers that certain timesteps in an input are missing, and thus should be skipped when processing the data.<br>
 Padding is a special form of masking where the masked steps are at the start or the end of a sequence.
@@ -93,7 +93,7 @@ In this example a bad translation got a perfect score. This is because the bad t
 For the modified version of the BLEU score, after you find a word from the candidates in one or more of the references, you stop considering that word from the reference for the following words in the candidates. In other words, you exhaust the words in the references after you match them with a word in the candidates.
 ![Screenshot 2024-04-18 at 23 58 41](https://github.com/artainmo/machine-learning/assets/53705599/3f50b72c-d125-4d8b-95aa-5a9cec3c990c)<br>
 
-The table below shows the typical values of BLEU score. 
+The table below shows the typical values of BLEU score multiplied by 100. 
 | Score | Interpretation |
 | -- | -- |
 | < 10	| Almost useless |
@@ -126,7 +126,7 @@ In a seq2seq model the decoder outputs at each step a probability distribution o
 
 Greedy decoding is the simplest way to select a word out of the model's predicted probability distribution as it selects the most probable word at every step. The problem with this method is that when handling long sequences it can select common words repeatedly and form a phrase like this "I am am am I".<br>
 
-If for example in the probability distribution the word 'I' has a probability of 0.2 and word 'am' of 0.04, then with random sampling the word 'I' will be selected 20% of the time and 'am' 4% of the time. Random sampling basically randomly selects one of the words, knowing words with higher probabilities will also have a higher chance of being selected. The problem is that it is too random. Temperature is a parameter you can adjust to modulate the randomness when using random sampling. It is measured on a scale of 0-1, indicating low to high randomness. Temperature basically increases the probability of probable words.
+If for example in the probability distribution the word 'I' has a probability of 0.2 and word 'am' of 0.04, then with random sampling the word 'I' will be selected 20% of the time and 'am' 4% of the time. Random sampling basically randomly selects one of the words, knowing words with higher probabilities will also have a higher chance of being selected. The problem is that it is too random. Temperature is a parameter you can adjust to modulate the randomness when using random sampling. It is measured on a scale of 0-1, indicating low to high randomness.
 
 #### Beam Search
 Since taking the output with the highest probability at each time step is not ideal. We will look at beam search instead.
@@ -142,14 +142,14 @@ Here is how beam search can look like with B equal to 2. You start with a start 
 
 The vanilla version of beam search has some disadvantages.<br>
 For instance it penalizes long sequences because the probability of a sequence is computed as the product of multiple conditional probabilities. A solution is to normalize the probability of each sequence by its sequence length.<br>
-Depending on B size, beam search can be expensive computationally and on on memory.
+Depending on B size, beam search can be expensive computationally and on memory.
 
 #### Minimum Bayes Risk
 Minimum bayes risk (MBR) is a method that compares multiple candidate translations and selects the best one.
 
 Begin by generating several candidate translations via random sampling with temperature for example, then compare each candidate translation against each other using a similarity score or a loss function. ROUGE would be a good choice. Finally, choose the sample with the highest average similarity or the lowest loss.<br>
 ![Screenshot 2024-04-19 at 15 31 08](https://github.com/artainmo/machine-learning/assets/53705599/e930af3f-46a0-4403-b9c1-6b92b966fa67)<br>
-Here are the steps for implementing MVR with ROUGE on a small set of four candidate translations.<br>
+Here are the steps for implementing MBR with ROUGE on a small set of four candidate translations.<br>
 ![Screenshot 2024-04-19 at 15 42 27](https://github.com/artainmo/machine-learning/assets/53705599/aa958e42-681a-4451-88bc-5d8550a5d4e7)<br>
 Finally, you select the candidate with the highest average ROUGE score and that's it for MBR.
 
