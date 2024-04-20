@@ -147,7 +147,7 @@ Depending on B size, beam search can be expensive computationally and on on memo
 #### Minimum Bayes Risk
 Minimum bayes risk (MBR) is a method that compares multiple candidate translations and selects the best one.
 
-Begin by generating several candidate translations, then compare each candidate translation against each other using a similarity score or a loss function. ROUGE would be a good choice. Finally, choose the sample with the highest average similarity or the lowest loss.<br>
+Begin by generating several candidate translations via random sampling with temperature for example, then compare each candidate translation against each other using a similarity score or a loss function. ROUGE would be a good choice. Finally, choose the sample with the highest average similarity or the lowest loss.<br>
 ![Screenshot 2024-04-19 at 15 31 08](https://github.com/artainmo/machine-learning/assets/53705599/e930af3f-46a0-4403-b9c1-6b92b966fa67)<br>
 Here are the steps for implementing MVR with ROUGE on a small set of four candidate translations.<br>
 ![Screenshot 2024-04-19 at 15 42 27](https://github.com/artainmo/machine-learning/assets/53705599/aa958e42-681a-4451-88bc-5d8550a5d4e7)<br>
