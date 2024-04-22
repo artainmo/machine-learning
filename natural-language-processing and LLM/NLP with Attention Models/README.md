@@ -155,6 +155,56 @@ Finally, you select the candidate with the highest average ROUGE score and that'
 
 MBR provides a more contextually accurate translation compared to random sampling and greedy decoding.
 
+### Week 2: Text Summarization
+This week we will use the transformer network for summarization. Summarization is an important task in NLP and it's useful for consumer enterprise. For example, bots can be used to scrape articles and summarize them. Then you can use sentiment analysis to identify the sentiment about certain topics in the articles.
+
+We will also look at different types of attention, like dot-product attention, causal attention, encoder-decoder attention, and self-attention.
+
+#### Transformers vs RNNs
+The transformer model was created by Google in 2017 as a purely attention-based model to remediate some problems with RNNs.
+
+In neural machine translation with RNNs the start of the text needs to be translated before the end. This means translation is done sequentially which leaves no room for parallel computing for speed.<br>
+Besides speed, RNNs can also lose information over long sequences. For example not remember the subject is singular or plural as you move further away from the subject. Vanishing gradients can also occur on long sequences. However those two last issues can already be mitigated with GRUs and LSTMs.
+
+Previously we saw encoders and decoders in neural machine translation made out of RNNs. In a transformer, encoders and decoders are not necessary as attention only is needed, as a result computation does not need to be sequential and vanishing gradients don't occur on long sequences.
+
+#### Transformers overview
+The transformers revolutionized the field of natural language processing. The first transformer paper, named 'Attention is all you need', sets the basis for all the models we will view in this course. The transformer architecture has become the standard for large language models, including BERT, T5, and GPT-3.
+
+The transformer model uses 'scaled dot-product attention' which we saw in the first week of this course. This form of attention is efficient in terms of computation and memory due to it consisting of just matrix multiplication operations, allowing transformers to grow larger while being faster and requiring less memory.
+
+In the transformer model we will use the 'multi-head attention' layer. This layer runs in parallel to perform scaled dot-product attention and multiple linear transformations of the input queries, keys, and values. In this layer, the linear transformations are learnable parameters.<br>
+![Screenshot 2024-04-22 at 20 09 47](https://github.com/artainmo/machine-learning/assets/53705599/7be3b015-4470-43e4-84fc-ffa4d8d3986d)<br>
+
+The transformer encoder starts with a multi-head attention module to perform self-attention on the input sequence. Self-attention consists of every input item attending every other input item. This is followed by normalization, a feed forward layer and normalization again, to provide a contextual representation of each input. This entire block is one encoder layer and is repeated N number of times.<br>
+![Screenshot 2024-04-22 at 20 40 17](https://github.com/artainmo/machine-learning/assets/53705599/6d4ec052-0289-4e80-b3f4-964eab808eba)<br>
+
+The decoder is constructed with multi-head attention modules, normalization and a feed forward layer. The first attention module is masked such that each position attends only to previous positions. It blocks leftward flowing information. The second attention module takes the encoder output and allows the decoder to attend to all items. This whole decoder layer is also repeated some number of times, one after another.<br>
+![Screenshot 2024-04-22 at 20 46 00](https://github.com/artainmo/machine-learning/assets/53705599/6f2a0687-feb7-4c7a-a4a2-af5736a7d23d)<br>
+
+Transformers also incorporate a positional encoding stage which encodes each input's position in the sequence. This is necessary because transformers don't use recurrent neural networks, while the word order is still relevant for any language. Positional encoding can be learned or fixed, just as with word embeddings.<br>
+The final model looks like this.<br>
+![Screenshot 2024-04-22 at 20 53 23](https://github.com/artainmo/machine-learning/assets/53705599/7bbfdd9f-b719-45b7-a1c7-12a038819ef5)<br>
+We will look more in depth at each part later in this course.
+
+This architecture is easy to parallelize compared to RNN models, and as such, can be trained much more efficiently on multiple GPUs.
+
+#### Transformer Applications
+Since transformers can be applied to any sequential task just like RNNs, it has been widely used throughout NLP. It is often used for text summarization. But it can also be used for autocompletion, named entity recognition (NER), question answering, chat-bots, machine translation and many other NLP tasks.
+
+GPT-2 stands for generative pre-training for transformer. It is a transformer model created by OpenAI in 2018. It is the precursor of popular chatGPT product.<br>
+BERT is a transformer model created by Google in 2018 used for learning text representations, it contains only an encoder.<br>
+T5 is a multitask transformer model created by Google in 2019. Usually separate models would need separate training for separate tasks. However, the T5 transformer can perform multiple tasks such as question answering, translation and classification through one trained transformer model, by describing in input what task you want performed on what data. Transfer learning is the concept behind this. It can also perform regression and summarization. A regression model outputs a continuous numerical value. Here, regression can be used for example to provide a similarity score between two input sentences.
+
+#### Scaled and Dot-Product Attention
+The main operation in transformers is the [scaled dot-product attention we overviewed previously](#Queries-Keys-Values-and-Attention).
+
+Recall that in scale dot-product attention, you have queries, keys and values. To get the query, key and value matrices, you must first transform the words in your sequences into embeddings. The query matrix will contain all the input word embeddings as rows while the key matrix will contain all the target word embeddings as rows. You will generally use the same vectors used for the key matrix for the value matrix.<br>
+The attention layer outputs context vectors for each query using the following formula and taking as input the query (Q), the key (K), the key size (d<sub>k</sub>) and the value (V).<br>
+![Screenshot 2024-04-22 at 22 53 18](https://github.com/artainmo/machine-learning/assets/53705599/a0b0f142-a3e7-4773-81b7-d0fe51595130)<br>
+
+In the transformer decoder, we need an extended version of the scaled dot-product attention, called the self-masked attention.
+
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization: Natural Language Processing with Attention Models](https://www.coursera.org/learn/attention-models-in-nlp)
 * [Understanding masking & padding](https://www.tensorflow.org/guide/keras/understanding_masking_and_padding#:~:text=Masking%20is%20a%20way%20to,the%20end%20of%20a%20sequence.)
