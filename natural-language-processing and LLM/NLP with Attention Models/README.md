@@ -164,7 +164,7 @@ We will also look at different types of attention, like dot-product attention, c
 The transformer model was created by Google in 2017 as a purely attention-based model to remediate some problems with RNNs.
 
 In neural machine translation with RNNs the start of the text needs to be translated before the end. This means translation is done sequentially which leaves no room for parallel computing for speed.<br>
-Besides speed, RNNs can also lose information over long sequences. For example not remember the subject is singular or plural as you move further away from the subject. Vanishing gradients can also occur on long sequences. However those two last issues can already be mitigated with GRUs and LSTMs.
+Besides speed, RNNs can also lose information over long sequences. For example not remember the subject is singular or plural as you move further away from the subject. Vanishing gradients can also occur on long sequences. However those two last issues can already be mitigated with GRUs and LSTMs but transformers do it even better.
 
 Previously we saw encoders and decoders in neural machine translation made out of RNNs. In a transformer, encoders and decoders are not necessary as attention only is needed, as a result computation does not need to be sequential and vanishing gradients don't occur on long sequences.
 
@@ -204,6 +204,40 @@ The attention layer outputs context vectors for each query using the following f
 ![Screenshot 2024-04-22 at 22 53 18](https://github.com/artainmo/machine-learning/assets/53705599/a0b0f142-a3e7-4773-81b7-d0fe51595130)<br>
 
 In the transformer decoder, we need an extended version of the scaled dot-product attention, called the self-masked attention.
+
+#### Masked self-attention
+Before reviewing self-attention we will first review the other attention mechanisms found in the transformer model.
+
+In encoder-decoder attention all words in one sentence attend all words in another sentence. The queries come from one sentence while the keys and values come from another. We already saw this previously where for example, as in the image below, the English words attend the French words.<br>
+![Screenshot 2024-04-23 at 11 14 32](https://github.com/artainmo/machine-learning/assets/53705599/ea8a41cb-2cb4-445f-81db-d060f441d31c)<br>
+
+In self-attention, the queries, keys and values come from the same sentence. Thus every word attends to every other word in the sequence. This provides contextual word representations. Representations of the meaning of each word within the sentence.<br>
+![Screenshot 2024-04-23 at 11 36 53](https://github.com/artainmo/machine-learning/assets/53705599/cdf6a175-4772-41a9-a3c1-a40a683f12bb)<br>
+
+In masked self-attention, the queries, keys and values come from the same sentence. But queries cannot attend keys on future positions.<br>
+![Screenshot 2024-04-23 at 11 37 26](https://github.com/artainmo/machine-learning/assets/53705599/2f5c54af-c1eb-4322-a2a7-e67d6c4057e2)<br>
+This attention mechanism is present in the decoder from the transformer model and ensures that predictions at each position depend only on the known outputs.
+
+Recall that the scale dot-product attention requires the calculation of the softmax of the scaled products between the queries and the transpose of the key matrix. Then for mask self-attention, you add a mask matrix within the softmax. The mask has a zero on all of its positions, except for the elements above the diagonal, which are set to minus infinity. Or in practice, a huge negative number. This addition ensures that weights assigned to future positions are equal to zero so that the queries don't attend future key positions. <br>
+![Screenshot 2024-04-23 at 11 48 58](https://github.com/artainmo/machine-learning/assets/53705599/cf17d716-e21d-4288-beca-3162d52b8120)<br>
+In the end, as with the other types of attention, you multiply the weights matrix by the value matrix to get the context vector for each query.
+
+#### Multi-head attention
+Multi-head attention allows parallel computation and thus more computations in the same amount of time compared to single-head attention.
+
+In multi-head attention, the number of times that you apply the attention mechanism in parallel is the number of heads in the model. For example a model with two heads would need two sets of queries, keys and values. Recall that word embeddings are necessary to get the query, key and value matrices.<br>
+You can get different sets/representations by linearly transforming the original embeddings, using a set of matrices W<sup>Q</sup>, W<sup>K</sup>, W<sup>V</sup>, for each head in the model. Using different sets/representations, allows your model to learn multiple relationships between the words from the query and key matrices.
+
+First queries, keys and values are transformed into different sets/representations for the different heads. After performing the scaled dot-product attention on each set, you will concatenate the resulting sets into a single matrix. Finally, you transform that matrix to get the output context vectors.<br>
+![Screenshot 2024-04-23 at 12 30 28](https://github.com/artainmo/machine-learning/assets/53705599/fbb1df9c-56ff-431d-93f7-9c08e1fd3920)<br>
+Note that every linear transformation in multi-head attention contains a set of learnable parameters.
+
+The inputs to the multi-head attention layer are the query, key, and value matrices. The number of columns in those matrices equals the embedding size, and the number of rows equals the input sequence length.<br>
+Using sets of transformation matrices W<sup>Q</sup>, W<sup>K</sup>, W<sup>V</sup> we will transform the query, key and value matrices for each head. The number of rows in those transformation matrices equals the embedding size while the number of columns can be choosen. However, it is advised to use a number of columns equal to the embedding size divided by the number of heads, which ensures a computational cost of multi-head attention that doesn't exceed by much the one for single-head attention.<br>
+After getting the transformed query, key and value matrices for each head, you can execute in parallel the attention mechanism. As a result, you get a matrix per head with the column dimensions equalling embedding size divided by heads, and the number of rows in those matrices being the same as the number of rows in the query matrix. Then you concatenate horizontally the matrices outputted by each attention head in the model. 
+Lastly, you apply a linear transformation using W<sup>O</sup> on the concatenated matrix. W<sup>O</sup> has columns and rows equal to embedding size. The result is a matrix with the context vectors of column size equalling embedding size and rows equalling number of query rows.<br>
+![Screenshot 2024-04-23 at 13 13 09](https://github.com/artainmo/machine-learning/assets/53705599/b82c056e-f384-4258-83da-be11ca678b48)<br>
+
 
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization: Natural Language Processing with Attention Models](https://www.coursera.org/learn/attention-models-in-nlp)
