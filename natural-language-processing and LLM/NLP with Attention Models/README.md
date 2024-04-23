@@ -192,7 +192,7 @@ This architecture is easy to parallelize compared to RNN models, and as such, ca
 #### Transformer Applications
 Since transformers can be applied to any sequential task just like RNNs, it has been widely used throughout NLP. It is often used for text summarization. But it can also be used for autocompletion, named entity recognition (NER), question answering, chat-bots, machine translation and many other NLP tasks.
 
-GPT-2 stands for generative pre-training for transformer. It is a transformer model created by OpenAI in 2018. It is the precursor of popular chatGPT product.<br>
+GPT-2 stands for generative pre-training for transformer. It is a decoder-only transformer model created by OpenAI in 2018. It is the precursor of popular chatGPT product.<br>
 BERT is a transformer model created by Google in 2018 used for learning text representations, it contains only an encoder.<br>
 T5 is a multitask transformer model created by Google in 2019. Usually separate models would need separate training for separate tasks. However, the T5 transformer can perform multiple tasks such as question answering, translation and classification through one trained transformer model, by describing in input what task you want performed on what data. Transfer learning is the concept behind this. It can also perform regression and summarization. A regression model outputs a continuous numerical value. Here, regression can be used for example to provide a similarity score between two input sentences.
 
@@ -238,6 +238,25 @@ After getting the transformed query, key and value matrices for each head, you c
 Lastly, you apply a linear transformation using W<sup>O</sup> on the concatenated matrix. W<sup>O</sup> has columns and rows equal to embedding size. The result is a matrix with the context vectors of column size equalling embedding size and rows equalling number of query rows.<br>
 ![Screenshot 2024-04-23 at 13 13 09](https://github.com/artainmo/machine-learning/assets/53705599/b82c056e-f384-4258-83da-be11ca678b48)<br>
 
+#### Transformer Decoder
+A transformer decoder takes a tokenized sentence as input. Those are transformed into word embeddings. We addition the positional encodings to those word embeddings to also provide word order information.<br>
+This constitutes the input for the first multi-headed attention layer. After this attention layer we have a feedforward layer. After each attention and feedforward layer we need to addition the layer input with the layer output and normalize the result of this addition. The attention and feedforward layers are repeated N times. The original model started with N=6, but now transformers go up to 100 or even more.<br>
+Lastly, we have a dense and softmax layer for output.<br>
+![Screenshot 2024-04-23 at 17 46 28](https://github.com/artainmo/machine-learning/assets/53705599/d6bbb7b3-1bd1-4a9d-976a-744350f1f416)<br>
+The attention mechanism searches relationships between words in the sequence and provides weights to those word relationships. The feedforward layer performs non-linear transformations and uses ReLu activation functions for each input. Shared parameters are used for efficiency. The feedforward neural network output vectors will essentially replace the hidden states of the original RNN decoder.
+
+#### Transformer for Summarization
+As input, our transformer model gets whole news articles. As output, our model is expected to produce a summary of the articles, that is, few sentences that mentions the most important ideas.
+
+Transformers take a text as input and predict the next words. Here, those next words will form the output summary.<br>
+![Screenshot 2024-04-23 at 18 37 59](https://github.com/artainmo/machine-learning/assets/53705599/28d9b284-904c-4384-b54e-067f74416078)<br>
+The input for the model is a long text that starts with a news article, then comes the EOS tag, the summary, and then another EOS tag. Note that the summary is added to the input during supervised training to form a labeled dataset. As usual, the input is tokenized as a sequence of integers.<br>
+The next word is predicted by looking at all the previous ones. But you do not want to have a huge loss in the model just because it's not able to predict the correct ones. That's why you have to use a weighted loss. Instead of averaging the loss for every word in the whole sequence, you weigh the loss for the words within the article with zeros, and those within the summary with ones so the model only focuses on the summary. The cost function is a cross entropy function that ignores the words from the article and thus only sums the losses over the words within the summary. However, when there is little data for the summaries, it actually helps to weigh the article loss with non zero numbers, say 0.2 or 0.5 or even one. That way, the model is able to learn word relationships that are common in the news.
+
+At test or inference time, you will input the article with the EOS token to the model and ask for the next word. You will keep asking for the next word until you get a EOS token.
+![Screenshot 2024-04-23 at 18 50 15](https://github.com/artainmo/machine-learning/assets/53705599/652fa930-9b7f-4680-875d-e9c7d93570b2)<br>
+During the testing or inference stage you want to predict summaries word by word. Note that contrary to supervised learning, here we won't provide the summary as input, only the article.<br>
+Transformer models generate probability distributions over all possible words. Sampling from this distribution provides a different summary each time you run the model.
 
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization: Natural Language Processing with Attention Models](https://www.coursera.org/learn/attention-models-in-nlp)
