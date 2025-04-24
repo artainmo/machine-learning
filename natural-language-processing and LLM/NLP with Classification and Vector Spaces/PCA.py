@@ -14,11 +14,10 @@ y = y - np.mean(y) # Center y. Remove its mean
 data = pd.DataFrame({'x': x, 'y': y}) # Create a data frame with x and y
 plt.scatter(data.x, data.y) # Plot the original correlated data in blue
 pca = PCA(n_components=2) # Instantiate a PCA. Choose to get 2 output variables
-# Create the transformation model for this data. Internally, it gets the rotation 
-# matrix and the explained variance
+# Create the transformation model for this data. Internally, it gets the rotation matrix and the explained variance.
 pcaTr = pca.fit(data)
 rotatedData = pcaTr.transform(data) # Transform the data base on the rotation matrix of pcaTr
-# # Create a data frame with the new variables. We call these new variables PC1 and PC2
+# Create a data frame with the new variables. We call these new variables PC1 and PC2
 dataPCA = pd.DataFrame(data = rotatedData, columns = ['PC1', 'PC2']) 
 # Plot the transformed data in orange
 plt.scatter(dataPCA.PC1, dataPCA.PC2)
@@ -60,11 +59,9 @@ plt.show()
 
 #Let us print the original and the resulting transformed system using the result of the PCA in the same plot alongside with the 2 Principal Component vectors in red and blue
 plt.scatter(data[:,0], data[:,1]) # Print the original data in blue
-# Apply PCA. In theory, the Eigenvector matrix must be the
-# inverse of the original rotationMatrix.
+# Apply PCA. In theory, the Eigenvector matrix must be the inverse of the original rotationMatrix.
 pca = PCA(n_components=2)  # Instantiate a PCA. Choose to get 2 output variables
-# Create the transformation model for this data. Internally it gets the rotation
-# matrix and the explained variance
+# Create the transformation model for this data. Internally it gets the rotation matrix and the explained variance
 pcaTr = pca.fit(data)
 # Create an array with the transformed data
 dataPCA = pcaTr.transform(data)
