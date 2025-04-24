@@ -208,4 +208,4 @@ K-nearest neighbors can be used to search for text related to a query in a large
 A document can be represented as a vector by summing all the word vectors it contains who are also present in our library of word vectors.
 
 ## Resources
-* [DeepLearning.AI - Natural Language Processing Specialization: Natural Language Processing with Classification and Vector Spaces](https://www.coursera.org/learn/classification-vector-spaces-in-nlp?specialization=natural-language-processing))
+* [DeepLearning.AI - Natural Language Processing Specialization: Natural Language Processing with Classification and Vector Spaces](https://www.coursera.org/learn/classification-vector-spaces-in-nlp?specialization=natural-language-processing)
