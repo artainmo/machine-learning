@@ -43,7 +43,7 @@ In this course we will learn about word models and how to use them to predict wo
 In the first week we will build an autocorrect system by using probabilities of character sequences. An important concept is 'minimum edit distance' which consists of evaluating the minimum amount of edits to change one word into another. 'Dynamic programming' is the 'minimum edit distance' algorithm we will use. It is an important programming concept which frequently comes up in interviews and could be used to solve a lot of optimization problems.
 
 Autocorrect is an application that changes misspelled words into the correct ones. It works first by identifying misspelled words, second find words who are a certain amount of edits away, lastly calculate word probabilities which calculates the chance of a word appearing in a certain context.<br>
-In this week's exercise we won't take the following in account, but autocorrect can also change words who exist but are used in wrong context. For example "Happy birthday deer friend", where 'deer' is an existing word but should be replaced with 'dear' in this context.
+In this week's exercise we won't take the following in account, but autocorrect can also change words who exist but are used in the wrong context. For example "Happy birthday deer friend", where 'deer' is an existing word but should be replaced with 'dear' in this context.
 
 #### Building the model
 We can identify misspelled words by verifying if they exist in a dictionary.<br>
@@ -269,7 +269,7 @@ Criterias can exist for words of the corpus to become part of the vocabulary. Fo
 If certain N-Grams are missing in the corpus their probability will result in 0. Laplacian smoothing, also called add-one smoothing, can be used to avoid N-Gram probabilities equaling 0. To use Laplacian smoothing when calculating N-Gram probabilities, add 1 to the numerator and add the vocabulary size to the denominator. With add-k-smoothing, add k to the numerator and add the vocabulary size times k to the denominator.
 
 Another way of dealing with missing N-Grams is to use the Backoff method. Which consists of lowering the N order, use the associated (N - 1)-Gram, until the N-Gram is not missing anymore. Thus if for example you search probability of trigram 'are you happy' but you cannot find a probability for it or the given probability is 0, then look at the associated bigram 'you happy' and if its probability isn't found either, you can search the probability of unigram 'happy'. If using the probability of a lower-N-gram you need to multiply that probability with lambda (value between 0 and 1) times the difference in N.<br>
-Alternatively the interpolation method can be used. It consists of combining the probability of the N-Gram with the (N - 1)-Gram probability down to the Uni-Gram probability. For example you would calculate the following trigram like this: P(chocolate|John drinks) = 0.7 x P(chocolate|John drinks) + 0.2 x P(chocolate|drinks) + 0.1 x P(chocolate). As you can see more weight is given to higher order N-Grams but lower order N-Grams are still taken in account to avoid 0 values. Those 'weights' are called lambdas and when summed need to equal 1.
+Alternatively, the interpolation method can be used. It consists of combining the probability of the N-Gram with the (N - 1)-Gram probability down to the Uni-Gram probability. For example you would calculate the following trigram like this: P(chocolate|John drinks) = 0.7 x P(chocolate|John drinks) + 0.2 x P(chocolate|drinks) + 0.1 x P(chocolate). As you can see more weight is given to higher order N-Grams but lower order N-Grams are still taken in account to avoid 0 values. Those 'weights' are called lambdas and when summed need to equal 1.
 
 ### Week 4: Word embeddings with neural networks
 #### Introduction
@@ -281,7 +281,7 @@ Machine learning models learn the meaning of words by creating word embeddings. 
 Imagine a vocabulary of 1000 words. The first word could receive code number 1 and last one code number 1000. This simple integer representation uses an order with no semantic logic. Instead, we can create word vectors consisting of 1000 values all equal to zero besides the value at index of word that can be set to one. Thus, the first word would consist of a vector starting with value one followed by 999 zeros, for example. Those vectors are called one-hot-vectors. Their advantage is that they don't imply any relationship between different words. However, limitations are that they require high memory space and that they don't carry the word's meaning.<br>
 Alternatively, word vectors can consist of values representing the degree of attributes for the word. If a word has a positive value of 1.3 and an abstract value of -3, then a word vector can be formed like this (1.3, -3). This type of word vector we call word embeddings. It encodes the word's meaning in a low dimensional space. However, certain words may end up with similar vector values which can make it less precise.
 
-To create word embeddings you need a corpus and embedding method. The corpus gives a word a context which is what we use to deduce its meaning. The embedding method creates the embedding from the corpus. Many methods exist, however here we will use modern machine learning models who are self-supervised as their training data (the corpus) is not labeled but does contain the context allowing us to extract the labels. When training word vectors there are some parameters who can be tuned such as the word vector's dimension.
+To create word embeddings you need a corpus and embedding method. The corpus gives a word a context which is what we use to deduce its meaning. The embedding method creates the embedding from the corpus. Many methods exist, however, here we will use modern machine learning models who are self-supervised as their training data (the corpus) is not labeled but does contain the context allowing us to extract the labels. When training word vectors there are some parameters who can be tuned such as the word vector's dimension.
 
 #### Word embedding methods
 A lot of word embedding methods exist. New methods are created to capture more and more meaning.
@@ -304,9 +304,9 @@ The model should take the context words as input and output the predicted center
 ##### Data preparation
 Tokenization means splitting into words. Before CBOW we will clean and tokenize the corpus. In the first NLP course we already talked about data preparation, cleaning and tokenization. However, here we will go in more details.<br>
 Words of corpus should be case insensitive, meaning you can convert the corpus to all lowercase characters.<br>
-Punctuations should be handled. They can all be replaced by a special word of the vocabulary like '.' or some can even be dropped. Multiple punctuations like ??? can be seen as one entity and also be replaced by that special word '.'.<br>
+Punctuations should be handled. They can all be replaced by a special word of the vocabulary like '.' or some can even be dropped. Multiple punctuations like '???' can be seen as one entity and also be replaced by that special word '.'.<br>
 Handle numbers by dropping them if they don't have meaning. However, certain numbers have meanings, such as 3.14 meaning Pi or 42 being a school, those can be left as is. If a lot of unique numbers have similar meanings such as different area codes, those can be replaced with a special token \<NUMBER\>.<br>
-You also need to handle special characters like @#$*... It is usually safe to drop them.<br>
+You also need to handle special characters like '@#$*'. It is usually safe to drop them.<br>
 Special words such as emojis or hashtags like #nlp can be treated like individual words.
 
 The context and central words need to be transformed into a mathematical form that can be consumed by the CBOW. We use one-hot-vectors, as explained above, for central words. For context words we create one vector for the whole context by taking the average of all words' one-hot-vectors.
@@ -328,7 +328,7 @@ CBOW uses the cross-entropy loss function which is often used during classificat
 
 y refers to correct answer vector. ŷ refers to prediction/output-vector. To calculate the log loss we will create a vector that contains the logarithm of all ŷ values. We will multiply that vector log(ŷ) with the initial y vector. We will sum all values of the vector 'y * log(ŷ)' and multiple the result with -1 to get the final cost value.
 
-To calculate the cost of multiple examples as we would with batch processing. We will average the cost of each individual training example. Thus sum cost of each vector in matrix and divide that by the batch size m.
+To calculate the cost of multiple examples, as we would with batch processing, we will average the cost of each individual training example. Thus, we sum the cost of each vector in matrix and divide that by the batch size m.
 
 ##### Forward and backward propagation
 Forward propagation consists of the input going through the neural-network layers until it becomes a prediction. It mathematically looks like:<br>
@@ -337,7 +337,7 @@ H = ReLU(Z<sub>1</sub>)<br>
 Z<sub>2</sub> = W<sub>2</sub>H + B<sub>2</sub><br>
 Ŷ = softmax(Z<sub>2</sub>)<br>
 
-Backpropagation calculates the partial derivatives of the cost with respect to weights and biases using gradient descend. Weights and biases are updated by being substracting with the associated partial derivatives times [alpha](https://github.com/artainmo/machine-learning/tree/main/supervised-learning%20and%20neural-networks#LEARNING-RATE) with the goal of minizing the cost.
+Backpropagation calculates the partial derivatives of the cost with respect to weights and biases using gradient descend. Weights and biases are updated by being substracted with the associated partial derivatives times [alpha](https://github.com/artainmo/machine-learning/tree/main/supervised-learning%20and%20neural-networks#LEARNING-RATE) with the goal of minizing the cost.
 
 ##### Extracting word embedding vectors
 Word embeddings are vectors that carry the meaning of words based on the contextual words in the corpus. Word embeddings are not the output of the CBOW model they are a by-product of it.
