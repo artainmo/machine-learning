@@ -17,7 +17,7 @@ nltk.data.path.append('.')
 import re                                                           #  Load the Regex-modul
 with open('./data/shakespeare.txt') as f:
     data = f.read()                                                 #  Read in the data
-data = re.sub(r'[,!?;-]', '.',data)                                 #  Punktuations are replaced by .
+data = re.sub(r'[,!?;-]', '.',data)                                 #  Punctuations are replaced by .
 data = nltk.word_tokenize(data)                                     #  Tokenize string to words
 data = [ ch.lower() for ch in data if ch.isalpha() or ch == '.']    #  Lower case and drop non-alphabetical tokens
 print("Number of tokens:", len(data),'\n', data[:15])               #  print data sample
@@ -125,7 +125,7 @@ def back_prop(x, yhat, y, h, W1, W2, b1, b2, batch_size):
     '''
     # Compute z1 as "W1⋅x + b1"
     z1 = np.dot(W1, x) + b1
-    ### START CODE HERE (Replace instanes of 'None' with your code) ###
+    ### START CODE HERE (Replace instances of 'None' with your code) ###
     # Compute l1 as W2^T (Yhat - Y)
     l1 = np.dot(W2.T, yhat - y)
     # if z1 < 0, then l1 = 0 
