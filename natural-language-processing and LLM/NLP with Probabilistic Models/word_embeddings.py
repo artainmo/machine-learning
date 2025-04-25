@@ -124,20 +124,17 @@ b2_new = b2 - alpha * grad_b2
 
 #Method one W1 columns
 for word in word2Ind:
-    # extract the column corresponding to the index of the word in the vocabulary
     word_embedding_vector = W1[:, word2Ind[word]]
     print(f'{word}: {word_embedding_vector}')
 
 #Method two W2 rows
 for word in word2Ind:
-    # extract the column corresponding to the index of the word in the vocabulary
     word_embedding_vector = W2.T[:, word2Ind[word]]
     print(f'{word}: {word_embedding_vector}')
 
 #Method three W1 columns and W2 rows average
 W3 = (W1+W2.T)/2
 for word in word2Ind:
-    # extract the column corresponding to the index of the word in the vocabulary
     word_embedding_vector = W3[:, word2Ind[word]]
     print(f'{word}: {word_embedding_vector}')
 
