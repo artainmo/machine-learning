@@ -190,7 +190,7 @@ print('\033[0m', end='')
 def edit_one_letter(word, allow_switches = True):
     """
     Input:
-        word: the string/word for which we will generate all possible wordsthat are one edit away.
+        word: the string/word for which we will generate all possible words that are one edit away.
     Output:
         edit_one_set: a set of words with one possible edit. Please return a set. and not a list.
     """ 
