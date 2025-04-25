@@ -1,4 +1,4 @@
-#Tagging is difficult because some words can represent more than one part of speech at different times. They are Ambiguous. 
+#Tagging is difficult because some words can represent more than one part-of-speech at different times. They are ambiguous. 
 #Let's look at the following example for the word 'well':
 # * The whole team played well. [adverb]
 # * You are doing well for yourself. [adjective]
@@ -106,7 +106,7 @@ print(states)
 # Test your function
 w2_unittest.test_create_dictionaries(create_dictionaries, training_corpus, vocab)
 
-#The 'states' are the Parts-of-speech designations found in the training data. They will also be referred to as 'tags' or POS in this assignment.
+#The 'states' are the parts-of-speech designations found in the training data. They will also be referred to as 'tags' or POS in this assignment.
 # * "NN" is noun, singular,
 # * 'NNS' is noun, plural.
 # * In addition, there are helpful tags like '--s--' which indicate a start of a sentence.
