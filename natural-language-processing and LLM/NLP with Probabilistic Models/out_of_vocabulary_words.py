@@ -61,8 +61,7 @@ print(f"besides the trigram {trigram} we also use bigram {bigram} and unigram ({
 lambda_factor = 0.4
 probability_hat_trigram = 0
 # search for first non-zero probability starting with trigram
-# to generalize this for any order of n-gram hierarchy,
-# you could loop through the probability dictionaries instead of if/else cascade
+# to generalize this for any order of n-gram hierarchy you could loop through the probability dictionaries instead of if/else cascade
 if trigram not in trigram_probabilities or trigram_probabilities[trigram] == 0:
     print(f"probability for trigram {trigram} not found")
     if bigram not in bigram_probabilities or bigram_probabilities[bigram] == 0:
