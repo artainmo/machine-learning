@@ -84,7 +84,7 @@ J = -1/T Σ<sub>t=1</sub><sup>T</sup> Σ<sup>K</sup><sub>i=1</sub> y<sub>i</sub>
 For RNNs the loss function is the average loss over its multiple steps.
 
 ###### Implement RNNs
-Scan functions are like absctract RNNs and allow for faster computation.
+Scan functions are like abstract RNNs and allow for faster computation.
 
 A scan function takes a function, list of elements and initialization value. It initializes the hidden state and applies the function on all elements. It basically loops over each step of the RNN.
 ```
@@ -106,10 +106,10 @@ One important difference is that GRUs allow relevant information to be kept in t
 
 Take the text 'Ants are really interesting. ___ are everywhere.' The missing word is 'They' because 'ants' is plural. GRUs remember such important information that occurs at the beginning of text.
 
-GRUs perform additional calculations. They calculate the 'relevance gate' (Γ<sub>r</sub>) and 'update gate' (Γ<sub>u</sub>) at the beginning of each step. These calculate the sigmoid activation function (σ)and thus output a vector with values between 0 and 1. They keep/update relevant information in the hidden state (h<sup>t</sup>).
+GRUs perform additional calculations. They calculate the 'relevance gate' (Γ<sub>r</sub>) and 'update gate' (Γ<sub>u</sub>) at the beginning of each step. These calculate the sigmoid activation function (σ) and thus output a vector with values between 0 and 1. They keep/update relevant information in the hidden state (h<sup>t</sup>).
 
 The relevance gate (Γ<sub>r</sub>) finds a relevance score and allows computing the hidden state candidates (h'<sup>t</sup>).<br>
-The hidden state's candidates (h'<sup>t</sup>) stores the information that could be used to override the one passed from the previous hidden state (h<sup>t-1</sup>).<br>
+The hidden state's candidates (h'<sup>t</sup>) store the information that could be used to override the one passed from the previous hidden state (h<sup>t-1</sup>).<br>
 The updates gate (Γ<sub>u</sub>) determines how much information from the previous hidden state (h<sup>t-1</sup>) will be overwritten and allows computing the current hidden state (h<sup>t</sup>).<br>
 The final prediction (ŷ) is calculated using the current hidden state (h<sup>t</sup>) similarly as in a regular RNN.
 
@@ -126,15 +126,15 @@ Deep RNNs allow the capture of more dependencies and thus make better prediction
 Take the following text example 'I was trying really hard to get a hold of ___. Louise, finally answered when I was about to give up.'. Regular RNNs will only read what comes before the word that has to be predicted and as a result cannot correctly predict 'Louise' in this example. Bi-directional RNNs also read from the end to the beginning thus they also read what comes after the word that has to be predicted. In bi-directional RNN, to make a prediction ŷ, hidden states from both directions are combined to form one hidden state. Bidirectional RNNs are acyclic graphs, which means that the computations in one direction are independent from the ones in the other direction.
 
 ### Week 2: LSTMs and Named Entity Recognition
-Named entity recognition (NER) is a subtask of information extraction that locates and classifies named entities. Named entities can refer to organizations, persons, locations. For example, if you look at the sentence 'The French people are visiting Morocco for Christmas.', Fench is a geopolitical entity, Morocco is a geographic entity and Christmas is a time indicator.
+Named entity recognition (NER) is a subtask of information extraction that locates and classifies named entities. Named entities can refer to organizations, persons, locations. For example, if you look at the sentence 'The French people are visiting Morocco for Christmas.', French is a geopolitical entity, Morocco is a geographic entity and Christmas is a time indicator.
 
 To implement NER we will use long short-term memory units (LSTMs). They are similar to GRUs except that they have even more gates.
 
 #### RNNs and Vanishing Gradients
 Vanishing or exploding gradients are problems commonly found in RNNs who deal with long sequences. They consist of values used during backpropagation calculations coming close to zero or infinity respectively. If coming close to zero, certain items' contributions get neglected, and if approaching infinity, convergence problems arise. 
 
-Initializing weights to an identity matrix and using the ReLU activation function are ways of preventing vanishing gradients. Skip connections consists of direct connections to earlier layers, thus skipping activation functions and preventing those earlier values from vanishing through the layers, thus allowing them to impact the final output.<br>
-Gradient clipping consists of transformation any value larger than a predefined value to that predefined value. This helps prevent exploding gradients.
+Initializing weights to an identity matrix and using the ReLU activation function are ways of preventing vanishing gradients. Skip connections consist of direct connections to earlier layers, thus skipping activation functions and preventing those earlier values from vanishing through the layers, thus allowing them to impact the final output.<br>
+Gradient clipping consists of transforming any value larger than a predefined value to that predefined value. This helps prevent exploding gradients.
 
 GRUs and LSTMs mitigate those problems.
 
@@ -146,7 +146,7 @@ An LSTM stores information in the cell state and hidden state, who are denoted b
 In an LSTM, multiple computations are performed in a single unit. The information flows through three different gates:
 * First, the forget gate, which uses the inputs and previous hidden state to decide what information from the cell state to forget.
 * Second, the input gate, decides what information from the inputs and previous hidden state should be remembered and thus added to the cell state.
-* Lastly, the output gate determines what information from the cell state gets stored in the hidden state and used to construct an output.
+* Lastly, the output gate, determines what information from the cell state gets stored in the hidden state and used to construct an output.
 
 LSTMs are useful for building language models. It can be used to predict the next character in your email, build chatbots capable of remembering longer conversations. Music is composed of long sequences of nodes like text uses long word sequences, and thus LSTMs can also compose music. Other applications are automatic image captioning and speech recognition.
 
@@ -158,7 +158,7 @@ Once you have the forget gate, input gate and the candidate cell state, you can 
 Finally, you can compute the new hidden state used to produce the output. For that, you can optionally first pass the new cell state through the tanh activation function. Subsequently through the output gate.
 
 #### Introduction to Named Entity Recognition
-Many NLP systems make use of an NER component to handle named entities. 
+Many NLP systems make use of a NER component to handle named entities. 
 
 Different entity types exist such as:
 * geographical entities - ex. Thailand
@@ -174,7 +174,7 @@ NERs are used to improve search engine efficiency, recommendation engines, match
 
 #### Training NERs: Data Processing
 First, assign each entity class/type a unique number. Also convert each word in text into its associated number in an array. Basically using an integer representation for both text input and entity classes.<br>
-All sequences in LSTM need to be of same size when forming matrices for batch processing. If necessary padding can be used with the associated tag/token \<PAD\>.<br>
+All sequences in an LSTM need to be the same size when forming matrices for batch processing. If necessary padding can be used with the associated tag/token \<PAD\>.<br>
 Create a data generator to output the created tensors (vectors/matrices of numbers) in batches which speeds up training.<br>
 Then, feed the batches into an LSTM unit. Its output will be run trough a Dense layer and a prediction is made using log-softmax over K classes.
 
@@ -192,7 +192,7 @@ After taining the NER you need to evaluate it.
 
 Make predictions on test set using your model. Take the highest value in prediction array which represents the highest probability entity class and thus made prediction. Those predictions can be compared against true labels to see how accurate the model is on unseen data.
 
-Padded tokens /<PAD/> need to be masked/skipped when calculating accuracy.
+Padded tokens \<PAD\> need to be masked/skipped when calculating accuracy.
 
 ### Week 3: Siamese Networks
 A siamese network consists of two identical neural networks who use the same weights and merge at the end while working alongside two different input vectors to compute output vectors. You can then compare those output vectors to see if they are similar. In NLP, you can use this to identify question duplicates. Platforms like Stack Overflow or Quoara implement such techniques to avoid question duplicates. In NLP, it can also be used to identify similar signatures.
@@ -234,8 +234,7 @@ The triplet loss function can now be used on the values in the similarity matrix
 The off-diagonal information can be used to improve the triplet loss function. For this we need to extract two values from the off-diagonal values of each row of the similarity matrix. We call this 'hard negative mining'.<br>
 First, we need to compute the mean negative, which is the mean/average of all the off-diagonal values in each row of the similarity matrix. To clarify, the word 'negative' is used because it refers to non-duplicate-examples which is what the off-diagonal values should represent.<br>
 Second, we need to find the closest negative. As mentioned earlier, hard triplets are preferred for training. They have a cosine similarity of the negative example close to the cosine similarity of the positive example. This forces the model to learn the subtle differences they hold. To find the closest negative we search for each row the non-diagonal value who is the closest to, but still less than, the diagonal value of that row.<br>
-The triplet loss function can be modified into two losses now.<br>
-The first loss looks like this `max((mean_negative - cos(A, P) + alpha), 0)`. We replaced `cos(A, N)` with recently calculated `mean_negative` which helps the model converge faster by reducing noise. The second loss looks like this `max((closest_negative - cos(A, P) + alpha), 0)`. We replaced `cos(A, N)` with recently calculated `closest_negative` which will produce the largest loss and thus highest potential for learning. The final/full loss will be the sum of first and second loss. The overall cost will be the sum of each training example's loss.
+The triplet loss function can be modified into two losses now. The first loss looks like this `max((mean_negative - cos(A, P) + alpha), 0)`. We replaced `cos(A, N)` with recently calculated `mean_negative` which helps the model converge faster by reducing noise. The second loss looks like this `max((closest_negative - cos(A, P) + alpha), 0)`. We replaced `cos(A, N)` with recently calculated `closest_negative` which will produce the largest loss and thus highest potential for learning. The final/full loss will be the sum of first and second loss. The overall cost will be the sum of each training example's loss.
 
 #### One Shot Learning
 Imagine you want to identify if the author of a certain poem is Lucas or not. You can use a classifier to predict the author of the poem between multiple authors using a large dataset. If the author list stays the same, classification is not a problem. However if the author list changes, the whole model needs to be retrained and the new author needs a solid dataset. Instead, you can use one-shot-learning which consists of comparing one of Lucas' poems to another poem. You can use a learned similarity function for this. Thus, instead of determining the class, we measure the similarity between two classes with one-shot-learning.<br>
