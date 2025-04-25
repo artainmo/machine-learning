@@ -46,7 +46,7 @@ def print_matrix(matrix):
     print(pd.DataFrame(matrix, index=sorted_tags, columns=sorted_tags))
 print_matrix(transition_matrix)
 
-#Each row can be normalized by dividing each value by the sum of row
+#Each row can be normalized by dividing each value by the sum of rows
 # Compute sum of row for each row
 rows_sum = transition_matrix.sum(axis=1, keepdims=True)
 # Normalize transition matrix
