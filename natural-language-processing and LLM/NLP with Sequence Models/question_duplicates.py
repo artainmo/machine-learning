@@ -26,7 +26,7 @@ data_test = data[N_train:N_train + N_test]
 print("Train set:", len(data_train), "Test set:", len(data_test))
 # Output: train set: 300000 Test set: 10240
 
-# You need to build two sets of questions as input for the Siamese network, assuming that question 𝑞1𝑖(question 𝑖in the first set) is a duplicate of 𝑞2𝑖(question 𝑖in the second set), but all other questions in the second set are not duplicates of 𝑞1𝑖.
+# You need to build two sets of questions as input for the Siamese network, assuming that question 𝑞1𝑖(question 𝑖 in the first set) is a duplicate of 𝑞2𝑖(question 𝑖 in the second set), but all other questions in the second set are not duplicates of 𝑞1𝑖.
 # Find the indexes with duplicate questions
 td_index = data_train['is_duplicate'] == 1
 td_index = [i for i, x in enumerate(td_index) if x]
