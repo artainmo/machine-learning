@@ -106,11 +106,11 @@ def label_vectorizer(labels, tag_map):
     for element in labels:
         # Split it into single tokens. You may use .split function for strings. Be aware to split it by a blank space!
         tokens = element.split(" ")
-        # Use the dictionaty tag_map to make the correspondence between tags and numbers.
+        # Use the dictionary tag_map to make the correspondence between tags and numbers.
         element_ids = []
         for token in tokens:
             element_ids.append(tag_map[token])
-        # Append the found ids to corresponding to the current element to label_ids list
+        # Append the found ids corresponding to the current element to label_ids list
         label_ids.append(element_ids)
     # Pad the elements
     label_ids = tf.keras.utils.pad_sequences(sequences=label_ids, padding="post", value=-1)
@@ -119,7 +119,7 @@ def label_vectorizer(labels, tag_map):
 
 w2_unittest.test_label_vectorizer(label_vectorizer)
 
-# You will be using tf.data.Dataset class, which provides an optimized way to handle data to feed into a tensorflow model. It may be not as straightforward as a pandas dataset, but it avoids keeping all the data in memory, thus it makes the training faster.
+# You will be using tf.data.Dataset class, which provides an optimized way to handle data to feed into a tensorflow model. It may not be as straightforward as a pandas dataset, but it avoids keeping all the data in memory, thus it makes the training faster.
 
 def generate_dataset(sentences, labels, sentence_vectorizer, tag_map):
     sentences_ids = sentence_vectorizer(sentences)
@@ -148,10 +148,9 @@ def NER(len_tags, vocab_size, embedding_dim = 50):
     model = tf.keras.Sequential(name = 'sequential') 
     # Add the tf.keras.layers.Embedding layer. Do not forget to mask out the zeros!
     model.add(tf.keras.layers.Embedding(input_dim=vocab_size+1, output_dim=embedding_dim, mask_zero=True))
-    # Add the LSTM layer. Make sure you are passing the right dimension (defined in the docstring above) 
-    # and returning every output for the tf.keras.layers.LSTM layer and not the very last one.
+    # Add the LSTM layer.
     model.add(tf.keras.layers.LSTM(units=embedding_dim, return_sequences=True))
-    # Add the final tf.keras.layers.Dense with the appropriate activation function. Remember you must pass the activation function itself ant not its call!
+    # Add the final tf.keras.layers.Dense with the appropriate activation function. Remember you must pass the activation function itself and not its call!
     # You must use tf.nn.log_softmax instead of tf.nn.log_softmax().
     model.add(tf.keras.layers.Dense(units=len_tags, activation=tf.nn.log_softmax))
     ### END CODE HERE ### 
