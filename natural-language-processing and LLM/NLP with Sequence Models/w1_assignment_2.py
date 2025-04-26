@@ -237,7 +237,7 @@ def compile_model(model):
     ### START CODE HERE ###
     # Define the loss function. Use SparseCategoricalCrossentropy
     loss = tf.losses.SparseCategoricalCrossentropy(from_logits=True)
-    # Define and Adam optimizer
+    # Define an Adam optimizer
     opt = tf.keras.optimizers.Adam(learning_rate=0.00125)
     # Compile the model using the parametrized Adam optimizer and the SparseCategoricalCrossentropy funcion
     model.compile(optimizer=opt, loss=loss)
@@ -282,7 +282,7 @@ def log_perplexity(preds, target):
     non_pad = 1.0 - np.equal(target, PADDING_ID)          # You should check if the target equals to PADDING_ID
     # Apply non-padding mask to log probabilities to exclude padding
     log_p = log_p * non_pad                             # Get rid of the padding
-    # Calculate the log perplexity by taking the sum of log probabilities and dividing by the sum of non-padding elements
+    # Calculate the log perplexity by taking the sum of log probabilities and dividing it by the sum of non-padding elements
     log_ppx = np.sum(log_p, axis=1) / np.sum(non_pad, axis=1) # Remember to set the axis properly when summing up
     # Compute the mean of log perplexity
     log_ppx = np.mean(log_ppx) # Compute the mean of the previous expression
@@ -316,7 +316,7 @@ def temperature_random_sampling(log_probs, temperature=1.0):
        of the character with the highest input log_score
     
     Args:
-        log_probs (tf.Tensor): The log scores for each characeter in the dictionary
+        log_probs (tf.Tensor): The log scores for each character in the dictionary
         temperature (number): A value to weight the random noise. 
     Returns:
         int: The index of the selected character
