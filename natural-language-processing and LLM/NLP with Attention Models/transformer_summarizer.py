@@ -820,7 +820,7 @@ def summarize(model, input_document):
 
 # Train the model
 
-# Now you can finally train the model. Below is a loop that will train your model for 20 epochs. note that it should take about 30 seconds per epoch (with the exception of the first few epochs which can take a few minutes each).
+# Now you can finally train the model. Below is a loop that will train your model for 20 epochs. Note that it should take about 30 seconds per epoch (with the exception of the first few epochs which can take a few minutes each).
 # Note that after each epoch you perform the summarization on one of the sentences in the test set and print it out, so you can see how your model is improving.
 
 # Take an example from the test set, to monitor it during training
