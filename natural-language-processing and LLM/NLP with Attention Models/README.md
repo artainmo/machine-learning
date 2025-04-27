@@ -17,7 +17,7 @@ An encoder takes word tokens as input and returns its final hidden state as outp
 An encoder usually consists of an embedding layer, followed by a LSTM module consisting of one or more layers. The embedding layer transforms word tokens into numerical vectors for input to the LSTM module. The LSTM module outputs its final hidden state which encodes the overall meaning of the sentence.<br>
 ![Screenshot 2024-04-15 at 19 01 02](https://github.com/artainmo/machine-learning/assets/53705599/d99a7da9-907f-4d78-9c91-190eddf3973b)
 
-The decoder is similarly constructed with an embedding layer and LSTM module. The output hidden state from encoder is used as previous hidden state of decoder's first step. Its input sequence starts with a `<sos>` (start of sequence) token to predict the first translated word. The predicted translated word is used as input for next step. 
+The decoder is similarly constructed with an embedding layer and LSTM module. The output hidden state from encoder is used as previous hidden state of decoder's first step. Its input sequence starts with a `<sos>` (start of sequence) token to predict the first translated word. The predicted translated word is used as input for next step.<br>
 ![Screenshot 2024-04-15 at 19 02 04](https://github.com/artainmo/machine-learning/assets/53705599/459145c9-8d91-49d0-8b0c-096bf5496e1b)
 
 One major limitation of the traditional seq2seq model is the 'information bottleneck'. Since seq2seq uses a fixed length memory for the hidden state, long sequences become problematic. Because no matter the input sequence length, only a fixed amount of information can be passed from the encoder to the decoder. Thus the model's performance diminishes as sequence size increases.<br>
@@ -55,9 +55,9 @@ Token vectors need to be padded wih zeros to match the length of the longest seq
 #### Teacher forcing
 Teacher forcing is a concept used in training a neural machine translation (NMT) model to improve speed of training and accuracy.
 
-Seq2seq models generate translation by feeding the output of a decoder step as input of the next decoder step.<br>
+Seq2seq models generate translations by feeding the output of a decoder step as input of the next decoder step.<br>
 Intuitively, you would calculate the loss by comparing the decoder output sequence with the target sequence. Calculate the cross entropy loss for each step and sum those for the total loss.<br>
-However this does not work well in practice because in early training the model makes a lot of wrong predictions and those wrong predictions are used as input of next decoding steps, thus not giving a chance for the next predictions to be right, creating excessively large losses for steps later in the sequence.<br>
+However, this does not work well in practice because in early training the model makes a lot of wrong predictions and those wrong predictions are used as input of next decoding steps, thus not giving a chance for the next predictions to be right, creating excessively large losses for steps later in the sequence.<br>
 The solution is to use the target sequence words as inputs of the decoding steps. Giving them the correct inputs allows them to have a chance in producing correct predictions. This speeds up training by a lot and is what we call 'teacher forcing'.
 
 There are some variations of this. For example, later in training when predictions start to have more accuracy, decoder outputs can be used again instead of target words. This is known as 'curriculum learning'.
@@ -90,7 +90,7 @@ Here is a demonstration using unigrams. You basically need to count the number o
 ![Screenshot 2024-04-18 at 23 45 18](https://github.com/artainmo/machine-learning/assets/53705599/bb363e6d-dcd0-40b0-b75e-7f72ced1ec7d)<br>
 In this example a bad translation got a perfect score. This is because the bad translation consisted of common words only. A modified BLEU score could prevent this erroneous score.
 
-For the modified version of the BLEU score, after you find a word from the candidates in one or more of the references, you stop considering that word from the reference for the following words in the candidates. In other words, you exhaust the words in the references after you match them with a word in the candidates.
+For the modified version of the BLEU score, after you find a word from the candidates in one or more of the references, you stop considering that word from the reference for the following words in the candidates. In other words, you exhaust the words in the references after you match them with a word in the candidates.<br>
 ![Screenshot 2024-04-18 at 23 58 41](https://github.com/artainmo/machine-learning/assets/53705599/3f50b72c-d125-4d8b-95aa-5a9cec3c990c)<br>
 
 The table below shows the typical values of BLEU score multiplied by 100. 
@@ -135,7 +135,7 @@ If you had infinite computational power, you could calculate the probability of 
 
 Now at each time step with beam search you have to calculate the probability of potential sequences given the outputs of the previous time step.<br>
 Beam width (parameter B) is used to limit the possible sequences you will compute the probability of. At each step you only keep the B most probable sequences and drop all others. You keep generating new words until all the B most probable sequences end with the end of sequence \<EOS\> token/symbol.<br>
-Technically greedy decoding is the same as beam search with B equal to 1.
+Technically, greedy decoding is the same as beam search with B equal to 1.
 
 Here is how beam search can look like with B equal to 2. You start with a start of sequence \<sos\> token/symbol. Then you take the following two words with highest probability. For each of those words you branch out and evaluate their next words' probability distribution. Multiplying first and second word probabilities will give sequence probabilities. Choose the two sequences with highest probabilities. And so forth.<br>
 ![Screenshot 2024-04-19 at 13 24 56](https://github.com/artainmo/machine-learning/assets/53705599/8035bb5a-8640-4c02-9ec8-579c5718dd06)<br>
@@ -164,9 +164,9 @@ We will also look at different types of attention, like dot-product attention, c
 The transformer model was created by Google in 2017 as a purely attention-based model to remediate some problems with RNNs.
 
 In neural machine translation with RNNs the start of the text needs to be translated before the end. This means translation is done sequentially which leaves no room for parallel computing for speed.<br>
-Besides speed, RNNs can also lose information over long sequences. For example not remember the subject is singular or plural as you move further away from the subject. Vanishing gradients can also occur on long sequences. However those two last issues can already be mitigated with GRUs and LSTMs but transformers do it even better.
+Besides speed, RNNs can also lose information over long sequences. For example it may not remember if the subject is singular or plural as it moves further away from the subject. Vanishing gradients can also occur on long sequences. However, those two last issues can already be mitigated with GRUs and LSTMs, but transformers do it even better.
 
-Previously we saw encoders and decoders in neural machine translation made out of RNNs. In a transformer, encoders and decoders are not necessary as attention only is needed, as a result computation does not need to be sequential and vanishing gradients don't occur on long sequences.
+Previously we saw encoders and decoders in neural machine translation made out of RNNs. In a transformer, encoders and decoders are not necessary as attention only is needed. As a result, computation does not need to be sequential and vanishing gradients don't occur on long sequences.
 
 #### Transformers overview
 The transformers revolutionized the field of natural language processing. The first transformer paper, named 'Attention is all you need', sets the basis for all the models we will view in this course. The transformer architecture has become the standard for large language models, including BERT, T5, and GPT-3.
@@ -192,9 +192,9 @@ This architecture is easy to parallelize compared to RNN models, and as such, ca
 #### Transformer Applications
 Since transformers can be applied to any sequential task just like RNNs, it has been widely used throughout NLP. It is often used for text summarization. But it can also be used for autocompletion, named entity recognition (NER), question answering, chat-bots, machine translation and many other NLP tasks.
 
-GPT-2 stands for generative pre-training for transformer. It is a decoder-only transformer model created by OpenAI in 2018. It is the precursor of popular chatGPT product.<br>
+GPT-2 stands for generative pre-training for transformer. It is a decoder-only transformer model created by OpenAI in 2018. It is the precursor of the now popular [chatGPT product](https://chatgpt.com/).<br>
 BERT is a transformer model created by Google in 2018 used for learning text representations, it contains only an encoder.<br>
-T5 is a multitask transformer model created by Google in 2019. Usually separate models would need separate training for separate tasks. However, the T5 transformer can perform multiple tasks such as question answering, translation and classification through one trained transformer model, by describing in input what task you want performed on what data. Transfer learning is the concept behind this. It can also perform regression and summarization. A regression model outputs a continuous numerical value. Here, regression can be used for example to provide a similarity score between two input sentences.
+T5 is a multitask transformer model created by Google in 2019. Usually separate models would need separate training for separate tasks. However, the T5 transformer can perform multiple tasks such as question answering, translation and classification through one trained transformer model, by describing in input what task you want performed on what data. [Transfer learning](https://github.com/artainmo/DevOps/tree/main/cloud#generative-ai-transformers-gpt-self-attention-and-foundation-models) is the concept behind this. It can also perform regression and summarization. A regression model outputs a continuous numerical value. Here, regression can be used for example to provide a similarity score between two input sentences.
 
 #### Scaled and Dot-Product Attention
 The main operation in transformers is the [scaled dot-product attention we overviewed previously](#Queries-Keys-Values-and-Attention).
@@ -228,7 +228,7 @@ Multi-head attention allows parallel computation and thus more computations in t
 In multi-head attention, the number of times that you apply the attention mechanism in parallel is the number of heads in the model. For example a model with two heads would need two sets of queries, keys and values. Recall that word embeddings are necessary to get the query, key and value matrices.<br>
 You can get different sets/representations by linearly transforming the original embeddings, using a set of matrices W<sup>Q</sup>, W<sup>K</sup>, W<sup>V</sup>, for each head in the model. Using different sets/representations, allows your model to learn multiple relationships between the words from the query and key matrices.
 
-First queries, keys and values are transformed into different sets/representations for the different heads. After performing the scaled dot-product attention on each set, you will concatenate the resulting sets into a single matrix. Finally, you transform that matrix to get the output context vectors.<br>
+First, queries, keys, and values are transformed into different sets/representations for the different heads. After performing the scaled dot-product attention on each set, you will concatenate the resulting sets into a single matrix. Finally, you transform that matrix to get the output context vectors.<br>
 ![Screenshot 2024-04-23 at 12 30 28](https://github.com/artainmo/machine-learning/assets/53705599/fbb1df9c-56ff-431d-93f7-9c08e1fd3920)<br>
 Note that every linear transformation in multi-head attention contains a set of learnable parameters.
 
@@ -243,19 +243,21 @@ A transformer decoder takes a tokenized sentence as input. Those are transformed
 This constitutes the input for the first multi-headed attention layer. After this attention layer we have a feedforward layer. After each attention and feedforward layer we need to addition the layer input with the layer output and normalize the result of this addition. The attention and feedforward layers are repeated N times. The original model started with N=6, but now transformers go up to 100 or even more.<br>
 Lastly, we have a dense and softmax layer for output.<br>
 ![Screenshot 2024-04-23 at 17 46 28](https://github.com/artainmo/machine-learning/assets/53705599/d6bbb7b3-1bd1-4a9d-976a-744350f1f416)<br>
-The attention mechanism searches relationships between words in the sequence and provides weights to those word relationships. The feedforward layer performs non-linear transformations and uses ReLu activation functions for each input. Shared parameters are used for efficiency. The feedforward neural network output vectors will essentially replace the hidden states of the original RNN decoder.
+The attention mechanism searches relationships between words in the sequence and provides weights to those word relationships. The feedforward layer performs non-linear transformations and uses ReLu activation functions for each input. The feedforward neural network output vectors will essentially replace the hidden states of the original RNN decoder.
 
 #### Transformer for Summarization
 As input, our transformer model gets whole news articles. As output, our model is expected to produce a summary of the articles, that is, few sentences that mentions the most important ideas.
 
-Transformers take a text as input and predict the next words. Here, those next words will form the output summary.<br>
-![Screenshot 2024-04-23 at 18 37 59](https://github.com/artainmo/machine-learning/assets/53705599/28d9b284-904c-4384-b54e-067f74416078)<br>
-The input for the model is a long text that starts with a news article, then comes the EOS tag, the summary, and then another EOS tag. Note that the summary is added to the input during supervised training to form a labeled dataset. As usual, the input is tokenized as a sequence of integers.<br>
-The next word is predicted by looking at all the previous ones. But you do not want to have a huge loss in the model just because it's not able to predict the correct ones. That's why you have to use a weighted loss. Instead of averaging the loss for every word in the whole sequence, you weigh the loss for the words within the article with zeros, and those within the summary with ones so the model only focuses on the summary. The cost function is a cross entropy function that ignores the words from the article and thus only sums the losses over the words within the summary. However, when there is little data for the summaries, it actually helps to weigh the article loss with non zero numbers, say 0.2 or 0.5 or even one. That way, the model is able to learn word relationships that are common in the news.
+Transformers take a text as input and predict the next words. Here, those next words will form the output summary.
 
-At test or inference time, you will input the article with the EOS token to the model and ask for the next word. You will keep asking for the next word until you get a EOS token.
+During training, the input for the model is a long text that starts with for example a news article, is followed by the EOS tag, the summary of that article, and another EOS tag. The summary is added to the input during supervised training to form a labeled dataset.<br>
+![Screenshot 2024-04-23 at 18 37 59](https://github.com/artainmo/machine-learning/assets/53705599/28d9b284-904c-4384-b54e-067f74416078)<br>
+As usual, the input is tokenized as a sequence of integers.<br>
+The next word is predicted by looking at all the previous ones. But you do not want to have a huge loss in the model just because it's not able to predict the correct ones. That's why you have to use a weighted loss. Instead of averaging the loss for every word in the whole sequence, you weigh the loss for the words within the article with zeros, and those within the summary with ones so the model only focuses on the summary. The cost function is a cross entropy function that ignores the words from the article and thus only sums the losses over the words within the summary. However, when there is little data for the summaries, it actually helps to weigh the article loss with non zero numbers, say 0.2 or 0.5 or even one. That way, the model is able to learn word relationships that are common in the article/input.
+
+At test or inference time, you will input the article with the EOS token to the model and ask for the next word. You will keep asking for the next word until you get a EOS token.<br>
 ![Screenshot 2024-04-23 at 18 50 15](https://github.com/artainmo/machine-learning/assets/53705599/652fa930-9b7f-4680-875d-e9c7d93570b2)<br>
-During the testing or inference stage you want to predict summaries word by word. Note that contrary to supervised learning, here we won't provide the summary as input, only the article.<br>
+Note that contrary to supervised learning, here we won't provide the summary as input, only the article.<br>
 Transformer models generate probability distributions over all possible words. Sampling from this distribution provides a different summary each time you run the model.
 
 ## Resources
