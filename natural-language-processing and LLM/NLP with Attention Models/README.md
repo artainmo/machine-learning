@@ -246,9 +246,7 @@ Lastly, we have a dense and softmax layer for output.<br>
 The attention mechanism searches relationships between words in the sequence and provides weights to those word relationships. The feedforward layer performs non-linear transformations and uses ReLu activation functions for each input. The feedforward neural network output vectors will essentially replace the hidden states of the original RNN decoder.
 
 #### Transformer for Summarization
-As input, our transformer model gets whole news articles. As output, our model is expected to produce a summary of the articles, that is, few sentences that mentions the most important ideas.
-
-Transformers take a text as input and predict the next words. Here, those next words will form the output summary.
+As input, our transformer model gets whole news articles for example. As output, our model is expected to produce a summary of those articles, that is, few sentences that mentions the most important ideas.
 
 During training, the input for the model is a long text that starts with for example a news article, is followed by the EOS tag, the summary of that article, and another EOS tag. The summary is added to the input during supervised training to form a labeled dataset.<br>
 ![Screenshot 2024-04-23 at 18 37 59](https://github.com/artainmo/machine-learning/assets/53705599/28d9b284-904c-4384-b54e-067f74416078)<br>
