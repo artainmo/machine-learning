@@ -218,7 +218,7 @@ In masked self-attention, the queries, keys and values come from the same senten
 ![Screenshot 2024-04-23 at 11 37 26](https://github.com/artainmo/machine-learning/assets/53705599/2f5c54af-c1eb-4322-a2a7-e67d6c4057e2)<br>
 This attention mechanism is present in the decoder from the transformer model and ensures that predictions at each position depend only on the known outputs.
 
-Recall that the scale dot-product attention requires the calculation of the softmax of the scaled products between the queries and the transpose of the key matrix. Then for mask self-attention, you add a mask matrix within the softmax. The mask has a zero on all of its positions, except for the elements above the diagonal, which are set to minus infinity. Or in practice, a huge negative number. This addition ensures that weights assigned to future positions are equal to zero so that the queries don't attend future key positions. <br>
+Recall that the scale dot-product attention requires the calculation of the softmax of the scaled products between the queries and the transpose of the key matrix. Then for masked self-attention, you add a mask matrix within the softmax. The mask has a zero on all of its positions, except for the elements above the diagonal, which are set to minus infinity. Or in practice, a huge negative number. This addition ensures that weights assigned to future positions are equal to zero so that the queries don't attend future key positions. <br>
 ![Screenshot 2024-04-23 at 11 48 58](https://github.com/artainmo/machine-learning/assets/53705599/cf17d716-e21d-4288-beca-3162d52b8120)<br>
 In the end, as with the other types of attention, you multiply the weights matrix by the value matrix to get the context vector for each query.
 
