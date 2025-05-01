@@ -259,12 +259,19 @@ Note that contrary to supervised learning, here we won't provide the summary as 
 Transformer models generate probability distributions over all possible words. Sampling from this distribution provides a different summary each time you run the model.
 
 ### Week 3: Question Answering
-We will build a system that can answer questions. In the real world, such models are usually not built from scratch. This is why we will use existing models, such as BERT, or other transformer models found on the [Hugging Face platform](https://github.com/artainmo/DevOps/tree/main/cloud#general-deep-learning-and-machine-learning), and adapt those models via [transfer learning](https://github.com/artainmo/DevOps/tree/main/cloud#generative-ai-transformers-gpt-self-attention-and-foundation-models). Transfer learning adds new learnings to a pre-trained model. This reduces training time, improves predictions because the model learned from different tasks that might help the new task, and it requires less data.
+We will build a system that can answer questions. In the real world, such models are usually not built from scratch. This is why we will use existing models, such as BERT, or other transformer models found on the [Hugging Face platform](https://github.com/artainmo/DevOps/tree/main/cloud#general-deep-learning-and-machine-learning), and adapt those models via [transfer learning](https://github.com/artainmo/DevOps/tree/main/cloud#generative-ai-transformers-gpt-self-attention-and-foundation-models). 
 
 You can answer questions either by generating text or by finding text in an existing paragraph. Context-based question answering: takes a question and finds the answer within the given context. Closed book question answering: only takes a question and generates an answer without access to a context. 
 
 #### Transfer learning
+Transfer learning adds new learnings to a pre-trained model. This reduces training time, improves predictions because the model learned from different tasks that might help the new task, and it requires less training data.
 
+Two forms of transfer learning exist: feature-based and fine-tuning. With feature-based you learn new word embeddings from one pre-trained model, and you feed those to a new model on a different task. With fine-tuning you use word embeddings from a pre-trained model to fine-tune that same model on a different task. One way to fine-tune is to add a new feedforward layer to the pre-trained model while keeping the previous layers freezed. The new layer can then be fine-tuned.
+
+The more training data, the better the model.<br>
+When pre-training, you often use unlabeled data. Unlabeled data is used in self-supervised tasks. An example is taking a phrase, removing a word from it, and trying to predict that missing word.<br>
+![Screenshot 2025-05-01 at 16 21 53](https://github.com/user-attachments/assets/dd920170-d244-4b3e-af9d-123738135168)<br>
+Instead of masking words, you can also predict the next sentence.
 
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization: Natural Language Processing with Attention Models](https://www.coursera.org/learn/attention-models-in-nlp)
