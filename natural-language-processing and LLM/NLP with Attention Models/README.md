@@ -258,6 +258,14 @@ At test or inference time, you will input the article with the EOS token to the 
 Note that contrary to supervised learning, here we won't provide the summary as input, only the article.<br>
 Transformer models generate probability distributions over all possible words. Sampling from this distribution provides a different summary each time you run the model.
 
+### Week 3: Question Answering
+We will build a system that can answer questions. In the real world, such models are usually not built from scratch. This is why we will use existing models, such as BERT, or other transformer models found on the [Hugging Face platform](https://github.com/artainmo/DevOps/tree/main/cloud#general-deep-learning-and-machine-learning), and adapt those models via [transfer learning](https://github.com/artainmo/DevOps/tree/main/cloud#generative-ai-transformers-gpt-self-attention-and-foundation-models). Transfer learning adds new learnings to a pre-trained model. This reduces training time, improves predictions because the model learned from different tasks that might help the new task, and it requires less data.
+
+You can answer questions either by generating text or by finding text in an existing paragraph. Context-based question answering: takes a question and finds the answer within the given context. Closed book question answering: only takes a question and generates an answer without access to a context. 
+
+#### Transfer learning
+
+
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization: Natural Language Processing with Attention Models](https://www.coursera.org/learn/attention-models-in-nlp)
 * [Understanding masking & padding](https://www.tensorflow.org/guide/keras/understanding_masking_and_padding#:~:text=Masking%20is%20a%20way%20to,the%20end%20of%20a%20sequence.)
