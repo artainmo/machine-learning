@@ -279,6 +279,13 @@ Chronological order of different relevant models:<br>
 
 CBOW predicts a word in the middle of windows of fixed length. CBOW is limited by the limited window length and thus captured context. To use the full context ELMo was created using RNNs. GPT uses a transformer decoder only, it is uni-directional whereby you cannot look at the next words but only at the previous ones when predicting a word. Even if ELMo was bi-directional, it was not effective at capturing long-term dependencies compared to transformers. BERT uses a transformer encoder only, and is bi-directional, looking at previous and next words. T5 uses an encoder and decoder which leads to better performance. 
 
+#### BERT
+BERT stands for: bidirectional encoder representations from transformers. 
+
+BERT uses pre-training and transfer learning as fine-tuning. During pre-training the model uses unlabeled data over different tasks. A random 15% of the words are masked to allow supervised learning with this unlabeled data; we call this masked language modeling (MLM). Next sentence prediction is also used when pre-training. For fine-tuning the model is first initialized with pre-trained parameters and subsequently all the parameters are fine-tuned with labeled data on different tasks. 
+
+BERT uses positional encodings, contains 12 layers, 12 attention heads and 110 million parameters. 
+
 
 
 
