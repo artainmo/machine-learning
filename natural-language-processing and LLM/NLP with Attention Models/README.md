@@ -273,6 +273,15 @@ When pre-training, you often use unlabeled data. Unlabeled data is used in self-
 ![Screenshot 2025-05-01 at 16 21 53](https://github.com/user-attachments/assets/dd920170-d244-4b3e-af9d-123738135168)<br>
 Instead of masking words, you can also predict the next sentence.
 
+#### Relevant models
+Chronological order of different relevant models:<br>
+![Screenshot 2025-05-01 at 17 05 27](https://github.com/user-attachments/assets/8cb8b32a-ac80-4645-b06e-948112d67910)
+
+CBOW predicts a word in the middle of windows of fixed length. CBOW is limited by the limited window length and thus captured context. To use the full context ELMo was created using RNNs. GPT uses a transformer decoder only, it is uni-directional whereby you cannot look at the next words but only at the previous ones when predicting a word. Even if ELMo was bi-directional, it was not effective at capturing long-term dependencies compared to transformers. BERT uses a transformer encoder only, and is bi-directional, looking at previous and next words. T5 uses an encoder and decoder which leads to better performance. 
+
+
+
+
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization: Natural Language Processing with Attention Models](https://www.coursera.org/learn/attention-models-in-nlp)
 * [Understanding masking & padding](https://www.tensorflow.org/guide/keras/understanding_masking_and_padding#:~:text=Masking%20is%20a%20way%20to,the%20end%20of%20a%20sequence.)
