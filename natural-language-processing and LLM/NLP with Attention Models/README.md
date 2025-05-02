@@ -290,6 +290,13 @@ As input for pre-training BERT we sum the following embeddings: position embeddi
 <img width="687" alt="Screenshot 2025-05-02 at 11 23 10" src="https://github.com/user-attachments/assets/dc79aeb5-705a-405d-afc7-4042a862212a" />
 
 #### T5
+T5 is a text-to-text transformer. It can be used for classification, question answering, machine translation, summarization, sentiment analysis, and others. 
+
+T5 uses masked language modeling and transfer learning for training.
+
+T5 uses 220 million parameters, an encoder and decoder, and each contains 12 transformer blocks.
+
+#### Multi-task training strategy
 
 
 ## Resources
