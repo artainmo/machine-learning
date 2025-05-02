@@ -297,7 +297,11 @@ T5 uses masked language modeling and transfer learning for training.
 T5 uses 220 million parameters, an encoder and decoder, and each contains 12 transformer blocks.
 
 #### Multi-task training strategy
+With transformers you can train one model to perform multiple NLP tasks. When training such a model, we usually prepend the input with a tag to indicate the task: such as machine translation, question answering, summarization, sentiment analysis, or other. Such a model shares most of its parameters across all tasks. But ultimately all tasks fall under the umbrella of a text-to-text task. Thus, it is trained for one task that can do multiple tasks. 
 
+With proportional mixing you use the same % of training data from each task's dataset. For example 10% of dataset A and 10% of dataset B. With equal mixing you use the same amount of datas from each task's dataset. For example 500 datas from dataset A and 500 datas from dataset B. Temperature-scaled mixing lies in between proportional and equal mixing, it can be adapted via the temperature parameter.
+
+During transfer learning you can use gradual freezing whereby you unfreeze one layer at a time starting with the last one. Alternatively, you can use adapter layers whereby you add a neural network to each feed-forward in each block of the transformer who is unfreezed compared to the other layers.
 
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization: Natural Language Processing with Attention Models](https://www.coursera.org/learn/attention-models-in-nlp)
