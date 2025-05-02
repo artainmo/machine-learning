@@ -282,11 +282,14 @@ CBOW predicts a word in the middle of windows of fixed length. CBOW is limited b
 #### BERT
 BERT stands for: bidirectional encoder representations from transformers. 
 
-BERT uses pre-training and transfer learning as fine-tuning. During pre-training the model uses unlabeled data over different tasks. A random 15% of the words are masked to allow supervised learning with this unlabeled data; we call this masked language modeling (MLM). Next sentence prediction is also used when pre-training. For fine-tuning the model is first initialized with pre-trained parameters and subsequently all the parameters are fine-tuned with labeled data on different tasks. 
+BERT uses pre-training and fine-tuning. During pre-training the model uses unlabeled data over different tasks. A random 15% of the words are masked to allow supervised learning with this unlabeled data; we call this masked language modeling (MLM). Next sentence prediction is also used when pre-training. Once you have a pre-trained model, you can fine-tune it on different tasks using labeled data. For example, given a hypothesis, you can identify the premise. Given a question, you can find the answer. You can also use it for named entity recognition, paraphrasing sentences, sequence tagging, classification and many more tasks. 
 
 BERT uses positional encodings, contains 12 layers, 12 attention heads and 110 million parameters. 
 
+As input for pre-training BERT we sum the following embeddings: position embeddings, segment embeddings (which indicate the sentence for next sentence prediction), token embeddings (with CLS token indicating start of sentence and SEP token indicating end of sentence).<br>
+<img width="687" alt="Screenshot 2025-05-02 at 11 23 10" src="https://github.com/user-attachments/assets/dc79aeb5-705a-405d-afc7-4042a862212a" />
 
+#### T5
 
 
 ## Resources
