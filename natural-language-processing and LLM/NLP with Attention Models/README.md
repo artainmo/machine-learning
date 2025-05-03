@@ -303,6 +303,9 @@ With proportional mixing you use the same % of training data from each task's da
 
 During transfer learning you can use gradual freezing whereby you unfreeze one layer at a time starting with the last one. Alternatively, you can use adapter layers whereby you add a neural network to each feed-forward in each block of the transformer who is unfreezed compared to the other layers.
 
+#### GLUE
+General language understanding evaluation (GLUE) is a collection of resources for evaluating NLP tasks. It contains various datasets across various tasks. It also contains a leaderboard to see how well your model performs compared to others. Transfer learning is possible via GLUE's datasets.
+
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization: Natural Language Processing with Attention Models](https://www.coursera.org/learn/attention-models-in-nlp)
 * [Understanding masking & padding](https://www.tensorflow.org/guide/keras/understanding_masking_and_padding#:~:text=Masking%20is%20a%20way%20to,the%20end%20of%20a%20sequence.)
