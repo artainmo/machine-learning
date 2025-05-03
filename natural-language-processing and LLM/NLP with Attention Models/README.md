@@ -306,6 +306,16 @@ During transfer learning you can use gradual freezing whereby you unfreeze one l
 #### GLUE
 General language understanding evaluation (GLUE) is a collection of resources for evaluating NLP tasks. It contains various datasets across various tasks. It also contains a leaderboard to see how well your model performs compared to others. Transfer learning is possible via GLUE's datasets.
 
+#### Hugging Face
+When it comes to building real-world applications with transformer models, the vast majority of industry practitioners are working with pre-trained models, rather than building and training them from scratch. Hugging Face is a giant repository of pre-trained models everyone can use for free. They have a lot of transformer models as well such as GPT2 and Llama.
+
+Hugging Face is an open source project that makes machine learning as accessible as possible. It contains transformer libraries, dataset libraries, and other tools for data handling. It consists of an online platform to collaborate on machine learning models and datasets.
+
+The model hub hosts more than 15000 community contributed models. It is possible to select a model based on a task, library, dataset, or language.<br>
+The dataset hub hosts thousands of datasets who are mostly community contributed. It is possible to select a dataset based on task, language, number of examples, or license. 
+
+
+
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization: Natural Language Processing with Attention Models](https://www.coursera.org/learn/attention-models-in-nlp)
 * [Understanding masking & padding](https://www.tensorflow.org/guide/keras/understanding_masking_and_padding#:~:text=Masking%20is%20a%20way%20to,the%20end%20of%20a%20sequence.)
