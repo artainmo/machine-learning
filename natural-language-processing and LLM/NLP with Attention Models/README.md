@@ -314,6 +314,11 @@ Hugging Face is an open source project that makes machine learning as accessible
 The model hub hosts more than 15000 community contributed models. It is possible to select a model based on a task, library, dataset, or language.<br>
 The dataset hub hosts thousands of datasets who are mostly community contributed. It is possible to select a dataset based on task, language, number of examples, or license. 
 
+We will focus on the transformer python library of Hugging Face. You can use it as is for a variety of NLP tasks or fine-tune it. This library contains the pipeline object that encapsulates everything needed to run a model, including pre- and post-processing. A default model is chosen based on the pipeline task you specified. The training object automatically trains your model.
+
+A checkpoint refers to the set of weights learned by a model during the training procedure using a determined dataset. Hugging Face has more than 15000 model checkpoints that you can use as starting points for your fine-tuning process.<br>
+<img width="600" alt="Screenshot 2025-05-03 at 14 45 05" src="https://github.com/user-attachments/assets/7a621cc4-b03b-48c7-8e79-3536cf17d5ef" /><br>
+Now, to fine-tune a transformer model for a specific task, you need lots of data. You could get and process your datasets by scraping the web or even collecting data from an app you made. But Hugging Face has a library with task specific datasets that is worth exploring before you go through much trouble. Hugging Face then provides tokenizer objects to pre-process the data for training. A tokenizer receives your text data and returns the tokens that your model can read.
 
 
 ## Resources
