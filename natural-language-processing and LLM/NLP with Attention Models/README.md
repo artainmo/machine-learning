@@ -306,6 +306,21 @@ During transfer learning you can use gradual freezing whereby you unfreeze one l
 #### GLUE
 General language understanding evaluation (GLUE) is a collection of resources for evaluating NLP tasks. It contains various datasets across various tasks. It also contains a leaderboard to see how well your model performs compared to others. Transfer learning is possible via GLUE's datasets.
 
+#### Hugging Face
+When it comes to building real-world applications with transformer models, the vast majority of industry practitioners are working with pre-trained models, rather than building and training them from scratch. Hugging Face is a giant repository of pre-trained models everyone can use for free. They have a lot of transformer models as well such as GPT2 and Llama.
+
+Hugging Face is an open source project that makes machine learning as accessible as possible. It contains transformer libraries, dataset libraries, and other tools for data handling. It consists of an online platform to collaborate on machine learning models and datasets.
+
+The model hub hosts more than 15000 community contributed models. It is possible to select a model based on a task, library, dataset, or language.<br>
+The dataset hub hosts thousands of datasets who are mostly community contributed. It is possible to select a dataset based on task, language, number of examples, or license. 
+
+We will focus on the transformer python library of Hugging Face. You can use it as is for a variety of NLP tasks or fine-tune it. This library contains the pipeline object that encapsulates everything needed to run a model, including pre- and post-processing. A default model is chosen based on the pipeline task you specified. The training object automatically trains your model.
+
+A checkpoint refers to the set of weights learned by a model during the training procedure using a determined dataset. Hugging Face has more than 15000 model checkpoints that you can use as starting points for your fine-tuning process.<br>
+<img width="600" alt="Screenshot 2025-05-03 at 14 45 05" src="https://github.com/user-attachments/assets/7a621cc4-b03b-48c7-8e79-3536cf17d5ef" /><br>
+Now, to fine-tune a transformer model for a specific task, you need lots of data. You could get and process your datasets by scraping the web or even collecting data from an app you made. But Hugging Face has a library with task specific datasets that is worth exploring before you go through much trouble. Hugging Face then provides tokenizer objects to pre-process the data for training. A tokenizer receives your text data and returns the tokens that your model can read.
+
+
 ## Resources
 * [DeepLearning.AI - Natural Language Processing Specialization: Natural Language Processing with Attention Models](https://www.coursera.org/learn/attention-models-in-nlp)
 * [Understanding masking & padding](https://www.tensorflow.org/guide/keras/understanding_masking_and_padding#:~:text=Masking%20is%20a%20way%20to,the%20end%20of%20a%20sequence.)
