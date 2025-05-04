@@ -328,6 +328,65 @@ for epoch in range(epochs):
 # To get a model that works properly, you would need to train for about 100 epochs. So, we have pretrained a model for you. Just load the weights in the current model and let's use it for answering questions.
 transformer.load_weights('./pretrained_models/model_qa3')
 
+# GRADED FUNCTION: answer_question
+def answer_question(question, model, tokenizer, encoder_maxlen=150, decoder_maxlen=50):
+    """
+    A function for question answering using the transformer model
+    Arguments:
+        question (tf.Tensor): Input data with question and context
+        model (tf.keras.model): The transformer model
+        tokenizer (function): The SentencePiece tokenizer
+        encoder_maxlen (number): Max length of the encoded sequence
+        decoder_maxlen (number): Max length of the decoded sequence
+    Returns:
+        _ (str): The answer to the question
+    """
+    
+    ### START CODE HERE ###
+    
+    # QUESTION SETUP
+    
+    # Tokenize the question
+    tokenized_question = tokenizer.tokenize(question)
+    
+    # Add an extra dimension to the tensor
+    tokenized_question = tf.expand_dims(tokenized_question, 0) 
+    
+    # Pad the question tensor
+    padded_question = tf.keras.preprocessing.sequence.pad_sequences(tokenized_question,
+                                                                    maxlen=encoder_maxlen,
+                                                                    padding='post', 
+                                                                    truncating='post') 
+    # ANSWER SETUP
+    
+    # Tokenize the answer
+    # Hint: All answers begin with the string "answer: "
+    tokenized_answer = tokenizer.tokenize("answer: ")
+    
+    # Add an extra dimension to the tensor
+    tokenized_answer = tf.expand_dims(tokenized_answer, 0)
+    
+    # Get the id of the EOS token
+    eos = tokenizer.string_to_id("</s>") 
+    
+    # Loop for decoder_maxlen iterations
+    for i in range(decoder_maxlen):
+        
+        # Predict the next word using the model, the input document and the current state of output
+        next_word = transformer_utils.next_word(padded_question, tokenized_answer, model)
+        
+        # Concat the predicted next word to the output 
+        tokenized_answer = tf.concat([tokenized_answer, next_word], axis=1)
+        
+        # The text generation stops if the model predicts the EOS token
+        if next_word == eos:
+            break 
+    
+    ### END CODE HERE ###
 
+    return tokenized_answer 
+
+idx = 110
+result = answer_question(inputs_test[idx], transformer, tokenizer)
 
 
