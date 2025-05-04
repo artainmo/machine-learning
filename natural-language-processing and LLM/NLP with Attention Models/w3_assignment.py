@@ -18,7 +18,7 @@ import numpy as np
 import tensorflow_text as tf_text
 import tensorflow as tf
 
-import transformer_utils 
+import transformer_utils # Transformer from previous assignment
 import utils
 
 # Will come in handy later
@@ -157,6 +157,177 @@ targets:
 <Z> finish the <Y> of the <X> But <W> on episode <V>- <U> Middle <T>
 the<S> I<R> the <Q> next weekend
 """
+
+# Instead of training the question answering model from scratch, you will first "pre-train" the model using the C4 data set you just processed. 
+# This will help the model to learn the general structure of language from a large dataset. 
+# This is much easier to do, as you don't need to label any data, but just use the masking, which is done automatically.
+
+# Define the model parameters
+num_layers = 2
+embedding_dim = 128
+fully_connected_dim = 128
+num_heads = 2
+positional_encoding_length = 256
+
+encoder_vocab_size = int(tokenizer.vocab_size())
+decoder_vocab_size = encoder_vocab_size
+
+# Initialize the model
+transformer = transformer_utils.Transformer(
+    num_layers, 
+    embedding_dim, 
+    num_heads, 
+    fully_connected_dim,
+    encoder_vocab_size, 
+    decoder_vocab_size, 
+    positional_encoding_length, 
+    positional_encoding_length,
+)
+
+# define the optimizer and the loss function
+learning_rate = transformer_utils.CustomSchedule(embedding_dim)
+optimizer = tf.keras.optimizers.Adam(0.0001, beta_1=0.9, beta_2=0.98, epsilon=1e-9)
+loss_object = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True, reduction='none')
+train_loss = tf.keras.metrics.Mean(name='train_loss')
+losses = [] # Here you will store the losses, so you can later plot them
+
+# Limit the size of the input and output data so this can run in this environment
+encoder_maxlen = 150
+decoder_maxlen = 50
+
+# you need to be sure that all inputs have the same length by truncating the longer sequences and padding the shorter ones with 0. The same must be done for the targets.
+inputs = tf.keras.preprocessing.sequence.pad_sequences([x[0] for x in inputs_targets_pairs], maxlen=encoder_maxlen, padding='post', truncating='post')
+targets = tf.keras.preprocessing.sequence.pad_sequences([x[1] for x in inputs_targets_pairs], maxlen=decoder_maxlen, padding='post', truncating='post')
+inputs = tf.cast(inputs, dtype=tf.int32)
+targets = tf.cast(targets, dtype=tf.int32)
+
+# Create the final training dataset.
+BUFFER_SIZE = 10000
+BATCH_SIZE = 64
+dataset = tf.data.Dataset.from_tensor_slices((inputs, targets)).shuffle(BUFFER_SIZE).batch(BATCH_SIZE)
+
+# Now, you can run the training loop for 10 epochs. Running it with a big dataset such as C4 on a good computer with enough memory and a good GPU could take more than 24 hours. Here, you will run few epochs using a small portion of the C4 dataset for illustration. It will only take a few minutes, but the model won't be very powerful.
+
+# Define the number of epochs
+epochs = 10
+
+# Training loop
+for epoch in range(epochs):
+    start = time.time()
+    train_loss.reset_states()
+    number_of_batches=len(list(enumerate(dataset)))
+    for (batch, (inp, tar)) in enumerate(dataset):
+        print(f'Epoch {epoch+1}, Batch {batch+1}/{number_of_batches}', end='\r')
+        transformer_utils.train_step(inp, tar, transformer, loss_object, optimizer, train_loss)
+    print (f'Epoch {epoch+1}, Loss {train_loss.result():.4f}')
+    losses.append(train_loss.result())
+    print (f'Time taken for one epoch: {time.time() - start} sec')
+
+# Save the pretrained model
+transformer.save_weights('./model_c4_temp')
+
+# To show how powerful this model actually is, we trained it for several epochs with the full dataset in Colab and saved the weights for you. You can load them.
+transformer.load_weights('./pretrained_models/model_c4')
+
+# Now, you are going to fine tune the pretrained model for Question Answering using the SQUad 2.0 dataset.
+# SQuAD, short for Stanford Question Answering Dataset, is a dataset designed for training and evaluating question answering systems. It consists of real questions posed by humans on a set of Wikipedia articles, where the answer to each question is a specific span of text within the corresponding article.
+
+# GRADED FUNCTION: parse_squad
+def parse_squad(dataset):
+    """Extract all the answers/questions pairs from the SQuAD dataset
+
+    Args:
+        dataset (dict): The imported JSON dataset
+
+    Returns:
+        inputs, targets: Two lists containing the inputs and the targets for the QA model
+    """
+
+    inputs, targets = [], []
+
+    ### START CODE HERE ###
+    
+    # Loop over all the articles
+    for article in dataset:
+        
+        # Loop over each paragraph of each article
+        for paragraph in article["paragraphs"]:
+            
+            # Extract context from the paragraph
+            context = paragraph['context']
+            
+            #Loop over each question of the given paragraph
+            for qa in paragraph['qas']:
+                
+                # If this question is not impossible and there is at least one answer
+                if len(qa['answers']) > 0 and not(qa['is_impossible']):
+                    
+                    # Create the question/context sequence
+                    question_context = 'question: ' + qa['question'] + ' context: ' + context
+                    
+                    # Create the answer sequence. Use the text field of the first answer
+                    answer = 'answer: ' + qa['answers'][0]['text']
+                    
+                    # Add the question_context to the inputs list
+                    inputs.append(question_context)
+                    
+                    # Add the answer to the targets list
+                    targets.append(answer)
+    
+    ### END CODE HERE ###
+    
+    return inputs, targets
+
+with open('data/train-v2.0.json', 'r') as f:
+    example_jsons = json.load(f)
+example_jsons = example_jsons['data']
+
+inputs, targets =  parse_squad(example_jsons) 
+# 40K pairs for training
+inputs_train = inputs[0:40000] 
+targets_train = targets[0:40000]  
+# 5K pairs for testing
+inputs_test = inputs[40000:45000] 
+targets_test =  targets[40000:45000] 
+
+# Limit the size of the input and output data so this can run in this environment
+encoder_maxlen = 150
+decoder_maxlen = 50
+# You will first tokenize the inputs and the targets
+inputs_str = [tokenizer.tokenize(s) for s in inputs_train]
+targets_str = [tf.concat([tokenizer.tokenize(s), [1]], 0) for s in targets_train]
+# You will ensure that the inputs and the outputs have the required lengths. Remember that the sequences longer than the required size will be truncated and the shorter ones will be padded with 0
+inputs = tf.keras.preprocessing.sequence.pad_sequences(inputs_str, maxlen=encoder_maxlen, padding='post', truncating='post')
+targets = tf.keras.preprocessing.sequence.pad_sequences(targets_str, maxlen=decoder_maxlen, padding='post', truncating='post')
+inputs = tf.cast(inputs, dtype=tf.int32)
+targets = tf.cast(targets, dtype=tf.int32)
+# Create the final training dataset.
+BUFFER_SIZE = 10000
+BATCH_SIZE = 64
+dataset = tf.data.Dataset.from_tensor_slices((inputs, targets)).shuffle(BUFFER_SIZE).batch(BATCH_SIZE)
+
+# As usual, fine tuning this model to get state of the art results would require more time and resources than there are available in this environment
+epochs = 2
+losses = []
+
+# Training loop
+for epoch in range(epochs):
+    start = time.time()
+    train_loss.reset_states()
+    number_of_batches=len(list(enumerate(dataset)))
+    for (batch, (inp, tar)) in enumerate(dataset):
+        print(f'Epoch {epoch+1}, Batch {batch+1}/{number_of_batches}', end='\r')
+        transformer_utils.train_step(inp, tar, transformer, loss_object, optimizer, train_loss)
+    print (f'Epoch {epoch+1}, Loss {train_loss.result():.4f}')
+    losses.append(train_loss.result())
+    print (f'Time taken for one epoch: {time.time() - start} sec')
+
+# Save the final model
+#transformer.save_weights('./pretrained_models/model_qa_temp')
+
+# To get a model that works properly, you would need to train for about 100 epochs. So, we have pretrained a model for you. Just load the weights in the current model and let's use it for answering questions.
+transformer.load_weights('./pretrained_models/model_qa3')
+
 
 
 
